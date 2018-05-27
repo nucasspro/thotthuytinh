@@ -1,0 +1,9 @@
+﻿1. Business Model
+2. Design Specification
+2.1 Overview
+2.2 Use case
+2.3 ERD
+2.4 Class diagram
+2.5 Sequence diagram
+3. Implementation
+4. Maintenance Plan
