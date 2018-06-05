@@ -4,7 +4,10 @@ namespace ConsoleGetOrder
 {
     public class OrderAfterGet
     {
-        public OrderAfterGet() { }
+        public OrderAfterGet()
+        {
+        }
+
         public OrderAfterGet(string price, string orderCode, DateTime createdTime, DateTime updatedTime, string productName, string productImage, int numberItem, string deliverCity, string deliverDistrict, string shippingInfo)
         {
             this.price = price;
@@ -17,6 +20,7 @@ namespace ConsoleGetOrder
             this.deliverCity = deliverCity;
             this.deliverDistrict = deliverDistrict;
             this.shippingInfo = shippingInfo;
+            this.isVerify = false;
         }
 
         public string price { get; set; }
@@ -29,5 +33,11 @@ namespace ConsoleGetOrder
         public string deliverCity { get; set; }
         public string deliverDistrict { get; set; }
         public string shippingInfo { get; set; }
+
+        public bool isVerify
+        {
+            get;
+            set;
+        }
     }
 }

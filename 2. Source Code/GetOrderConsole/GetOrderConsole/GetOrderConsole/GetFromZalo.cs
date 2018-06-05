@@ -61,7 +61,6 @@ namespace ConsoleGetOrder
             return list;
         }
 
-
         public List<OrderAfterGet> SortOrderByDay(List<OrderAfterGet> list)
         {
             List<OrderAfterGet> sortList = new List<OrderAfterGet>();
