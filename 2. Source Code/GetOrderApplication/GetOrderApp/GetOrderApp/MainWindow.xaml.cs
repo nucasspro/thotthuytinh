@@ -24,5 +24,10 @@ namespace GetOrderApp
         {
             InitializeComponent();
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

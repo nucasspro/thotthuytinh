@@ -16,3 +16,5 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderApplication\
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderApplication\GetOrderApp\GetOrderApp\obj\Debug\GetOrderApp.csproj.CopyComplete
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderApplication\GetOrderApp\GetOrderApp\obj\Debug\GetOrderApp.exe
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderApplication\GetOrderApp\GetOrderApp\obj\Debug\GetOrderApp.pdb
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderApplication\GetOrderApp\GetOrderApp\obj\Debug\LoginWindow.g.cs
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderApplication\GetOrderApp\GetOrderApp\obj\Debug\LoginWindow.baml
