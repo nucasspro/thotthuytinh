@@ -75,28 +75,10 @@ namespace ConsoleGetOrder
             return sortList;
         }
 
-        private static object GetProduct(string productId, ZaloStoreClient storeClient)
-        {
-            JObject getProduct = storeClient.getProduct(productId);
-            return getProduct;
-        }
-
-        private static object GetProductList(ZaloStoreClient storeClient)
-        {
-            JObject getProductOfOa = storeClient.getProductOfOa(0, 10);
-            return getProductOfOa;
-        }
-
         private static object GetOrderList(ZaloStoreClient storeClient)
         {
             JObject getOrderOfOa = storeClient.getOrderOfOa(0, 10, 0);
             return getOrderOfOa;
-        }
-
-        private static object GetOrderInfo(string orderId, ZaloStoreClient storeClient)
-        {
-            JObject getOrder = storeClient.getOrder(orderId);
-            return getOrder;
         }
 
         public static DateTime UnixTimestampToDateTime(double unixTime)
@@ -106,7 +88,7 @@ namespace ConsoleGetOrder
             return dateTime;
         }
 
-        public bool InsertOrderToDB()
+        public bool InsertOrderToDb()
         {
             DbConnect dbConnect = new DbConnect();
 
@@ -118,7 +100,7 @@ namespace ConsoleGetOrder
                     string query =
                         string.Format("INSERT INTO Orders (OrderCode, Price, CreatedTime, UpdatedTime, ProductName, ProductImage, NumberItem, DeliverCity, DeliverDistrict, ShippingInfo, IsVerify, OrderFrom)" +
                                       "VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}','{7}','{8}','{9}','{10}', '{11}')",
-                                      item.OrderCode, item.Price, item.CreatedTime, item.UpdatedTime, item.ProductName, item.ProductImage, item.NumberItem, item.DeliverCity, item.DeliverDistrict, item.ShippingInfo, item.IsVerify, item.OrderFrom);
+                            item.OrderCode, item.Price, item.CreatedTime, item.UpdatedTime, item.ProductName, item.ProductImage, item.NumberItem, item.DeliverCity, item.DeliverDistrict, item.ShippingInfo, item.IsVerify, item.OrderFrom);
                     dbConnect.InsertData(query);
                     Console.WriteLine("Insert thanh cong");
                 }
@@ -132,6 +114,29 @@ namespace ConsoleGetOrder
             }
 
             return true;
+        }
+
+        private static object GetProduct(string productId, ZaloStoreClient storeClient)
+        {
+            JObject getProduct = storeClient.getProduct(productId);
+            return getProduct;
+        }
+
+        private static object GetProductList(ZaloStoreClient storeClient)
+        {
+            JObject getProductOfOa = storeClient.getProductOfOa(0, 10);
+            return getProductOfOa;
+        }
+
+        private static object GetOrderInfo(string orderId, ZaloStoreClient storeClient)
+        {
+            JObject getOrder = storeClient.getOrder(orderId);
+            return getOrder;
+        }
+
+        public string a()
+        {
+            return JObject.FromObject(GetOrderList(_storeClient)).ToString();
         }
     }
 }

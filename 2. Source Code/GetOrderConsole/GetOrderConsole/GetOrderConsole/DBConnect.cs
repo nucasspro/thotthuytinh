@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Data.SQLite;
 
 namespace ConsoleGetOrder
@@ -9,8 +9,8 @@ namespace ConsoleGetOrder
 
         public void CreateConection()
         {
-            string _strConnect = "Data Source=OrderDatabase.db3;Version=3;";
-            _con.ConnectionString = _strConnect;
+            const string strConnect = "Data Source=OrderDatabase.db3;Version=3;";
+            _con.ConnectionString = strConnect;
             _con.Open();
         }
 
@@ -19,35 +19,88 @@ namespace ConsoleGetOrder
             _con.Close();
         }
 
-        public void CreateTable()
+        public void CreateTables()
         {
-            try
+            SQLiteConnection.CreateFile("OrderDatabase.db3");
+            List<string> query = new List<string>();
+
+            const string accountsTable = "CREATE TABLE IF NOT EXISTS Accounts (" +
+                                         "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                         "Username TEXT NOT NULL, " +
+                                         "Password TEXT NOT NULL, " +
+                                         "Type TEXT NOT NULL);";
+            query.Add(accountsTable);
+
+            const string customersTable = "CREATE TABLE IF NOT EXISTS Customers (" +
+                                          "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                          "Name TEXT NOT NULL, " +
+                                          "Phone TEXT, " +
+                                          "Adress TEXT, " +
+                                          "NumberOfPurchased INTEGER, " +
+                                          "QuantityPurchased INTEGER, " +
+                                          "Type INTEGER NOT NULL);";
+            query.Add(customersTable);
+
+            const string ordersTable = "CREATE TABLE IF NOT EXISTS Orders (" +
+                                       "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                       "OrderCode TEXT, " +
+                                       "CreatedDate INTEGER NOT NULL, " +
+                                       "UpdatedDate INTEGER NOT NULL, " +
+                                       "ShipId INTEGER, " +
+                                       "TotalPrice TEXT, " +
+                                       "IsVerify TEXT, " +
+                                       "VerifyBy INTEGER, " +
+                                       "OrderFrom TEXT NOT NULL, " +
+                                       "Type TEXT NOT NULL, " +
+                                       "FOREIGN KEY(VerifyBy) REFERENCES Accounts(Id));";
+            query.Add(ordersTable);
+
+            const string productsTable = "CREATE TABLE IF NOT EXISTS Products (" +
+                                         "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                         "Name TEXT NOT NULL, " +
+                                         "Weight TEXT, " +
+                                         "Width TEXT, " +
+                                         "Height TEXT, " +
+                                         "Length TEXT, " +
+                                         "Price TEXT NOT NULL, " +
+                                         "Image TEXT, " +
+                                         "NumberOfStocks INTEGER, " +
+                                         "CreatedBy INTEGER, " +
+                                         "FOREIGN KEY(CreatedBy) REFERENCES Accounts(Id));";
+            query.Add(productsTable);
+
+            const string orderDetailTable = "CREATE TABLE IF NOT EXISTS OrderDetail (" +
+                                            "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                            "OrderId INTEGER, " +
+                                            "Quantity INTEGER, " +
+                                            "DeliverCity TEXT, " +
+                                            "DeliverDistrict TEXT, " +
+                                            "DeliverAddress TEXT, " +
+                                            "ProductId INTEGER, " +
+                                            "CustomerId INTEGER, " +
+                                            "FOREIGN KEY(OrderId) REFERENCES Orders(Id), " +
+                                            "FOREIGN KEY(ProductId) REFERENCES Products(Id), " +
+                                            "FOREIGN KEY(CustomerId) REFERENCES Customers(Id));";
+            query.Add(orderDetailTable);
+
+            CreateTable(query);
+        }
+
+        public void CreateTable(List<string> query)
+        {
+            CreateConection();
+            foreach (var item in query)
             {
-                string _ordersTable = "CREATE TABLE IF NOT EXISTS Orders (" +
-                                      "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-                                      "OrderCode TEXT, " +
-                                      "Price TEXT, " +
-                                      "CreatedTime TEXT, " +
-                                      "UpdatedTime TEXT, " +
-                                      "ProductName TEXT, " +
-                                      "ProductImage TEXT, " +
-                                      "NumberItem INTEGER, " +
-                                      "DeliverCity TEXT, " +
-                                      "DeliverDistrict TEXT, " +
-                                      "ShippingInfo TEXT, " +
-                                      "IsVerify INTEGER, " +
-                                      "OrderFrom TEXT);";
-                SQLiteConnection.CreateFile("OrderDatabase.db3");
-                CreateConection();
-                SQLiteCommand command = new SQLiteCommand(_ordersTable, _con);
+                SQLiteCommand command = new SQLiteCommand(item, _con);
                 command.ExecuteNonQuery();
-                CloseConnection();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            CloseConnection();
+        }
+
+        public void InitData()
+        {
+            InsertData("insert into Accounts(Username, Password, Type) values ('admin', 'admin', 'admin');");
+            InsertData("insert into Accounts(Username, Password, Type) values ('user', 'user', 'user');");
         }
 
         public void InsertData(string query)
@@ -58,7 +111,7 @@ namespace ConsoleGetOrder
             CloseConnection();
         }
 
-        private void UpdateData()
+        public void UpdateData()
         {
             //string strInsert = string.Format("UPDATE tbl_students set fullname='{0}', birthday='{1}', email='{2}', address='{3}', phone='{4}' where id='{5}'", fullname, birthday, email, address, phone, id);
 
@@ -67,7 +120,5 @@ namespace ConsoleGetOrder
             //cmd.ExecuteNonQuery();
             CloseConnection();
         }
-
-        
     }
 }
