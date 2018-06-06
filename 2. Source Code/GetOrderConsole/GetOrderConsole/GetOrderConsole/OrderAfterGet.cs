@@ -8,36 +8,33 @@ namespace ConsoleGetOrder
         {
         }
 
-        public OrderAfterGet(string price, string orderCode, DateTime createdTime, DateTime updatedTime, string productName, string productImage, int numberItem, string deliverCity, string deliverDistrict, string shippingInfo)
+        public OrderAfterGet(string price, string orderCode, DateTime createdTime, DateTime updatedTime, string productName, string productImage, int numberItem, string deliverCity, string deliverDistrict, string shippingInfo, string orderFrom)
         {
-            this.price = price;
-            this.orderCode = orderCode;
-            this.createdTime = createdTime;
-            this.updatedTime = updatedTime;
-            this.productName = productName;
-            this.productImage = productImage;
-            this.numberItem = numberItem;
-            this.deliverCity = deliverCity;
-            this.deliverDistrict = deliverDistrict;
-            this.shippingInfo = shippingInfo;
-            this.isVerify = false;
+            Price = price;
+            OrderCode = orderCode;
+            CreatedTime = createdTime;
+            UpdatedTime = updatedTime;
+            ProductName = productName;
+            ProductImage = productImage;
+            NumberItem = numberItem;
+            DeliverCity = deliverCity;
+            DeliverDistrict = deliverDistrict;
+            ShippingInfo = shippingInfo;
+            IsVerify = false;
+            OrderFrom = orderFrom;
         }
 
-        public string price { get; set; }
-        public string orderCode { get; set; }
-        public DateTime createdTime { get; set; }
-        public DateTime updatedTime { get; set; }
-        public string productName { get; set; }
-        public string productImage { get; set; }
-        public int numberItem { get; set; }
-        public string deliverCity { get; set; }
-        public string deliverDistrict { get; set; }
-        public string shippingInfo { get; set; }
-
-        public bool isVerify
-        {
-            get;
-            set;
-        }
+        public string Price { get; set; }
+        public string OrderCode { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public DateTime UpdatedTime { get; set; }
+        public string ProductName { get; set; }
+        public string ProductImage { get; set; }
+        public int NumberItem { get; set; }
+        public string DeliverCity { get; set; }
+        public string DeliverDistrict { get; set; }
+        public string ShippingInfo { get; set; }
+        public bool IsVerify { get; set; }
+        public string OrderFrom { get; set; }
     }
 }

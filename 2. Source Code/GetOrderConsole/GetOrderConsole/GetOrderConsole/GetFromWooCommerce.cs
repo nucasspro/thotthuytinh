@@ -18,11 +18,14 @@ namespace ConsoleGetOrder
         {
         }
 
-        public void getproduct()
+        public void Getproduct()
         {
-            httpRequest = new HttpRequest();
-            httpRequest.Cookies = new CookieDictionary();
-            httpRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36";
+            httpRequest = new HttpRequest
+            {
+                Cookies = new CookieDictionary(),
+                UserAgent =
+                    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
+            };
             RequestParams para = new RequestParams
             {
                 ["consumer_key"] = CONSUMER_KEY,
@@ -38,7 +41,13 @@ namespace ConsoleGetOrder
             {
                 Console.WriteLine(VARIABLE["id"].ToString());
                 Console.WriteLine(VARIABLE["billing"]["first_name"].ToString());
+                Console.WriteLine(ConvertToDateTime(VARIABLE["date_created"].ToString()).ToString());
             }
+        }
+
+        public DateTime ConvertToDateTime(string time)
+        {
+            return DateTime.Parse(time);
         }
     }
 }

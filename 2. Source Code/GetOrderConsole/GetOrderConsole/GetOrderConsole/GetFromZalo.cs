@@ -38,23 +38,24 @@ namespace ConsoleGetOrder
             {
                 OrderAfterGet x = new OrderAfterGet();
 
-                x.price = (string)item["price"];
-                x.orderCode = (string)item["orderCode"];
+                x.Price = (string)item["price"];
+                x.OrderCode = (string)item["orderCode"];
 
                 string unixCreatedTime = ((string)item["createdTime"]).Remove(9, 3);
                 DateTime createdTime = UnixTimestampToDateTime(Convert.ToDouble(unixCreatedTime));
-                x.createdTime = createdTime;
+                x.CreatedTime = createdTime;
 
                 string unixUpdatedTime = ((string)item["updatedTime"]).Remove(9, 3);
                 DateTime updatedTime = UnixTimestampToDateTime(Convert.ToDouble(unixUpdatedTime));
-                x.updatedTime = updatedTime;
+                x.UpdatedTime = updatedTime;
 
-                x.productName = (string)item["productName"];
-                x.productImage = (string)item["productImage"];
-                x.numberItem = (int)item["numItem"];
-                x.deliverCity = (string)item["deliverCity"];
-                x.deliverDistrict = (string)item["deliverDistrict"];
-                x.shippingInfo = (string)item["shippingInfo"];
+                x.ProductName = (string)item["productName"];
+                x.ProductImage = (string)item["productImage"];
+                x.NumberItem = (int)item["numItem"];
+                x.DeliverCity = (string)item["deliverCity"];
+                x.DeliverDistrict = (string)item["deliverDistrict"];
+                x.ShippingInfo = (string)item["shippingInfo"];
+                x.OrderFrom = "Zalo";
                 list.Add(x);
             }
 
@@ -66,7 +67,7 @@ namespace ConsoleGetOrder
             List<OrderAfterGet> sortList = new List<OrderAfterGet>();
             foreach (var item in list)
             {
-                if (item.createdTime == DateTime.Today)
+                if (item.CreatedTime == DateTime.Today)
                 {
                     sortList.Add(item);
                 }
@@ -103,6 +104,34 @@ namespace ConsoleGetOrder
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             dateTime = dateTime.AddSeconds(unixTime).ToLocalTime();
             return dateTime;
+        }
+
+        public bool InsertOrderToDB()
+        {
+            DbConnect dbConnect = new DbConnect();
+
+            try
+            {
+                var listOrder = GetOrder();
+                foreach (var item in listOrder)
+                {
+                    string query =
+                        string.Format("INSERT INTO Orders (OrderCode, Price, CreatedTime, UpdatedTime, ProductName, ProductImage, NumberItem, DeliverCity, DeliverDistrict, ShippingInfo, IsVerify, OrderFrom)" +
+                                      "VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}','{7}','{8}','{9}','{10}', '{11}')",
+                                      item.OrderCode, item.Price, item.CreatedTime, item.UpdatedTime, item.ProductName, item.ProductImage, item.NumberItem, item.DeliverCity, item.DeliverDistrict, item.ShippingInfo, item.IsVerify, item.OrderFrom);
+                    dbConnect.InsertData(query);
+                    Console.WriteLine("Insert thanh cong");
+                }
+
+                Console.WriteLine("END!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Loi khi insert vao db" + e);
+                return false;
+            }
+
+            return true;
         }
     }
 }
