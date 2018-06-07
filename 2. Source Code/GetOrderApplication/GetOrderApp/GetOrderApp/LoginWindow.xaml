@@ -27,7 +27,7 @@
                 <Label Content="Username:" Foreground="White" FontSize="15" Margin="0,0,0,0" Padding="0,5,5,5" />
                 <TextBox x:Name="TxbUsername" Width="180" Height="27" FontSize="15" Style="{StaticResource TextBoxRevealStyle}"/>
                 <Label Content="Password:" Foreground="White" FontSize="15" Margin="0,15,0,0" Padding="0,5,5,5" />
-                <PasswordBox x:Name="TxbPassword" Width="180" Height="27" FontSize="15" Style="{StaticResource TextBoxRevealStyle}"/>
+                <PasswordBox x:Name="TxbPassword" Width="180" Height="27" FontSize="15" />
                 <Button Width="130" x:Name="BtnLogin" Content="Login" Margin="0,25,0,5" Style="{StaticResource ButtonRevealStyle}" />
             </StackPanel>
         </Grid>
