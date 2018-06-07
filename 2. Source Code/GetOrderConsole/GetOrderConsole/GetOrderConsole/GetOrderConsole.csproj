@@ -73,10 +73,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customers.cs" />
     <Compile Include="DbConnect.cs" />
     <Compile Include="GetFromWooCommerce.cs" />
     <Compile Include="GetFromZalo.cs" />
-    <Compile Include="OrderAfterGet.cs" />
+    <Compile Include="OrderDetail.cs" />
+    <Compile Include="Orders.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

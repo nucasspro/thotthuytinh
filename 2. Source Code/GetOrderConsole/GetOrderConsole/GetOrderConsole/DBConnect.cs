@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 
-namespace ConsoleGetOrder
+namespace GetOrderConsole
 {
     public class DbConnect
     {
@@ -44,8 +46,8 @@ namespace ConsoleGetOrder
             const string ordersTable = "CREATE TABLE IF NOT EXISTS Orders (" +
                                        "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                                        "OrderCode TEXT, " +
-                                       "CreatedDate INTEGER NOT NULL, " +
-                                       "UpdatedDate INTEGER NOT NULL, " +
+                                       "CreatedTime INTEGER NOT NULL, " +
+                                       "UpdatedTime INTEGER NOT NULL, " +
                                        "ShipId INTEGER, " +
                                        "TotalPrice TEXT, " +
                                        "IsVerify TEXT, " +
@@ -86,6 +88,68 @@ namespace ConsoleGetOrder
             CreateTable(query);
         }
 
+        public void CreateTables2()
+        {
+            SQLiteConnection.CreateFile("OrderDatabase.db3");
+            List<string> query = new List<string>();
+
+            const string accountsTable = "CREATE TABLE IF NOT EXISTS Accounts (" +
+                                         "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                         "Username TEXT NOT NULL, " +
+                                         "Password TEXT NOT NULL, " +
+                                         "Type TEXT NOT NULL);";
+            query.Add(accountsTable);
+
+            const string customersTable = "CREATE TABLE IF NOT EXISTS Customers (" +
+                                          "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                          "Name TEXT NOT NULL, " +
+                                          "Phone TEXT, " +
+                                          "Adress TEXT, " +
+                                          "NumberOfPurchased INTEGER, " +
+                                          "QuantityPurchased INTEGER, " +
+                                          "Type TEXT NOT NULL);";
+            query.Add(customersTable);
+
+            const string ordersTable = "CREATE TABLE IF NOT EXISTS Orders (" +
+                                       "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                       "OrderCode TEXT, " +
+                                       "CreatedTime INTEGER NOT NULL, " +
+                                       "UpdatedTime INTEGER NOT NULL, " +
+                                       "ShipId INTEGER, " +
+                                       "TotalPrice TEXT, " +
+                                       "CustomerId INTEGER, "+
+                                       "IsVerify TEXT, " +
+                                       "VerifyBy INTEGER, " +
+                                       "OrderFrom TEXT NOT NULL, " +
+                                       "Type TEXT NOT NULL);";
+            query.Add(ordersTable);
+
+            const string productsTable = "CREATE TABLE IF NOT EXISTS Products (" +
+                                         "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                         "Name TEXT NOT NULL, " +
+                                         "Weight TEXT, " +
+                                         "Width TEXT, " +
+                                         "Height TEXT, " +
+                                         "Length TEXT, " +
+                                         "Price TEXT NOT NULL, " +
+                                         "Image TEXT, " +
+                                         "NumberOfStocks INTEGER, " +
+                                         "CreatedBy INTEGER);";
+            query.Add(productsTable);
+
+            const string orderDetailTable = "CREATE TABLE IF NOT EXISTS OrderDetail (" +
+                                            "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                            "OrderId INTEGER, " +
+                                            "Quantity INTEGER, " +
+                                            "DeliverCity TEXT, " +
+                                            "DeliverDistrict TEXT, " +
+                                            "DeliverAddress TEXT, " +
+                                            "ProductId INTEGER);";
+            query.Add(orderDetailTable);
+
+            CreateTable(query);
+        }
+
         public void CreateTable(List<string> query)
         {
             CreateConection();
@@ -99,16 +163,44 @@ namespace ConsoleGetOrder
 
         public void InitData()
         {
-            InsertData("insert into Accounts(Username, Password, Type) values ('admin', 'admin', 'admin');");
-            InsertData("insert into Accounts(Username, Password, Type) values ('user', 'user', 'user');");
+            ExecuteQuery("insert into Accounts(Username, Password, Type) values ('admin', 'admin', 'admin');");
+            ExecuteQuery("insert into Accounts(Username, Password, Type) values ('user', 'user', 'user');");
         }
 
-        public void InsertData(string query)
+        public void ExecuteQuery(string query)
         {
             CreateConection();
             SQLiteCommand cmd = new SQLiteCommand(query, _con);
             cmd.ExecuteNonQuery();
             CloseConnection();
+        }
+
+        public int ExecuteQueryToGetId(string query)
+        {
+            CreateConection();
+            SQLiteCommand cmd = new SQLiteCommand(query, _con);
+            var reader = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(reader);
+            string a;
+            if (dt.Rows.Count == 0)
+            {
+                a = "0";
+            }
+            else
+            {
+                DataRow row = dt.Rows[0];
+                a = Convert.ToString(row[0]);
+            }
+
+            //while (reader.Read())
+            //{
+            //    a = reader[0].ToString();
+            //}
+
+            CloseConnection();
+
+            return Int32.Parse(a); ;
         }
 
         public void UpdateData()
