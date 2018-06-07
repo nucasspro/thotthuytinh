@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 
 namespace GetOrderConsole
 {
     public class DbConnect
     {
         private readonly SQLiteConnection _con = new SQLiteConnection();
+        private string _dbName = "OrderDatabase.db3";
 
         public void CreateConection()
         {
@@ -88,9 +90,16 @@ namespace GetOrderConsole
             CreateTable(query);
         }
 
-        public void CreateTables2()
+        public int CreateTables2()
         {
-            SQLiteConnection.CreateFile("OrderDatabase.db3");
+            var path = Directory.GetCurrentDirectory()+"\\"+ _dbName;
+            if (File.Exists(path))
+            {
+                Console.WriteLine("co file");
+                return 1;
+            }
+            Console.WriteLine("ko co file");
+            SQLiteConnection.CreateFile(_dbName);
             List<string> query = new List<string>();
 
             const string accountsTable = "CREATE TABLE IF NOT EXISTS Accounts (" +
@@ -117,7 +126,7 @@ namespace GetOrderConsole
                                        "UpdatedTime INTEGER NOT NULL, " +
                                        "ShipId INTEGER, " +
                                        "TotalPrice TEXT, " +
-                                       "CustomerId INTEGER, "+
+                                       "CustomerId INTEGER, " +
                                        "IsVerify TEXT, " +
                                        "VerifyBy INTEGER, " +
                                        "OrderFrom TEXT NOT NULL, " +
@@ -148,6 +157,8 @@ namespace GetOrderConsole
             query.Add(orderDetailTable);
 
             CreateTable(query);
+            InitData();
+            return 0;
         }
 
         public void CreateTable(List<string> query)
@@ -180,27 +191,23 @@ namespace GetOrderConsole
             CreateConection();
             SQLiteCommand cmd = new SQLiteCommand(query, _con);
             var reader = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(reader);
             string a;
-            if (dt.Rows.Count == 0)
+            using (DataTable dt = new DataTable())
             {
-                a = "0";
+                dt.Load(reader);
+                dt.Load(reader);
+                try
+                {
+                    DataRow row = dt.Rows[0];
+                    a = row[0].ToString();
+                }
+                catch (Exception)
+                {
+                    a = "0";
+                }
             }
-            else
-            {
-                DataRow row = dt.Rows[0];
-                a = Convert.ToString(row[0]);
-            }
-
-            //while (reader.Read())
-            //{
-            //    a = reader[0].ToString();
-            //}
-
             CloseConnection();
-
-            return Int32.Parse(a); ;
+            return Int32.Parse(a);
         }
 
         public void UpdateData()

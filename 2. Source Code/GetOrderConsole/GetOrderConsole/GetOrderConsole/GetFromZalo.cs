@@ -1,10 +1,9 @@
-﻿using GetOrderConsole;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using ZaloCSharpSDK;
 
-namespace ConsoleGetOrder
+namespace GetOrderConsole
 {
     public class GetFromZalo
     {
@@ -36,21 +35,24 @@ namespace ConsoleGetOrder
             var jToken = splitList["data"]["orders"];
 
             List<Customers> listCustomers = GetCustomers(jToken);
-            InsertCustomersToDb(listCustomers);
+
+            Console.WriteLine("End");
 
             List<Orders> listOrders = GetOrders(jToken);
-            InsertOrdersToDb(listOrders);
+            Console.WriteLine("End");
 
             List<OrderDetail> listOrderDetail = GetOrderDetail(jToken);
             InsertOrderDetailToDb(listOrderDetail);
         }
 
         #region Customers
+
         /*
          * Input: JToken
          * Output: List<Customers>
          * Get data from JToken, add Customers one by one to list and return list
          */
+
         public List<Customers> GetCustomers(JToken jToken)
         {
             List<Customers> list = new List<Customers>();
@@ -68,25 +70,22 @@ namespace ConsoleGetOrder
                         QuantityPurchased = 0,
                         Type = "Khách hàng"
                     };
+                    InsertCustomersToDb(customers);
                     list.Add(customers);
                 }
             }
             return list;
         }
 
-        private void InsertCustomersToDb(List<Customers> list)
+        private void InsertCustomersToDb(Customers customer)
         {
             try
             {
-                foreach (var item in list)
-                {
-                    string query =
-                        "insert into Customers (Name, Phone, Adress, NumberOfPurchased, QuantityPurchased, Type)" +
-                        $"VALUES('{item.Name}', '{item.Phone}', '{item.Adress}', '{item.NumberOfPurchasedpe}', '{item.QuantityPurchased}', '{item.Type}')";
-                    _dbConnect.ExecuteQuery(query);
-                    Console.WriteLine("Insert thanh cong");
-                }
-                Console.WriteLine("END!");
+                string query =
+                    "insert into Customers (Name, Phone, Adress, NumberOfPurchased, QuantityPurchased, Type)" +
+                    $"VALUES('{customer.Name}', '{customer.Phone}', '{customer.Adress}', '{customer.NumberOfPurchasedpe}', '{customer.QuantityPurchased}', '{customer.Type}')";
+                _dbConnect.ExecuteQuery(query);
+                Console.WriteLine("Insert thanh cong");
             }
             catch (Exception e)
             {
@@ -96,7 +95,7 @@ namespace ConsoleGetOrder
 
         private int GetCustomerIdFromDb(string phone)
         {
-            string query = $"select Customers.Id from Customers where Customers.Phone = '{phone}' limit 1;";
+            string query = $"select Id from Customers where Customers.Phone = '{phone}' limit 1;";
             return _dbConnect.ExecuteQueryToGetId(query);
         }
 
@@ -109,6 +108,9 @@ namespace ConsoleGetOrder
             List<Orders> list = new List<Orders>();
             foreach (var item in jToken)
             {
+                int id = GetOrderIdFromDb((string)item["orderCode"]);
+                if (id != 0)
+                    continue;
                 Orders orders = new Orders();
 
                 orders.OrderCode = (string)item["orderCode"];
@@ -129,23 +131,21 @@ namespace ConsoleGetOrder
                 orders.Type = "Bán cho khách";
 
                 list.Add(orders);
+                InsertOrdersToDb(orders);
+
             }
             return list;
         }
 
-        private void InsertOrdersToDb(List<Orders> list)
+        private void InsertOrdersToDb(Orders orders)
         {
             try
             {
-                foreach (var item in list)
-                {
-                    string query =
-                        "INSERT INTO Orders (OrderCode, CreatedTime, UpdatedTime, ShipId, TotalPrice, CustomerId, VerifyBy, OrderFrom, Type)" +
-                        $"VALUES('{item.OrderCode}', '{item.CreatedTime}', '{item.UpdatedTime}', '{item.ShipId}', '{item.TotalPrice}', '{item.CustomerId}','{item.VerifyBy}','{item.OrderFrom}','{item.Type}')";
-                    _dbConnect.ExecuteQuery(query);
-                    Console.WriteLine("Insert thanh cong");
-                }
-                Console.WriteLine("END!");
+                string query =
+                    "INSERT INTO Orders (OrderCode, CreatedTime, UpdatedTime, ShipId, TotalPrice, CustomerId, VerifyBy, OrderFrom, Type)" +
+                    $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.ShipId}', '{orders.TotalPrice}', '{orders.CustomerId}','{orders.VerifyBy}','{orders.OrderFrom}','{orders.Type}')";
+                _dbConnect.ExecuteQuery(query);
+                Console.WriteLine("Insert thanh cong");
             }
             catch (Exception e)
             {
@@ -208,6 +208,8 @@ namespace ConsoleGetOrder
 
         #endregion OrderDetail
 
+        #region Others
+
         private static object GetOrderList(ZaloStoreClient storeClient)
         {
             JObject getOrderOfOa = storeClient.getOrderOfOa(0, 10, 0);
@@ -220,8 +222,6 @@ namespace ConsoleGetOrder
             dateTime = dateTime.AddSeconds(unixTime).ToLocalTime();
             return dateTime;
         }
-
-        #region Others
 
         public List<Orders> SortOrderByDay(List<Orders> list)
         {
@@ -252,11 +252,6 @@ namespace ConsoleGetOrder
         {
             JObject getOrder = storeClient.getOrder(orderId);
             return getOrder;
-        }
-
-        public void a()
-        {
-            Console.WriteLine(GetCustomerIdFromDb("84963209769"));
         }
 
         #endregion Others

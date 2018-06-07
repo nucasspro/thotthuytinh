@@ -10,8 +10,8 @@ namespace GetOrderConsole
             //Create Database and Create Orders table
             DbConnect dbConnect = new DbConnect();
             dbConnect.CreateTables2();
-            dbConnect.InitData();
-
+           // dbConnect.ExecuteQueryToGetId(
+            //    "select Id from Customers where Customers.Phone = '849632097691' or Customers.Phone is null limit 1;");
             //Get order data from Zalo and insert list order to database
             GetFromZalo zalo = new GetFromZalo();
             zalo.Init();
