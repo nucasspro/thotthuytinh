@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using ZaloCSharpSDK;
 
 namespace GetOrderConsole
 {
     public class GetFromZalo
     {
-        private static readonly long _oaId = 1364144657533100885;
-        private static readonly string _secretKey = "hGq0eOPke9SvuMmGfiKx";
-        private static readonly string _secretKeyApp = "17GTbC5Taph5FCo1XGTS";
-        private static readonly string _callbackUrl = @"https://tatatatatata.herokuapp.com/";
-        private static readonly long _appId = 2491981268401425748;
-        private static readonly string _accessToken = "UUVXaTppuYr_uAd6pS3PF5hSgRUUySK89jQEfV2_s2badCYazOkyMdwGzBZOju4u59hgXfRFdY1LcFYfmRZg8L2ZfypGaiuNVuEigyAVyYHjZOYdvEM2E4VqeLQkMN68BqW8S";
+        private const long OaId = 1364144657533100885;
+        private const string SecretKey = "hGq0eOPke9SvuMmGfiKx";
+        //private const string _secretKeyApp = "17GTbC5Taph5FCo1XGTS";
+        //private const string _callbackUrl = @"https://tatatatatata.herokuapp.com/";
+        //private const long _appId = 2491981268401425748;
+        //private const string _accessToken = "UUVXaTppuYr_uAd6pS3PF5hSgRUUySK89jQEfV2_s2badCYazOkyMdwGzBZOju4u59hgXfRFdY1LcFYfmRZg8L2ZfypGaiuNVuEigyAVyYHjZOYdvEM2E4VqeLQkMN68BqW8S";
         private ZaloOaInfo _zaloOaInfo;
         private ZaloStoreClient _storeClient;
         private DbConnect _dbConnect;
@@ -23,22 +23,21 @@ namespace GetOrderConsole
 
         public void Init()
         {
-            _zaloOaInfo = new ZaloOaInfo(_oaId, _secretKey);
+            _zaloOaInfo = new ZaloOaInfo(OaId, SecretKey);
             _storeClient = new ZaloStoreClient(_zaloOaInfo);
             _dbConnect = new DbConnect();
         }
 
-        public void GetOrderAndOrderDetail()
+        public void GetData()
         {
             var getList = JObject.FromObject(GetOrderList(_storeClient)).ToString();
             JObject splitList = JObject.Parse(getList);
             var jToken = splitList["data"]["orders"];
 
-            List<Customers> listCustomers = GetCustomers(jToken);
-
+            GetCustomers(jToken);
             Console.WriteLine("End");
 
-            List<Orders> listOrders = GetOrders(jToken);
+            GetOrders(jToken);
             Console.WriteLine("End");
 
             List<OrderDetail> listOrderDetail = GetOrderDetail(jToken);
@@ -47,43 +46,45 @@ namespace GetOrderConsole
 
         #region Customers
 
-        /*
-         * Input: JToken
-         * Output: List<Customers>
-         * Get data from JToken, add Customers one by one to list and return list
-         */
-
-        public List<Customers> GetCustomers(JToken jToken)
+        public void GetCustomers(JToken jToken)
         {
-            List<Customers> list = new List<Customers>();
             foreach (var item in jToken)
             {
-                int id = GetCustomerIdFromDb((string)item["customerPhone"]);
-                if (id < 1)
+                if (GetCustomerIdFromDb((string) item["customerPhone"]) >= 1)
                 {
-                    Customers customers = new Customers
-                    {
-                        Name = (string)item["customerName"],
-                        Phone = (string)item["customerPhone"],
-                        Adress = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"],
-                        NumberOfPurchasedpe = 0,
-                        QuantityPurchased = 0,
-                        Type = "Khách hàng"
-                    };
-                    InsertCustomersToDb(customers);
-                    list.Add(customers);
+                    continue;
                 }
+                Customers customers = new Customers
+                {
+                    Name = (string)item["customerName"],
+                    Phone = "0" + (string)item["customerPhone"],
+                    Adress = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"],
+                    NumberOfPurchasedpe = 0,
+                    QuantityPurchased = 0,
+                    Type = "Khách hàng"
+                };
+                InsertCustomersToDb(customers);
             }
-            return list;
         }
 
         private void InsertCustomersToDb(Customers customer)
         {
             try
             {
-                string query =
-                    "insert into Customers (Name, Phone, Adress, NumberOfPurchased, QuantityPurchased, Type)" +
-                    $"VALUES('{customer.Name}', '{customer.Phone}', '{customer.Adress}', '{customer.NumberOfPurchasedpe}', '{customer.QuantityPurchased}', '{customer.Type}')";
+                string query = "insert into Customers (" +
+                               "Name, " +
+                               "Phone, " +
+                               "Adress, " +
+                               "NumberOfPurchased, " +
+                               "QuantityPurchased, " +
+                               "Type)" +
+                               $"VALUES(" +
+                               $"'{customer.Name}', " +
+                               $"'{customer.Phone}', " +
+                               $"'{customer.Adress}', " +
+                               $"'{customer.NumberOfPurchasedpe}', " +
+                               $"'{customer.QuantityPurchased}', " +
+                               $"'{customer.Type}')";
                 _dbConnect.ExecuteQuery(query);
                 Console.WriteLine("Insert thanh cong");
             }
@@ -103,14 +104,14 @@ namespace GetOrderConsole
 
         #region Orders
 
-        private List<Orders> GetOrders(JToken jToken)
+        private void GetOrders(JToken jToken)
         {
-            List<Orders> list = new List<Orders>();
             foreach (var item in jToken)
             {
-                int id = GetOrderIdFromDb((string)item["orderCode"]);
-                if (id != 0)
+                if (GetOrderIdFromDb((string)item["orderCode"]) != 0)
+                {
                     continue;
+                }
                 Orders orders = new Orders();
 
                 orders.OrderCode = (string)item["orderCode"];
@@ -130,20 +131,34 @@ namespace GetOrderConsole
                 orders.OrderFrom = "Zalo";
                 orders.Type = "Bán cho khách";
 
-                list.Add(orders);
                 InsertOrdersToDb(orders);
-
             }
-            return list;
         }
 
         private void InsertOrdersToDb(Orders orders)
         {
             try
             {
-                string query =
-                    "INSERT INTO Orders (OrderCode, CreatedTime, UpdatedTime, ShipId, TotalPrice, CustomerId, VerifyBy, OrderFrom, Type)" +
-                    $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.ShipId}', '{orders.TotalPrice}', '{orders.CustomerId}','{orders.VerifyBy}','{orders.OrderFrom}','{orders.Type}')";
+                string query = "INSERT INTO Orders (" +
+                               "OrderCode, " +
+                               "CreatedTime, " +
+                               "UpdatedTime, " +
+                               "ShipId, " +
+                               "TotalPrice, " +
+                               "CustomerId, " +
+                               "VerifyBy, " +
+                               "OrderFrom, " +
+                               "Type)" +
+                               $"VALUES(" +
+                               $"'{orders.OrderCode}', " +
+                               $"'{orders.CreatedTime}', " +
+                               $"'{orders.UpdatedTime}', " +
+                               $"'{orders.ShipId}', " +
+                               $"'{orders.TotalPrice}', " +
+                               $"'{orders.CustomerId}'," +
+                               $"'{orders.VerifyBy}'," +
+                               $"'{orders.OrderFrom}'," +
+                               $"'{orders.Type}')";
                 _dbConnect.ExecuteQuery(query);
                 Console.WriteLine("Insert thanh cong");
             }
@@ -162,19 +177,22 @@ namespace GetOrderConsole
             List<OrderDetail> list = new List<OrderDetail>();
             foreach (var item in jToken)
             {
-                OrderDetail orderDetail = new OrderDetail();
+                
 
                 int orderId = GetOrderIdFromDb((string)item["orderCode"]);
                 if (orderId < 1)
                 {
                     continue;
                 }
-                orderDetail.OrderId = orderId;
-                orderDetail.Quantity = ((int)item["numItem"]);
-                orderDetail.DeliverCity = (string)item["deliverCity"];
-                orderDetail.DeliverDistrict = (string)item["deliverDistrict"];
-                orderDetail.DeliverAddress = (string)item["deliverAddress"];
-                orderDetail.ProductId = 0;
+                OrderDetail orderDetail = new OrderDetail
+                {
+                    OrderId = orderId,
+                    Quantity = (int)item["numItem"],
+                    DeliverCity = (string)item["deliverCity"],
+                    DeliverDistrict = (string)item["deliverDistrict"],
+                    DeliverAddress = (string)item["deliverAddress"],
+                    ProductId = 0
+                };
                 list.Add(orderDetail);
             }
             return list;
@@ -192,9 +210,20 @@ namespace GetOrderConsole
             {
                 foreach (var item in list)
                 {
-                    string query =
-                        "INSERT INTO OrderDetail (OrderId, Quantity, DeliverCity, DeliverDistrict, DeliverAddress, ProductId)" +
-                        $"VALUES('{item.OrderId}', '{item.Quantity}', '{item.DeliverCity}', '{item.DeliverDistrict}', '{item.DeliverAddress}', '{item.ProductId}')";
+                    string query = "INSERT INTO OrderDetail (" +
+                                   "OrderId, " +
+                                   "Quantity, " +
+                                   "DeliverCity, " +
+                                   "DeliverDistrict, " +
+                                   "DeliverAddress, " +
+                                   "ProductId)" +
+                                   $"VALUES(" +
+                                   $"'{item.OrderId}', " +
+                                   $"'{item.Quantity}', " +
+                                   $"'{item.DeliverCity}', " +
+                                   $"'{item.DeliverDistrict}', " +
+                                   $"'{item.DeliverAddress}', " +
+                                   $"'{item.ProductId}')";
                     _dbConnect.ExecuteQuery(query);
                     Console.WriteLine("Insert thanh cong");
                 }
@@ -234,24 +263,6 @@ namespace GetOrderConsole
                 }
             }
             return sortList;
-        }
-
-        private static object GetProduct(string productId, ZaloStoreClient storeClient)
-        {
-            JObject getProduct = storeClient.getProduct(productId);
-            return getProduct;
-        }
-
-        private static object GetProductList(ZaloStoreClient storeClient)
-        {
-            JObject getProductOfOa = storeClient.getProductOfOa(0, 10);
-            return getProductOfOa;
-        }
-
-        private static object GetOrderInfo(string orderId, ZaloStoreClient storeClient)
-        {
-            JObject getOrder = storeClient.getOrder(orderId);
-            return getOrder;
         }
 
         #endregion Others
