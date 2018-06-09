@@ -1,4 +1,0 @@
-﻿﻿1. Website Bán Hàng
-2. Order Management System
-3. Customer Management System
-4. Integration Hub
