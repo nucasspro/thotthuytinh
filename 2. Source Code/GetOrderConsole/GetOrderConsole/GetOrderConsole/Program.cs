@@ -6,21 +6,29 @@ namespace GetOrderConsole
     {
         private static void Main(string[] args)
         {
-            //Create Database and Create Orders table
             DbConnect dbConnect = new DbConnect();
-            dbConnect.CreateTables2();
-            
-            
-            //Get order data from Zalo and insert list order to database
-            //GetFromZalo zalo = new GetFromZalo();
-            //zalo.Init();
-            //zalo.GetData();
+            dbConnect.Init();
 
-            //Create WooCommerce object and get order
-            //GetFromWooCommerce wooCommerce = new GetFromWooCommerce();
-            //wooCommerce.Init();
-            //wooCommerce.GetData();
+            try
+            {
+                GetFromZalo zalo = new GetFromZalo();
+                zalo.Init();
+                zalo.GetData();
 
+                GetFromWooCommerce wooCommerce = new GetFromWooCommerce();
+                wooCommerce.Init();
+                wooCommerce.GetData();
+                Console.WriteLine("END!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Loi " + e);
+                throw;
+            }
+
+            //GetOrderFromFacebook facebook = new GetOrderFromFacebook();
+            //facebook.Init();
+            //Console.WriteLine(facebook.ConvertToDateTime("2018-06-08T01:08:52+0000"));
             Console.ReadKey();
         }
     }

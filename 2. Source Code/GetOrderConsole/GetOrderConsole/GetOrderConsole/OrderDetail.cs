@@ -14,7 +14,6 @@
             DeliverDistrict = deliverDistrict;
             DeliverAddress = deliverAddress;
             ProductId = productId;
-            
         }
 
         public int OrderId { get; set; }
