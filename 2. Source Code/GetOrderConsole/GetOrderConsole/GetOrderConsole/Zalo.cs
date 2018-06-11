@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using ZaloCSharpSDK;
 
@@ -31,15 +30,9 @@ namespace GetOrderConsole
 
         public void GetData(int time)
         {
-            //var getList = JObject.FromObject(GetOrderList(_storeClient)).ToString();
-            //JObject splitList = JObject.Parse(getList);
-            //var jToken = splitList["data"]["orders"];
-            string a = "{\"errorCode\": 1,\"errorMsg\": \"Success\",\"data\": {  \"total\": 4,  \"orders\": [    {      \"id\": \"28817dd1db9432ca6b85\",      \"oaId\": 1364144657533100885,      \"userId\": 7439013882962004853,      \"customerName\": \"Nucasspro\",      \"customerPhone\": 84963209769,      \"deliverAddress\": \"Ktx khu B\",      \"price\": 350000,      \"numItem\": 4,      \"productId\": \"15366e5c76199f47c608\",      \"productCode\": \"\",      \"paymentMethod\": 1,      \"status\": 1,      \"orderCode\": \"#9aba43Don2\",      \"createdTime\": 1528684620921,      \"updatedTime\": 1528684620921,      \"productName\": \"Tho't thu?y tinh cuo`ng lu?c 3D loa?i tro`n\",      \"deliverCity\": \"H? Chí Minh\",      \"deliverDistrict\": \"Qu?n Th? D?c\",      \"productImage\": \"https://store-photo-s500.zdn.vn/8/77d1847d333bda65832a.jpg\",      \"cancelReason\": null,      \"variation\": null,      \"shippingInfo\": null,      \"paymentStatus\": 0    },    {      \"id\": \"1909d478723d9b63c22c\",      \"oaId\": 1364144657533100885,      \"userId\": 7439013882962004853,      \"customerName\": \"Nucasspro\",      \"customerPhone\": 84963209769,      \"deliverAddress\": \"Ktx khu B\",      \"price\": 350000,      \"numItem\": 1,      \"productId\": \"15366e5c76199f47c608\",      \"productCode\": \"\",      \"paymentMethod\": 1,      \"status\": 1,      \"orderCode\": \"#9a9bdbDon3\",      \"createdTime\": 1528690500921,      \"updatedTime\": 1528690500911,      \"productName\": \"Tho't thu?y tinh cuo`ng lu?c 3D loa?i tro`n\",      \"deliverCity\": \"H? Chí Minh\",      \"deliverDistrict\": \"Qu?n Th? D?c\",      \"productImage\": \"https://store-photo-s500.zdn.vn/8/77d1847d333bda65832a.jpg\",      \"cancelReason\": null,      \"variation\": null,      \"shippingInfo\": null,      \"paymentStatus\": 0    },    {      \"id\": \"2dc25118f75d1e03474c\",      \"oaId\": 1364144657533100885,      \"userId\": 1935511328363861653,      \"customerName\": \"Hiendoan\",      \"customerPhone\": 84976807148,      \"deliverAddress\": \"39 hi?p bình chánh\",      \"price\": 350000,      \"numItem\": 1,      \"productId\": \"15366e5c76199f47c608\",      \"productCode\": \"\",      \"paymentMethod\": 1,      \"status\": 6,      \"orderCode\": \"#9a306aDon4\",      \"createdTime\": 1528710000032,      \"updatedTime\": 1528710000895,      \"productName\": \"Tho't thu?y tinh cuo`ng lu?c 3D loa?i tro`n\",      \"deliverCity\": \"H? Chí Minh\",      \"deliverDistrict\": \"Qu?n Th? D?c\",      \"productImage\": \"https://store-photo-s500.zdn.vn/8/77d1847d333bda65832a.jpg\",      \"cancelReason\": \"Không còn nhu c?u v? s?n ph?m\",      \"variation\": null,      \"shippingInfo\": null,      \"paymentStatus\": 0    },    {      \"id\": \"40430e4eab0b42551b1a\",      \"oaId\": 1364144657533100885,      \"userId\": 7439013882962004853,      \"customerName\": \"Nucasspro\",      \"customerPhone\": 84963209769,      \"deliverAddress\": \"Ktx khu B\",      \"price\": 350000,      \"numItem\": 1,      \"productId\": \"15366e5c76199f47c608\",      \"productCode\": \"\",      \"paymentMethod\": 1,      \"status\": 6,      \"orderCode\": \"#99e75bDon5\",      \"createdTime\": 1528744740065,      \"updatedTime\": 1528744740058,      \"productName\": \"Tho't thu?y tinh cuo`ng lu?c 3D loa?i tro`n\",      \"deliverCity\": \"H? Chí Minh\",      \"deliverDistrict\": \"Qu?n Th? D?c\",      \"productImage\": \"https://store-photo-s500.zdn.vn/8/77d1847d333bda65832a.jpg\",      \"cancelReason\": \"Không còn nhu c?u v? s?n ph?m\",      \"variation\": null,      \"shippingInfo\": null,      \"paymentStatus\": 0    }  ]}}";
-            
-            
-            JObject splitList = JObject.Parse(a);
-
-            JToken jToken = splitList["data"]["orders"];
+            var getList = JObject.FromObject(GetOrderList(_storeClient)).ToString();
+            JObject splitList = JObject.Parse(getList);
+            var jToken = splitList["data"]["orders"];
 
             GetCustomers(jToken);
             GetOrdersAndOrderDetail(jToken, time);
@@ -64,6 +57,18 @@ namespace GetOrderConsole
                 };
                 InsertCustomersToDb(customers);
             }
+        }
+
+        private int CheckCustomerExists(string phone)
+        {
+            string query = $"select count(id) from Customers where Customers.Phone = '{phone}';";
+            return _dbConnect.ExecuteQueryToGetIdAndCount(query);
+        }
+
+        private int GetCustomerIdFromDb(string phone)
+        {
+            string query = $"select Id from Customers where Customers.Phone = '{phone}' limit 1;";
+            return _dbConnect.ExecuteQueryToGetIdAndCount(query);
         }
 
         private void InsertCustomersToDb(Customers customer)
@@ -91,36 +96,6 @@ namespace GetOrderConsole
                 Console.WriteLine("Loi khi insert customers vao db" + e);
             }
         }
-
-        private int CheckCustomerExists(string phone)
-        {
-            string query = $"select count(id) from Customers where Customers.Phone = '{phone}';";
-            return _dbConnect.ExecuteQueryToGetIdAndCount(query);
-        }
-
-        private int Check(int time, DateTime createdTime)
-        {
-            switch (time)
-            {
-                case 1:
-                    if (createdTime.ToShortDateString() == _time1.ToShortDateString() && _time1 <= createdTime && createdTime < _time2)
-                        return 0;
-                    break;
-
-                case 2:
-                    if (createdTime.ToShortDateString() == _time2.ToShortDateString() && _time2 <= createdTime && createdTime < _time3)
-                        return 0;
-                    break;
-
-                case 3:
-                    if (createdTime.ToShortDateString() == _time3.ToShortDateString() && _time3 <= createdTime)
-                        return 0;
-                    break;
-            }
-
-            return 1;
-        }
-
         private void GetOrdersAndOrderDetail(JToken jToken, int time)
         {
             foreach (var item in jToken)
@@ -132,10 +107,10 @@ namespace GetOrderConsole
 
                 string unixCreatedTime = ((string)item["createdTime"]).Remove(10, 3);
                 DateTime createdTime = UnixTimestampToDateTime(Convert.ToDouble(unixCreatedTime));
-                if (Check(time, createdTime)==1)
-                {
-                    continue;
-                }
+                //if (Check(time, createdTime) == 1)
+                //{
+                //    continue;
+                //}
                 string unixUpdatedTime = ((string)item["updatedTime"]).Remove(10, 3);
                 DateTime updatedTime = UnixTimestampToDateTime(Convert.ToDouble(unixUpdatedTime));
 
@@ -147,7 +122,7 @@ namespace GetOrderConsole
                     ShipId = 0,
                     TotalPrice =
                         ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture),
-                    CustomerId = 0,
+                    CustomerId = GetCustomerIdFromDb("0" + (string)item["customerPhone"]),
                     VerifyBy = 1,
                     OrderFrom = "Zalo",
                     Type = "Bán cho khách"
@@ -236,6 +211,29 @@ namespace GetOrderConsole
         {
             JObject getOrderOfOa = storeClient.getOrderOfOa(0, 10, 0);
             return getOrderOfOa;
+        }
+
+        private int Check(int time, DateTime createdTime)
+        {
+            switch (time)
+            {
+                case 1:
+                    if (createdTime.ToShortDateString() == _time1.ToShortDateString() && _time1 <= createdTime && createdTime < _time2)
+                        return 0;
+                    break;
+
+                case 2:
+                    if (createdTime.ToShortDateString() == _time2.ToShortDateString() && _time2 <= createdTime && createdTime < _time3)
+                        return 0;
+                    break;
+
+                case 3:
+                    if (createdTime.ToShortDateString() == _time3.ToShortDateString() && _time3 <= createdTime)
+                        return 0;
+                    break;
+            }
+
+            return 1;
         }
 
         private static DateTime UnixTimestampToDateTime(double unixTime)

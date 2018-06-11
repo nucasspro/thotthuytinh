@@ -41,16 +41,9 @@ namespace GetOrderConsole
                 ["consumer_key"] = ConsumerKey,
                 ["consumer_secret"] = ConsumerSecret
             };
-            //string html = _httpRequest.Get(address, parameters).ToString();
-            //var json = JsonConvert.DeserializeObject(html);
-            //JToken jToken = JToken.FromObject(json);
-
-            string a = "[{\"id\": 18,\"parent_id\": 0,\"number\": \"18\",\"order_key\": \"wc_order_5b190c6dbbe1Don1\",\"created_via\": \"checkout\",\"version\": \"3.4.0\",\"status\": \"processing\",\"currency\": \"VND\",\"date_created\": \"2018-06-11T04:43:57\",\"date_created_gmt\": \"2018-06-07T10:43:57\",\"date_modified\": \"2018-06-07T10:44:02\",\"date_modified_gmt\": \"2018-06-07T10:44:02\",\"discount_total\": \"0.00\",\"discount_tax\": \"0.00\",\"shipping_total\": \"0.00\",\"shipping_tax\": \"0.00\",\"cart_tax\": \"0.00\",\"total\": \"2770000.00\",\"total_tax\": \"0.00\",\"prices_include_tax\": false,\"customer_id\": 1,\"customer_ip_address\": \"::1\",\"customer_user_agent\": \"mozilla/5.0 (windows nt 10.0; wow64) applewebkit/537.36 (khtml, like gecko) chrome/66.0.3359.181 safari/537.36\",\"customer_note\": \"\",\"billing\": {\"first_name\": \"Đặng Nhật\",\"last_name\": \"Long\",\"company\": \"\",\"address_1\": \"KTX Khu B - TP.HCM\",\"address_2\": \"\",\"city\": \"Hồ Chí Minh\",\"state\": \"\",\"postcode\": \"70000\",\"country\": \"VN\",\"email\": \"hailongdang.hailong@gmail.com\",\"phone\": \"0963209769\"},\"shipping\": {\"first_name\": \"Đặng Nhật\",\"last_name\": \"Long\",\"company\": \"\",\"address_1\": \"KTX Khu B - TP.HCM\",\"address_2\": \"\",\"city\": \"Hồ Chí Minh\",\"state\": \"\",\"postcode\": \"70000\",\"country\": \"VN\"},\"payment_method\": \"cod\",\"payment_method_title\": \"Cash on delivery\",\"transaction_id\": \"\",\"date_paid\": null,\"date_paid_gmt\": null,\"date_completed\": null,\"date_completed_gmt\": null,\"cart_hash\": \"6fc7061ff05281e6f4abdc95d4a4d9ad\",\"meta_data\": [],\"line_items\": [{    \"id\": 3,    \"name\": \"product 2\",    \"product_id\": 16,    \"variation_id\": 0,    \"quantity\": 3,    \"tax_class\": \"\",    \"subtotal\": \"1020000.00\",    \"subtotal_tax\": \"0.00\",    \"total\": \"1020000.00\",    \"total_tax\": \"0.00\",    \"taxes\": [],    \"meta_data\": [],    \"sku\": \"\",    \"price\": 340000},{    \"id\": 4,    \"name\": \"Thớt kinh cường lực mẫu TKCL001\",    \"product_id\": 12,    \"variation_id\": 0,    \"quantity\": 5,    \"tax_class\": \"\",    \"subtotal\": \"1750000.00\",    \"subtotal_tax\": \"0.00\",    \"total\": \"1750000.00\",    \"total_tax\": \"0.00\",    \"taxes\": [],    \"meta_data\": [],    \"sku\": \"\",    \"price\": 350000}],},{\"id\": 118,\"parent_id\": 0,\"number\": \"118\",\"order_key\": \"wc_order_5b190c6dbbe1Don2\",\"created_via\": \"checkout\",\"version\": \"3.4.0\",\"status\": \"processing\",\"currency\": \"VND\",\"date_created\": \"2018-06-11T10:43:57\",\"date_created_gmt\": \"2018-06-07T10:43:57\",\"date_modified\": \"2018-06-07T10:44:02\",\"date_modified_gmt\": \"2018-06-07T10:44:02\",\"discount_total\": \"0.00\",\"discount_tax\": \"0.00\",\"shipping_total\": \"0.00\",\"shipping_tax\": \"0.00\",\"cart_tax\": \"0.00\",\"total\": \"2770000.00\",\"total_tax\": \"0.00\",\"prices_include_tax\": false,\"customer_id\": 1,\"customer_ip_address\": \"::1\",\"customer_user_agent\": \"mozilla/5.0 (windows nt 10.0; wow64) applewebkit/537.36 (khtml, like gecko) chrome/66.0.3359.181 safari/537.36\",\"customer_note\": \"\",\"billing\": {\"first_name\": \"Đặng Nhật\",\"last_name\": \"Long\",\"company\": \"\",\"address_1\": \"KTX Khu B - TP.HCM\",\"address_2\": \"\",\"city\": \"Hồ Chí Minh\",\"state\": \"\",\"postcode\": \"70000\",\"country\": \"VN\",\"email\": \"hailongdang.hailong@gmail.com\",\"phone\": \"0963209769\"},\"shipping\": {\"first_name\": \"Đặng Nhật\",\"last_name\": \"Long\",\"company\": \"\",\"address_1\": \"KTX Khu B - TP.HCM\",\"address_2\": \"\",\"city\": \"Hồ Chí Minh\",\"state\": \"\",\"postcode\": \"70000\",\"country\": \"VN\"},\"payment_method\": \"cod\",\"payment_method_title\": \"Cash on delivery\",\"transaction_id\": \"\",\"date_paid\": null,\"date_paid_gmt\": null,\"date_completed\": null,\"date_completed_gmt\": null,\"cart_hash\": \"6fc7061ff05281e6f4abdc95d4a4d9ad\",\"meta_data\": [],\"line_items\": [{    \"id\": 3,    \"name\": \"product 2\",    \"product_id\": 16,    \"variation_id\": 0,    \"quantity\": 3,    \"tax_class\": \"\",    \"subtotal\": \"1020000.00\",    \"subtotal_tax\": \"0.00\",    \"total\": \"1020000.00\",    \"total_tax\": \"0.00\",    \"taxes\": [],    \"meta_data\": [],    \"sku\": \"\",    \"price\": 340000},{    \"id\": 4,    \"name\": \"Thớt kinh cường lực mẫu TKCL001\",    \"product_id\": 12,    \"variation_id\": 0,    \"quantity\": 5,    \"tax_class\": \"\",    \"subtotal\": \"1750000.00\",    \"subtotal_tax\": \"0.00\",    \"total\": \"1750000.00\",    \"total_tax\": \"0.00\",    \"taxes\": [],    \"meta_data\": [],    \"sku\": \"\",    \"price\": 350000}],},]";
-
-            var json = JsonConvert.DeserializeObject(a);
-
+            string html = _httpRequest.Get(address, parameters).ToString();
+            var json = JsonConvert.DeserializeObject(html);
             JToken jToken = JToken.FromObject(json);
-
 
             GetCustomers(jToken);
             GetOrdersAndOrderDetail(jToken, time);
@@ -91,6 +84,12 @@ namespace GetOrderConsole
             return _dbConnect.ExecuteQueryToGetIdAndCount(query);
         }
 
+        private int GetCustomerIdFromDb(string phone)
+        {
+            string query = $"select Id from Customers where Customers.Phone = '{phone}' limit 1;";
+            return _dbConnect.ExecuteQueryToGetIdAndCount(query);
+        }
+
         private void InsertCustomersToDb(Customers customer)
         {
             try
@@ -117,29 +116,6 @@ namespace GetOrderConsole
             }
         }
 
-        private int Check(int time, DateTime createdTime)
-        {
-            switch (time)
-            {
-                case 1:
-                    if (createdTime.ToShortDateString() == _time1.ToShortDateString() && _time1 <= createdTime && createdTime < _time2)
-                        return 0;
-                    break;
-
-                case 2:
-                    if (createdTime.ToShortDateString() == _time2.ToShortDateString() && _time2 <= createdTime && createdTime < _time3)
-                        return 0;
-                    break;
-
-                case 3:
-                    if (createdTime.ToShortDateString() == _time3.ToShortDateString() && _time3 <= createdTime)
-                        return 0;
-                    break;
-            }
-
-            return 1;
-        }
-
         private void GetOrdersAndOrderDetail(JToken jToken, int time)
         {
             try
@@ -152,10 +128,10 @@ namespace GetOrderConsole
                     }
 
                     DateTime createdTime = ConvertToDateTime((string)item["date_created"]);
-                    if (Check(time, createdTime) == 1)
-                    {
-                        continue;
-                    }
+                    //if (Check(time, createdTime) == 1)
+                    //{
+                    //    continue;
+                    //}
                     DateTime updatedTime = ConvertToDateTime((string)item["date_modified"]);
 
                     Orders orders = new Orders
@@ -165,7 +141,7 @@ namespace GetOrderConsole
                         UpdatedTime = updatedTime,
                         ShipId = 0,
                         TotalPrice = item["total"].ToString().Replace(".00", ""),
-                        CustomerId = 0,
+                        CustomerId = GetCustomerIdFromDb((string)item["billing"]["phone"]),
                         VerifyBy = 1,
                         OrderFrom = "WooCommerce",
                         Type = "Bán cho khách"
@@ -257,6 +233,29 @@ namespace GetOrderConsole
             {
                 Console.WriteLine("Loi khi insert orderdetail vao db" + e);
             }
+        }
+
+        private int Check(int time, DateTime createdTime)
+        {
+            switch (time)
+            {
+                case 1:
+                    if (createdTime.ToShortDateString() == _time1.ToShortDateString() && _time1 <= createdTime && createdTime < _time2)
+                        return 0;
+                    break;
+
+                case 2:
+                    if (createdTime.ToShortDateString() == _time2.ToShortDateString() && _time2 <= createdTime && createdTime < _time3)
+                        return 0;
+                    break;
+
+                case 3:
+                    if (createdTime.ToShortDateString() == _time3.ToShortDateString() && _time3 <= createdTime)
+                        return 0;
+                    break;
+            }
+
+            return 1;
         }
 
         public DateTime ConvertToDateTime(string time)

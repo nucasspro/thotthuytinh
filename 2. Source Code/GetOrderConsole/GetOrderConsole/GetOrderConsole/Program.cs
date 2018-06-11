@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace GetOrderConsole
 {
@@ -25,17 +24,21 @@ namespace GetOrderConsole
             try
             {
                 Console.WriteLine("Running...");
+
                 Zalo zalo = new Zalo();
                 zalo.Init(Time1, Time2, Time3);
                 zalo.GetData(time);
+                Console.WriteLine("Zalo END!");
 
                 WooCommerce wooCommerce = new WooCommerce();
                 wooCommerce.Init(Time1, Time2, Time3);
                 wooCommerce.GetData(time);
-                
-                //GetOrderFromFacebook facebook = new GetOrderFromFacebook();
-                //facebook.Init();
-                //Console.WriteLine(facebook.ConvertToDateTime("2018-06-08T01:08:52+0000"));
+                Console.WriteLine("Woo END!");
+
+                Facebook facebook = new Facebook();
+                facebook.Init(Time1, Time2, Time3);
+                facebook.GetData(time);
+                Console.WriteLine("Face END!");
 
                 Console.WriteLine("END!");
             }
