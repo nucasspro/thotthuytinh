@@ -6,7 +6,7 @@ using xNet;
 
 namespace GetOrderConsole
 {
-    public class GetOrderFromFacebook
+    public class Facebook
     {
         public void Init()
         {

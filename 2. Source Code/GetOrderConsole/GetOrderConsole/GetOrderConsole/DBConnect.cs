@@ -37,10 +37,10 @@ namespace GetOrderConsole
             return true;
         }
 
-        private bool CreateTables()
+        private void CreateTables()
         {
             if (CheckDatabaseExists())
-                return false;
+                return;
             Console.WriteLine("ko co file");
             SQLiteConnection.CreateFile(_dbName);
             List<string> query = new List<string>();
@@ -101,7 +101,6 @@ namespace GetOrderConsole
 
             CreateTable(query);
             InitData();
-            return true;
         }
 
         public void CreateTable(List<string> query)

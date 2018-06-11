@@ -1,40 +1,51 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using ZaloCSharpSDK;
 
 namespace GetOrderConsole
 {
-    public class GetFromZalo
+    public class Zalo
     {
         private const long OaId = 1364144657533100885;
         private const string SecretKey = "hGq0eOPke9SvuMmGfiKx";
         private ZaloOaInfo _zaloOaInfo;
         private ZaloStoreClient _storeClient;
         private DbConnect _dbConnect;
+        private DateTime _time1, _time2, _time3;
 
-        public GetFromZalo()
+        public Zalo()
         {
         }
 
-        public void Init()
+        public void Init(DateTime time1, DateTime time2, DateTime time3)
         {
             _zaloOaInfo = new ZaloOaInfo(OaId, SecretKey);
             _storeClient = new ZaloStoreClient(_zaloOaInfo);
             _dbConnect = new DbConnect();
+            _time1 = time1;
+            _time2 = time2;
+            _time3 = time3;
         }
 
-        public void GetData()
+        public void GetData(int time)
         {
-            var getList = JObject.FromObject(GetOrderList(_storeClient)).ToString();
-            JObject splitList = JObject.Parse(getList);
-            var jToken = splitList["data"]["orders"];
+            //var getList = JObject.FromObject(GetOrderList(_storeClient)).ToString();
+            //JObject splitList = JObject.Parse(getList);
+            //var jToken = splitList["data"]["orders"];
+            string a = "{\"errorCode\": 1,\"errorMsg\": \"Success\",\"data\": {  \"total\": 4,  \"orders\": [    {      \"id\": \"28817dd1db9432ca6b85\",      \"oaId\": 1364144657533100885,      \"userId\": 7439013882962004853,      \"customerName\": \"Nucasspro\",      \"customerPhone\": 84963209769,      \"deliverAddress\": \"Ktx khu B\",      \"price\": 350000,      \"numItem\": 4,      \"productId\": \"15366e5c76199f47c608\",      \"productCode\": \"\",      \"paymentMethod\": 1,      \"status\": 1,      \"orderCode\": \"#9aba43Don2\",      \"createdTime\": 1528684620921,      \"updatedTime\": 1528684620921,      \"productName\": \"Tho't thu?y tinh cuo`ng lu?c 3D loa?i tro`n\",      \"deliverCity\": \"H? Chí Minh\",      \"deliverDistrict\": \"Qu?n Th? D?c\",      \"productImage\": \"https://store-photo-s500.zdn.vn/8/77d1847d333bda65832a.jpg\",      \"cancelReason\": null,      \"variation\": null,      \"shippingInfo\": null,      \"paymentStatus\": 0    },    {      \"id\": \"1909d478723d9b63c22c\",      \"oaId\": 1364144657533100885,      \"userId\": 7439013882962004853,      \"customerName\": \"Nucasspro\",      \"customerPhone\": 84963209769,      \"deliverAddress\": \"Ktx khu B\",      \"price\": 350000,      \"numItem\": 1,      \"productId\": \"15366e5c76199f47c608\",      \"productCode\": \"\",      \"paymentMethod\": 1,      \"status\": 1,      \"orderCode\": \"#9a9bdbDon3\",      \"createdTime\": 1528690500921,      \"updatedTime\": 1528690500911,      \"productName\": \"Tho't thu?y tinh cuo`ng lu?c 3D loa?i tro`n\",      \"deliverCity\": \"H? Chí Minh\",      \"deliverDistrict\": \"Qu?n Th? D?c\",      \"productImage\": \"https://store-photo-s500.zdn.vn/8/77d1847d333bda65832a.jpg\",      \"cancelReason\": null,      \"variation\": null,      \"shippingInfo\": null,      \"paymentStatus\": 0    },    {      \"id\": \"2dc25118f75d1e03474c\",      \"oaId\": 1364144657533100885,      \"userId\": 1935511328363861653,      \"customerName\": \"Hiendoan\",      \"customerPhone\": 84976807148,      \"deliverAddress\": \"39 hi?p bình chánh\",      \"price\": 350000,      \"numItem\": 1,      \"productId\": \"15366e5c76199f47c608\",      \"productCode\": \"\",      \"paymentMethod\": 1,      \"status\": 6,      \"orderCode\": \"#9a306aDon4\",      \"createdTime\": 1528710000032,      \"updatedTime\": 1528710000895,      \"productName\": \"Tho't thu?y tinh cuo`ng lu?c 3D loa?i tro`n\",      \"deliverCity\": \"H? Chí Minh\",      \"deliverDistrict\": \"Qu?n Th? D?c\",      \"productImage\": \"https://store-photo-s500.zdn.vn/8/77d1847d333bda65832a.jpg\",      \"cancelReason\": \"Không còn nhu c?u v? s?n ph?m\",      \"variation\": null,      \"shippingInfo\": null,      \"paymentStatus\": 0    },    {      \"id\": \"40430e4eab0b42551b1a\",      \"oaId\": 1364144657533100885,      \"userId\": 7439013882962004853,      \"customerName\": \"Nucasspro\",      \"customerPhone\": 84963209769,      \"deliverAddress\": \"Ktx khu B\",      \"price\": 350000,      \"numItem\": 1,      \"productId\": \"15366e5c76199f47c608\",      \"productCode\": \"\",      \"paymentMethod\": 1,      \"status\": 6,      \"orderCode\": \"#99e75bDon5\",      \"createdTime\": 1528744740065,      \"updatedTime\": 1528744740058,      \"productName\": \"Tho't thu?y tinh cuo`ng lu?c 3D loa?i tro`n\",      \"deliverCity\": \"H? Chí Minh\",      \"deliverDistrict\": \"Qu?n Th? D?c\",      \"productImage\": \"https://store-photo-s500.zdn.vn/8/77d1847d333bda65832a.jpg\",      \"cancelReason\": \"Không còn nhu c?u v? s?n ph?m\",      \"variation\": null,      \"shippingInfo\": null,      \"paymentStatus\": 0    }  ]}}";
+            
+            
+            JObject splitList = JObject.Parse(a);
+
+            JToken jToken = splitList["data"]["orders"];
 
             GetCustomers(jToken);
-            GetOrdersAndOrderDetail(jToken);
+            GetOrdersAndOrderDetail(jToken, time);
         }
 
-        public void GetCustomers(JToken jToken)
+        private void GetCustomers(JToken jToken)
         {
             foreach (var item in jToken)
             {
@@ -66,7 +77,7 @@ namespace GetOrderConsole
                                "NumberOfPurchased, " +
                                "QuantityPurchased, " +
                                "Type)" +
-                               $"VALUES(" +
+                               "VALUES(" +
                                $"'{customer.Name}', " +
                                $"'{customer.Phone}', " +
                                $"'{customer.Adress}', " +
@@ -87,7 +98,30 @@ namespace GetOrderConsole
             return _dbConnect.ExecuteQueryToGetIdAndCount(query);
         }
 
-        private void GetOrdersAndOrderDetail(JToken jToken)
+        private int Check(int time, DateTime createdTime)
+        {
+            switch (time)
+            {
+                case 1:
+                    if (createdTime.ToShortDateString() == _time1.ToShortDateString() && _time1 <= createdTime && createdTime < _time2)
+                        return 0;
+                    break;
+
+                case 2:
+                    if (createdTime.ToShortDateString() == _time2.ToShortDateString() && _time2 <= createdTime && createdTime < _time3)
+                        return 0;
+                    break;
+
+                case 3:
+                    if (createdTime.ToShortDateString() == _time3.ToShortDateString() && _time3 <= createdTime)
+                        return 0;
+                    break;
+            }
+
+            return 1;
+        }
+
+        private void GetOrdersAndOrderDetail(JToken jToken, int time)
         {
             foreach (var item in jToken)
             {
@@ -95,25 +129,29 @@ namespace GetOrderConsole
                 {
                     continue;
                 }
-                Orders orders = new Orders();
 
-                orders.OrderCode = (string)item["orderCode"];
-
-                string unixCreatedTime = ((string)item["createdTime"]).Remove(9, 3);
+                string unixCreatedTime = ((string)item["createdTime"]).Remove(10, 3);
                 DateTime createdTime = UnixTimestampToDateTime(Convert.ToDouble(unixCreatedTime));
-                orders.CreatedTime = createdTime;
-
-                string unixUpdatedTime = ((string)item["updatedTime"]).Remove(9, 3);
+                if (Check(time, createdTime)==1)
+                {
+                    continue;
+                }
+                string unixUpdatedTime = ((string)item["updatedTime"]).Remove(10, 3);
                 DateTime updatedTime = UnixTimestampToDateTime(Convert.ToDouble(unixUpdatedTime));
-                orders.UpdatedTime = updatedTime;
 
-                orders.ShipId = 0;
-                orders.TotalPrice = ((float)item["price"] * (float)item["numItem"]).ToString();
-                orders.CustomerId = 0;
-                orders.VerifyBy = 1;
-                orders.OrderFrom = "Zalo";
-                orders.Type = "Bán cho khách";
-
+                Orders orders = new Orders
+                {
+                    OrderCode = (string)item["orderCode"],
+                    CreatedTime = createdTime,
+                    UpdatedTime = updatedTime,
+                    ShipId = 0,
+                    TotalPrice =
+                        ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture),
+                    CustomerId = 0,
+                    VerifyBy = 1,
+                    OrderFrom = "Zalo",
+                    Type = "Bán cho khách"
+                };
                 InsertOrdersToDb(orders);
 
                 int orderId = GetOrderIdFromDb((string)item["orderCode"]);
@@ -126,7 +164,6 @@ namespace GetOrderConsole
                     DeliverAddress = (string)item["deliverAddress"],
                     ProductId = 0
                 };
-
                 InsertOrderDetailToDb(orderDetail);
             }
         }
@@ -151,7 +188,7 @@ namespace GetOrderConsole
                                "VerifyBy, " +
                                "OrderFrom, " +
                                "Type)" +
-                               $"VALUES(" +
+                               "VALUES(" +
                                $"'{orders.OrderCode}', " +
                                $"'{orders.CreatedTime}', " +
                                $"'{orders.UpdatedTime}', " +
@@ -180,7 +217,7 @@ namespace GetOrderConsole
                                "DeliverDistrict, " +
                                "DeliverAddress, " +
                                "ProductId)" +
-                               $"VALUES(" +
+                               "VALUES(" +
                                $"'{order.OrderId}', " +
                                $"'{order.Quantity}', " +
                                $"'{order.DeliverCity}', " +
@@ -206,19 +243,6 @@ namespace GetOrderConsole
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             dateTime = dateTime.AddSeconds(unixTime).ToLocalTime();
             return dateTime;
-        }
-
-        public List<Orders> SortOrderByDay(List<Orders> list)
-        {
-            List<Orders> sortList = new List<Orders>();
-            foreach (var item in list)
-            {
-                if (item.CreatedTime == DateTime.Today)
-                {
-                    sortList.Add(item);
-                }
-            }
-            return sortList;
         }
     }
 }
