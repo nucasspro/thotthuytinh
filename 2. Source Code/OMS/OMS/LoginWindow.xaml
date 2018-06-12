@@ -16,16 +16,16 @@
         DataContext="{StaticResource LoginVM}"
         WindowStartupLocation="CenterScreen"
         Name="LoginFrom"
-        Title="Login" Height="300" Width="300">
-    
+        Title="Login" Height="618" Width="806">
+
     <Grid>
-        <materialDesign:Card HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="250">
+        <materialDesign:Card HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="350">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="Grid">
                         <Setter Property="Margin" Value="15"></Setter>
                     </Style>
-                    
+
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -43,23 +43,25 @@
                 VerticalAlignment="Center"
                  x:Name="PasswordBox"
                 materialDesign:HintAssist.Hint="Password" />
-                
+
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Button x:Uid="btnLogin" Grid.Column="0"
-                           HorizontalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Width="120"
                             Style="{StaticResource MaterialDesignRaisedLightButton}"
                             Content="Login">
-                        </Button>
-                    
-                        <Button x:Uid="btnCancel" Grid.Column="1"
+                    </Button>
+
+                    <Button x:Uid="btnCancel" Grid.Column="1"
                                 HorizontalAlignment="Center"
+                            Width="120"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                                 Content="Cancel">
-                        </Button>
+                    </Button>
                 </Grid>
             </Grid>
         </materialDesign:Card>

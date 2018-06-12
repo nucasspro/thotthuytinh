@@ -1,76 +1,64 @@
-﻿<Window x:Class="OMS.MainWindow"
+﻿<Window xmlns:UserControlOMS="clr-namespace:OMS.UserControlOMS"  x:Class="OMS.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OMS"
-        xmlns:uc="clr-namespace:OMS"
+        xmlns:uc="clr-namespace:OMS.UserControlOMS"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="15"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="15"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource MainVM}"
-        Name="OMSMainWindow"
+        Name="OmsMainWindow"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None"
         Title="Order Management System (OMS)" Height="720" Width="1366">
+
     <Grid Background="WhiteSmoke">
         <Grid.RowDefinitions>
-            <RowDefinition Height ="auto" ></RowDefinition>
-            <RowDefinition Height ="auto"></RowDefinition>
-            <RowDefinition Height ="auto"></RowDefinition>
+            <RowDefinition Height ="Auto"></RowDefinition>
+            <RowDefinition Height ="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.Resources>
+        <Grid.Resources></Grid.Resources>
 
-        </Grid.Resources>
-
+        <!--Design button close window-->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-
             <TextBlock Text="My account" Width="150" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
-            <!--Design button close window-->
             <Button
                     Background="Red"
                     BorderBrush="{x:Null}"
                     Command="{Binding CloseWindowCommand}"
-                    CommandParameter="{Binding ElementName=OMSMainWindow}"
+                    CommandParameter="{Binding ElementName=OmsMainWindow}"
                     FontWeight="Bold"
                     materialDesign:RippleAssist.IsDisabled="True">
                 <Grid>
-                    <materialDesign:PackIcon Kind="Power" HorizontalAlignment="Center" Width="20" Height="20"/>
+                    <materialDesign:PackIcon Kind="Power" HorizontalAlignment="Center" Width="20" Height="20" />
                 </Grid>
             </Button>
         </StackPanel>
-        <Grid Grid.Row="1" Height="5"></Grid>
-        <!--Design tab menu-->
-        <Grid Grid.Row="2">
-            <Grid.Resources>
+        
 
-            </Grid.Resources>
+        <!--Design tab menu-->
+        <Grid Grid.Row="1">
             <dragablz:TabablzControl>
-                <dragablz:TabablzControl.InterTabController>
-                    <dragablz:InterTabController />
-                </dragablz:TabablzControl.InterTabController>
-                <TabItem Header="ORDER MANAGEMENT">
-                    <uc:OrderManagementUC></uc:OrderManagementUC>
+                <TabItem Header="Order Management">
+                    <uc:UC_OrderManagement></uc:UC_OrderManagement>
                 </TabItem>
-                <TabItem Header="PRODUCT MANAGEMENT">
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Material Design</TextBlock>
+                <TabItem Header="Product Management">
+                    <uc:UC_ProductManagement></uc:UC_ProductManagement>
                 </TabItem>
-                <TabItem Header="REPORT MANAGEMNET">
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
-                </TabItem>
-                <TabItem Header="SCHEDULE MANAGEMNET">
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
-                </TabItem>
+                <TabItem Header="aaaaaa"></TabItem>
             </dragablz:TabablzControl>
         </Grid>
         
+
     </Grid>
 </Window>
