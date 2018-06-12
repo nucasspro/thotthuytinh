@@ -1,0 +1,67 @@
+﻿<Window x:Class="OMS.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OMS"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource LoginVM}"
+        WindowStartupLocation="CenterScreen"
+        Name="LoginFrom"
+        Title="Login" Height="300" Width="300">
+    
+    <Grid>
+        <materialDesign:Card HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="250">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter Property="Margin" Value="15"></Setter>
+                    </Style>
+                    
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--UserName textbox-->
+                <TextBox Grid.Row="0" 
+                         VerticalAlignment="Center"
+                         x:Uid="txtUserName"
+                materialDesign:HintAssist.Hint="Username"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <!--password textbox-->
+                <PasswordBox x:Uid="pxtPassWord" Grid.Row="1"
+                VerticalAlignment="Center"
+                 x:Name="PasswordBox"
+                materialDesign:HintAssist.Hint="Password" />
+                
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Uid="btnLogin" Grid.Column="0"
+                           HorizontalAlignment="Center"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Content="Login">
+                        </Button>
+                    
+                        <Button x:Uid="btnCancel" Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                Content="Cancel">
+                        </Button>
+                </Grid>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</Window>
