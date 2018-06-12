@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:OMS.ResourceXAML"
+                    xmlns:local="clr-namespace:OMS.UserControlOMS"
                     xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz">
     <ResourceDictionary.MergedDictionaries>
         <!-- primary color -->

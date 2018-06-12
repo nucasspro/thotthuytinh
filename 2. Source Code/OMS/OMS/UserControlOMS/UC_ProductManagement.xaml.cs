@@ -13,15 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OMS
+namespace OMS.UserControlOMS
 {
     /// <summary>
-    /// Interaction logic for OrderManagementUC.xaml
+    /// Interaction logic for UC_ProductManagement.xaml
     /// </summary>
-    public partial class OrderManagementUC : UserControl
+    public partial class UC_ProductManagement : UserControl
     {
-        public OrderManagementUC()
+        public UC_ProductManagement()
         {
+            InitializeComponent();
         }
     }
 }
