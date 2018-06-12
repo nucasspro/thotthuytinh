@@ -14,103 +14,160 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="700" d:DesignWidth="1360">
     <Grid>
-        <!--Group box product management-->
-        <GroupBox
-                Header="Product Management"
-                Style="{DynamicResource MaterialDesignCardGroupBox}"
-                Margin="5">
-            <GroupBox.HeaderTemplate>
-                <DataTemplate>
-                    <StackPanel
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="1.8*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--Product information-->
+            <GroupBox Grid.Row="0"  Header="Product Infomation"
+                      Style="{DynamicResource MaterialDesignCardGroupBox}"
+                      Margin="5,5,5,0">
+
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel
                             Orientation="Horizontal">
-                        <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                                 Kind="ReorderHorizontal"
                                 Height="32"
                                 Width="32"
                                 VerticalAlignment="Center" />
-                        <TextBlock
+                            <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                                 Text="{Binding}" />
-                    </StackPanel>
-                </DataTemplate>
-            </GroupBox.HeaderTemplate>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*">
-                        
-                    </RowDefinition>
-                    <RowDefinition Height="1.5*"></RowDefinition>
-                    <RowDefinition Height="0.5*"></RowDefinition>
-                </Grid.RowDefinitions>
-                
-                <!--<Grid.ColumnDefinitions>
-                    
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>-->
-                <!--<StackPanel Grid.Column="0">
-                    <TextBox
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBox
                             materialDesign:HintAssist.Hint="Product ID" Height="50" Margin="10" IsReadOnly="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
+                        <TextBox
                             materialDesign:HintAssist.Hint="Product Name" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
+                        <TextBox
                             materialDesign:HintAssist.Hint="Price" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBox
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBox
                             materialDesign:HintAssist.Hint="Width" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
+                        <TextBox
                             materialDesign:HintAssist.Hint="Height" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
+                        <TextBox
                             materialDesign:HintAssist.Hint="Weight" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
+                        <TextBox
                             materialDesign:HintAssist.Hint="Length" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                </StackPanel>
-                <StackPanel  Grid.Column="2" >
-                    <Label Content="Image" Margin="10"></Label>
-                    <Image Height="400" Margin="10" ></Image>
-                    <Button
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        Width="150"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                        Content="Add Image"
-                        Margin="10">
-                    </Button>-->
+                    </StackPanel>
 
-                    <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
+                    <StackPanel Grid.Column="2">
+                        <Label Content="Image" Margin="10"></Label>
+                        <Image Height="200" Margin="10,0,10,5" ></Image>
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="130"
+                            Width="150"
                             ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Create"
-                            Margin="10,0,10,0">
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="130"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Save"
-                            Margin="10,0,10,0">
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="130"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Delete"
-                            Margin="10,0,10,0">
+                            Content="Add Image">
                         </Button>
                     </StackPanel>
+                </Grid>
+            </GroupBox>
+            <!--/Product information-->
+
+            <!--List product-->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Grid.Row="0"  Header="Product List"
+                      Style="{DynamicResource MaterialDesignCardGroupBox}"
+                      Margin="5,5,5,0">
+
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                            Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                Kind="ReorderHorizontal"
+                                Height="32"
+                                Width="32"
+                                VerticalAlignment="Center" />
+                                <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+
+                    <ListView Grid.Column="0"
+                        VerticalAlignment="Top"
+                        x:Name="ListViewProduct"
+                        Height="250"
+                        ItemsSource="{Binding items}">
+                        <ListView.View>
+
+                            <GridView>
+                                <GridViewColumn
+                                DisplayMemberBinding="{Binding OrderCode}"
+                                Header="OrderCode" />
+                                <GridViewColumn
+                                DisplayMemberBinding="{Binding CustomerId}"
+                                Header="CustomerId" />
+                                <GridViewColumn
+                                DisplayMemberBinding="{Binding OrderFrom}"
+                                Header="OrderFrom" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Width="100"
+                        Margin="0,10,0,0"
+                        Content="Create"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
+                    </Button>
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Width="100"
+                        Margin="0,10,0,0"
+                        Content="Save"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
+                    </Button>
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Width="100"
+                        Margin="0,10,0,10"
+                        Content="Delete"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
+                    </Button>
+                </StackPanel>
             </Grid>
-        </GroupBox>
+            <!--/List product-->
+        </Grid>
     </Grid>
 </UserControl>

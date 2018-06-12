@@ -66,6 +66,7 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Order.cs" />
     <Compile Include="UserControlOMS\UC_OrderManagement.xaml.cs">
       <DependentUpon>UC_OrderManagement.xaml</DependentUpon>
     </Compile>
@@ -136,8 +137,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

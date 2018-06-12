@@ -7,16 +7,17 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource LoginVM}"
         WindowStartupLocation="CenterScreen"
+
         Name="LoginFrom"
-        Title="Login" Height="618" Width="806">
+        Title="Login" Height="484" Width="542">
 
     <Grid>
         <materialDesign:Card HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="350">
@@ -25,7 +26,6 @@
                     <Style TargetType="Grid">
                         <Setter Property="Margin" Value="15"></Setter>
                     </Style>
-
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -33,7 +33,7 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--UserName textbox-->
-                <TextBox Grid.Row="0" 
+                <TextBox Grid.Row="0"
                          VerticalAlignment="Center"
                          x:Uid="txtUserName"
                 materialDesign:HintAssist.Hint="Username"
@@ -45,22 +45,12 @@
                 materialDesign:HintAssist.Hint="Password" />
 
                 <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Uid="btnLogin" Grid.Column="0"
+                    <Button x:Uid="btnLogin"
                             HorizontalAlignment="Center"
-                            Width="120"
+                            Width="160"
+                            Height="50"
                             Style="{StaticResource MaterialDesignRaisedLightButton}"
                             Content="Login">
-                    </Button>
-
-                    <Button x:Uid="btnCancel" Grid.Column="1"
-                                HorizontalAlignment="Center"
-                            Width="120"
-                                Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                Content="Cancel">
                     </Button>
                 </Grid>
             </Grid>
