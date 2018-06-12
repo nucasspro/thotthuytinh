@@ -153,15 +153,6 @@
                         <TextBox
                             materialDesign:HintAssist.Hint="Order Date" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Address" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="District" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="City" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <ComboBox
                             Height="50" Margin="10"
                             materialDesign:HintAssist.Hint="Order Status"
@@ -175,6 +166,15 @@
                                 Approved
                             </ComboBoxItem>
                         </ComboBox>
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Address" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="District" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="City" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
                 </Grid>
             </GroupBox>

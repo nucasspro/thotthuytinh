@@ -38,9 +38,12 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dr
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dragablz.xml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignThemes.Wpf.pdb
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.baml
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\LoginWindow.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\MainWindow.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.g.cs
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\App.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS_MarkupCompile.cache
@@ -50,7 +53,6 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\Lo
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\MainWindow.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\ResourceXAML\MainResource.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\ResourceXAML\TabResource.baml
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.g.resources
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.Properties.Resources.resources
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.csproj.GenerateResource.cache
@@ -59,5 +61,7 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OM
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.exe
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.pdb
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.baml
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.g.cs
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.baml
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_SchedulePost.baml
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.g.cs
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_SchedulePost.g.cs

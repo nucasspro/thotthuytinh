@@ -73,6 +73,12 @@
     <Compile Include="UserControlOMS\UC_ProductManagement.xaml.cs">
       <DependentUpon>UC_ProductManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControlOMS\UC_Report.xaml.cs">
+      <DependentUpon>UC_Report.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlOMS\UC_SchedulePost.xaml.cs">
+      <DependentUpon>UC_SchedulePost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -106,6 +112,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControlOMS\UC_ProductManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlOMS\UC_Report.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlOMS\UC_SchedulePost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

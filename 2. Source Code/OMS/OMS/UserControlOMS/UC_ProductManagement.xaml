@@ -12,7 +12,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="700" d:DesignWidth="1360">
+             d:DesignHeight="700" d:DesignWidth="1366">
     <Grid>
 
         <Grid>
@@ -78,15 +78,14 @@
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
 
-                    <StackPanel Grid.Column="2">
-                        <Label Content="Image" Margin="10"></Label>
-                        <Image Height="200" Margin="10,0,10,5" ></Image>
+                    <StackPanel Grid.Column="2" Orientation="Vertical">
+                        <Image Height="200" Margin="10,10,10,10" ></Image>
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             Width="150"
+                            Margin="5,15,5,10"
                             ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Add Image">
-                        </Button>
+                            Content="Add Image"/>
                     </StackPanel>
                 </Grid>
             </GroupBox>
@@ -101,7 +100,7 @@
 
                 <GroupBox Grid.Row="0"  Header="Product List"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
-                      Margin="5,5,5,0">
+                      Margin="5,5,5,5">
 
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
@@ -122,10 +121,12 @@
                     </GroupBox.HeaderTemplate>
 
                     <ListView Grid.Column="0"
-                        VerticalAlignment="Top"
                         x:Name="ListViewProduct"
-                        Height="250"
-                        ItemsSource="{Binding items}">
+                        VerticalAlignment="Top"
+                              Height="250"
+                              
+                        ItemsSource="{Binding items}"
+                        >
                         <ListView.View>
 
                             <GridView>
