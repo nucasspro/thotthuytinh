@@ -22,24 +22,26 @@
             </Grid.RowDefinitions>
 
             <!--Product information-->
-            <GroupBox Grid.Row="0"  Header="Product Infomation"
+            <GroupBox Grid.Row="0"
+                      Header="Product Infomation"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
                       Margin="5,5,5,0">
 
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel
-                            Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon
                                 Kind="ReorderHorizontal"
                                 Height="32"
                                 Width="32"
-                                VerticalAlignment="Center" />
+                                VerticalAlignment="Center" >
+                            </materialDesign:PackIcon>
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}" />
+                                Text="{Binding}">
+                            </TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
@@ -53,40 +55,65 @@
 
                     <StackPanel Grid.Column="0">
                         <TextBox
-                            materialDesign:HintAssist.Hint="Product ID" Height="50" Margin="10" IsReadOnly="True"
+                            materialDesign:HintAssist.Hint="Product ID"
+                            Height="50"
+                            Margin="10"
+                            IsReadOnly="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            materialDesign:HintAssist.Hint="Product Name" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Product Name"
+                            Height="50"
+                            Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            materialDesign:HintAssist.Hint="Price" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Price"
+                            Height="50"
+                            Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
                         <TextBox
-                            materialDesign:HintAssist.Hint="Width" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Width"
+                            Height="50"
+                            Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            materialDesign:HintAssist.Hint="Height" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Height"
+                            Height="50"
+                            Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            materialDesign:HintAssist.Hint="Weight" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Weight"
+                            Height="50"
+                            Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            materialDesign:HintAssist.Hint="Length" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Length"
+                            Height="50"
+                            Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
 
-                    <StackPanel Grid.Column="2" Orientation="Vertical">
-                        <Image Height="200" Margin="10,10,10,10" ></Image>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+
+                        <Border BorderThickness="1"
+                                Margin="10,10,10,10"
+                                BorderBrush="#3F51B5"
+                                VerticalAlignment="Top">
+
+                            <Image Height="200"></Image>
+                        </Border>
+
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             Width="150"
                             Margin="5,15,5,10"
                             ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Add Image"/>
+                            Content="Add Image" />
                     </StackPanel>
+
                 </Grid>
             </GroupBox>
             <!--/Product information-->
@@ -98,35 +125,34 @@
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <GroupBox Grid.Row="0"  Header="Product List"
-                      Style="{DynamicResource MaterialDesignCardGroupBox}"
-                      Margin="5,5,5,5">
+                <GroupBox Grid.Row="0"
+                          Header="Product List"
+                          Style="{DynamicResource MaterialDesignCardGroupBox}"
+                          Margin="5,5,5,5">
 
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
-                            <StackPanel
-                            Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon
-                                Kind="ReorderHorizontal"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center" />
+                                    Kind="ReorderHorizontal"
+                                    Height="32"
+                                    Width="32"
+                                    VerticalAlignment="Center" />
                                 <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}" />
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                    Text="{Binding}" />
                             </StackPanel>
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
 
                     <ListView Grid.Column="0"
-                        x:Name="ListViewProduct"
-                        VerticalAlignment="Top"
+                              x:Name="ListViewProduct"
+                              VerticalAlignment="Top"
                               Height="250"
-                              
-                        ItemsSource="{Binding items}"
-                        >
+                              ItemsSource="{Binding items}">
+
                         <ListView.View>
 
                             <GridView>
@@ -144,7 +170,10 @@
                     </ListView>
                 </GroupBox>
 
-                <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.Column="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
                     <Button
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         Width="100"

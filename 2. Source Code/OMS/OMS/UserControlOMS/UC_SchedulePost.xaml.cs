@@ -24,5 +24,6 @@ namespace OMS.UserControlOMS
         {
             InitializeComponent();
         }
+
     }
 }

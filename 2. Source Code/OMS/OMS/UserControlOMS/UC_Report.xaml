@@ -13,8 +13,119 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="700" d:DesignWidth="1366">
-             
     <Grid>
-            
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--Report Box-->
+            <GroupBox Grid.Column="0"
+                      Header="Report"
+                      Style="{DynamicResource MaterialDesignCardGroupBox}"
+                      Margin="5,5,0,5">
+
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Kind="ReorderHorizontal"
+                                Height="32"
+                                Width="32"
+                                VerticalAlignment="Center">
+                            </materialDesign:PackIcon>
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                Text="{Binding}">
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+
+                <!--Report Input-->
+                <StackPanel Orientation="Vertical">
+                    <TextBox
+                        materialDesign:HintAssist.Hint="Report Name"
+                        Height="50"
+                        Margin="10"
+                        IsReadOnly="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        materialDesign:HintAssist.Hint="Create By"
+                        Height="50"
+                        Margin="10"
+                        IsReadOnly="True"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        materialDesign:HintAssist.Hint="Value"
+                        Height="50"
+                        Margin="10"
+                        IsReadOnly="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <DatePicker
+                        Height="50"
+                        Margin="10"
+                        materialDesign:HintAssist.Hint="Pick Date"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                </StackPanel>
+                <!--/Report Input-->
+            </GroupBox>
+            <!--/Report Box-->
+
+            <!--Preview Box-->
+            <GroupBox Grid.Column="1"
+                      Header="Preview"
+                      Style="{DynamicResource MaterialDesignCardGroupBox}"
+                      Margin="5,5,5,5">
+
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Kind="ReorderHorizontal"
+                                Height="32"
+                                Width="32"
+                                VerticalAlignment="Center">
+                            </materialDesign:PackIcon>
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                Text="{Binding}">
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Cystal Report-->
+                    <Label Content="CHUA TIM HIEU CACH THEM REPORT"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="50">
+                    </Label>
+                    <!--/Cystal Report-->
+
+                    <!--Button Export Report-->
+                    <Button Grid.Row="1"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            Width="150"
+                            Margin="5,5,5,5"
+                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                            Content="Export to PDF">
+                    </Button>
+                    <!--/Button Export Report-->
+                </Grid>
+            </GroupBox>
+            <!--/Preview Box-->
+        </Grid>
     </Grid>
 </UserControl>

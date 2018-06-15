@@ -61,7 +61,7 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OM
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.exe
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.pdb
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_SchedulePost.baml
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_SchedulePost.g.cs
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.baml
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.g.cs
