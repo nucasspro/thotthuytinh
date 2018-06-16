@@ -11,6 +11,7 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
+             DataContext="{StaticResource OrderManagementUCVM}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="700" d:DesignWidth="1360">
     <Grid>
@@ -176,6 +177,100 @@
                             materialDesign:HintAssist.Hint="City" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <ComboBox
+                            Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Call Ship?"
+                            IsEditable="True"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBoxItem
+                                IsSelected="True">
+                                Yes
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                No
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Product Width" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Product Weight" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Product Height" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Ship Price" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"/>
+                        <Button Width="150" Height="50" Content="Check Price" Margin="10"></Button>
+                        <Grid Height="50" Margin="10">
+                            
+                        </Grid>
+                        <Grid Height="50" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Width="150" Height="50" Content="Call Ship" Margin="5" 
+                                    VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                            <Button Grid.Column="1" Width="150" Height="50" Content="Cancel Ship" Margin="5" 
+                                    VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                        </Grid>
+                    </StackPanel>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="8*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0"
+                                  Header="Order - Product"
+                                  Style="{DynamicResource MaterialDesignCardGroupBox}"
+                                  Margin="5">
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel
+                            Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                Kind="ReorderHorizontal"
+                                Height="32"
+                                Width="32"
+                                VerticalAlignment="Center" />
+                                        <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="4*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid Grid.Row="0"
+                                          Margin="0 8 0 0"
+                                          ItemsSource="{Binding ListOrder}"
+                                          CanUserSortColumns="True"
+                                          materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                                          materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2" />
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Width="150" Height="50" Content="Add Product" Margin="5" 
+                                    VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                                    <Button Grid.Column="1" Width="150" Height="50" Content="Remove Product" Margin="5" 
+                                    VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                                </Grid>
+                            </Grid>
+                            
+                           </GroupBox>
+                        <Button Grid.Row="1" Width="200" Height="70" Content="Save Order" Margin="5" 
+                                    VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Button>
+                    </Grid>
                 </Grid>
             </GroupBox>
             <!--/Group box order management-->

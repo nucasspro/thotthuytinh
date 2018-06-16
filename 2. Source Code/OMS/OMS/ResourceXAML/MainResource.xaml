@@ -4,5 +4,8 @@
                     xmlns:viewmodel="clr-namespace:OMS.ViewModel">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
-    <viewmodel:OrderManagementUCViewModel x:Key=" OrderManagementUCVM"></viewmodel:OrderManagementUCViewModel>
+    <viewmodel:OrderManagementUCViewModel x:Key="OrderManagementUCVM"></viewmodel:OrderManagementUCViewModel>
+    <viewmodel:ProductManagementUCViewModel x:Key="ProductManagementUCVM"></viewmodel:ProductManagementUCViewModel>
+    <viewmodel:ReportUCViewModel x:Key="ReportUCVM"></viewmodel:ReportUCViewModel>
+    <viewmodel:SchedulePostUCViewModel x:Key="SchedulePostUCVM"></viewmodel:SchedulePostUCViewModel>
 </ResourceDictionary>

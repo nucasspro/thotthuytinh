@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
+             DataContext="{StaticResource ReportUCVM}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="15"
@@ -74,7 +75,7 @@
                 <!--/Report Input-->
             </GroupBox>
             <!--/Report Box-->
-
+            
             <!--Preview Box-->
             <GroupBox Grid.Column="1"
                       Header="Preview"
@@ -107,11 +108,7 @@
                     </Grid.RowDefinitions>
 
                     <!--Cystal Report-->
-                    <Label Content="CHUA TIM HIEU CACH THEM REPORT"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="50">
-                    </Label>
+
                     <!--/Cystal Report-->
 
                     <!--Button Export Report-->
