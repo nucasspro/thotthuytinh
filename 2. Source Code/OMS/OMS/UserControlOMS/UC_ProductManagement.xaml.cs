@@ -18,8 +18,8 @@ namespace OMS.UserControlOMS
 
         public void Test()
         {
-            var items = new List<Order>();
-            items.Add(new Order()
+            var items = new List<Orders>();
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -31,7 +31,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "2",
                 CreatedTime = DateTime.Now,
@@ -43,7 +43,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "3",
                 CreatedTime = DateTime.Now,
@@ -55,7 +55,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "4",
                 CreatedTime = DateTime.Now,
@@ -67,7 +67,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "5",
                 CreatedTime = DateTime.Now,
@@ -79,7 +79,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "6",
                 CreatedTime = DateTime.Now,
@@ -91,7 +91,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "7",
                 CreatedTime = DateTime.Now,
@@ -103,7 +103,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -115,7 +115,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -127,7 +127,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -139,7 +139,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -151,7 +151,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -163,7 +163,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -175,7 +175,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -187,7 +187,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -199,7 +199,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -211,7 +211,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -223,7 +223,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -235,7 +235,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "1",
                 CreatedTime = DateTime.Now,
@@ -247,7 +247,7 @@ namespace OMS.UserControlOMS
                 OrderFrom = "Zalo",
                 Type = "Ban cho khach",
             });
-            items.Add(new Order()
+            items.Add(new Orders()
             {
                 OrderCode = "67465645",
                 CreatedTime = DateTime.Now,

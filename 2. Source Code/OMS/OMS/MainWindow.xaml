@@ -39,6 +39,9 @@
             <TabItem Header="Schedule Post">
                 <uc:UC_SchedulePost></uc:UC_SchedulePost>
             </TabItem>
+            <TabItem Header="Setting">
+                <uc:UC_Setting></uc:UC_Setting>
+            </TabItem>
         </dragablz:TabablzControl>
         <!--/Tabcontrol-->
     </Grid>

@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="OMS.UserControlOMS.UC_Setting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             DataContext="{StaticResource ProductManagementUCVM}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="15"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="700" d:DesignWidth="1366">
+    <Grid>
+        <GroupBox Grid.Row="0"
+                  Header="Setting"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}"
+                  Margin="5,5,5,0">
+
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Kind="ReorderHorizontal"
+                            Height="32"
+                            Width="32"
+                            VerticalAlignment="Center">
+                        </materialDesign:PackIcon>
+                        <TextBlock
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                            Text="{Binding}">
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0"
+                    Name="TextBoxDatabasePath"
+                    materialDesign:HintAssist.Hint="Path"
+                    Height="50"
+                    Margin="10"
+                    Text="E:\OrderDatabase.db3"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <Button Name="ButtonCheckConnect" Click="ButtonCheckConnect_OnClick" Grid.Row="1" Width="150" Height="50" Content="Check connect" Margin="10"></Button>
+                <ListView Grid.Row="2"
+                          x:Name="ListViewOrder"
+                          VerticalAlignment="Top"
+                          Height="150"
+                          DataContext="{Binding Orders}"
+                          >
+
+                    <ListView.View>
+
+                        <GridView>
+                            <GridViewColumn
+                                DisplayMemberBinding="{Binding OrderCode}"
+                                Header="OrderCode" />
+                            <GridViewColumn
+                                DisplayMemberBinding="{Binding TotalPrice}"
+                                Header="CustomerId" />
+                            <GridViewColumn
+                                DisplayMemberBinding="{Binding OrderFrom}"
+                                Header="OrderFrom" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>
