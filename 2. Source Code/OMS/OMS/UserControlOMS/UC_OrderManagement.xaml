@@ -225,25 +225,8 @@
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0"
                                   Header="Order - Product"
-                                  Style="{DynamicResource MaterialDesignCardGroupBox}"
                                   Margin="5">
-                            <GroupBox.HeaderTemplate>
-                                <DataTemplate>
-                                    <StackPanel
-                            Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                Kind="ReorderHorizontal"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center" />
-                                        <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GroupBox.HeaderTemplate>
+                            
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="4*"></RowDefinition>

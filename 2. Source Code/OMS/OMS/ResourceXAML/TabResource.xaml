@@ -45,7 +45,7 @@
             <Setter.Value>
                 <Style TargetType="dragablz:DragablzItem" BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
                     <Setter Property="Height" Value="50" />
-                    <Setter Property="Width" Value="320"/>
+                    <Setter Property="Width" Value="250"/>
                     <Setter Property="FontSize" Value="15"/>
                     <Setter Property="FontWeight" Value="Bold"/>
                 </Style>

@@ -51,7 +51,7 @@
                     materialDesign:HintAssist.Hint="Path"
                     Height="50"
                     Margin="10"
-                    Text="E:\OrderDatabase.db3"
+                    Text="D:\OrderDatabase.db3"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
                 <Button Name="ButtonCheckConnect" Click="ButtonCheckConnect_OnClick" Grid.Row="1" Width="150" Height="50" Content="Check connect" Margin="10"></Button>
@@ -66,13 +66,13 @@
 
                         <GridView>
                             <GridViewColumn
-                                DisplayMemberBinding="{Binding OrderCode}"
+                                DisplayMemberBinding="{Binding Id}"
                                 Header="OrderCode" />
                             <GridViewColumn
-                                DisplayMemberBinding="{Binding TotalPrice}"
+                                DisplayMemberBinding="{Binding Username}"
                                 Header="CustomerId" />
                             <GridViewColumn
-                                DisplayMemberBinding="{Binding OrderFrom}"
+                                DisplayMemberBinding="{Binding Password}"
                                 Header="OrderFrom" />
                         </GridView>
                     </ListView.View>
