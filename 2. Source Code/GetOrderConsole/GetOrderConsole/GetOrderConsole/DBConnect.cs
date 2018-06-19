@@ -56,7 +56,7 @@ namespace GetOrderConsole
                                           "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                                           "Name TEXT NOT NULL, " +
                                           "Phone TEXT, " +
-                                          "Adress TEXT, " +
+                                          "Address TEXT, " +
                                           "NumberOfPurchased INTEGER, " +
                                           "QuantityPurchased INTEGER, " +
                                           "Type TEXT NOT NULL);";
@@ -67,17 +67,23 @@ namespace GetOrderConsole
                                        "OrderCode TEXT, " +
                                        "CreatedTime INTEGER NOT NULL, " +
                                        "UpdatedTime INTEGER NOT NULL, " +
-                                       "ShipId INTEGER, " +
                                        "TotalPrice TEXT, " +
                                        "CustomerId INTEGER, " +
                                        "IsVerify TEXT, " +
                                        "VerifyBy INTEGER, " +
                                        "OrderFrom TEXT NOT NULL, " +
-                                       "Type TEXT NOT NULL);";
+                                       "Type TEXT NOT NULL, " +
+                                       "DeliverCity TEXT, " +
+                                       "DeliverDistrict TEXT, " +
+                                       "DeliverAddress TEXT, " +
+                                       "CallShip TEXT, " +
+                                       "PackageWidth TEXT, " +
+                                       "PackageHeight TEXT, " +
+                                       "PackageWeight TEXT);";
             query.Add(ordersTable);
 
             const string productsTable = "CREATE TABLE IF NOT EXISTS Products (" +
-                                         "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                                         "Id TEXT NOT NULL PRIMARY KEY, " +
                                          "Name TEXT NOT NULL, " +
                                          "Weight TEXT, " +
                                          "Width TEXT, " +
@@ -92,11 +98,8 @@ namespace GetOrderConsole
             const string orderDetailTable = "CREATE TABLE IF NOT EXISTS OrderDetail (" +
                                             "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                                             "OrderId INTEGER, " +
-                                            "Quantity INTEGER, " +
-                                            "DeliverCity TEXT, " +
-                                            "DeliverDistrict TEXT, " +
-                                            "DeliverAddress TEXT, " +
-                                            "ProductId INTEGER);";
+                                            "ProductId TEXT, " +
+                                            "Quantity INTEGER);";
             query.Add(orderDetailTable);
 
             CreateTable(query);
@@ -116,8 +119,20 @@ namespace GetOrderConsole
 
         private void InitData()
         {
-            ExecuteQuery("insert into Accounts(Username, Password, Type) values ('admin', 'admin', 'admin');");
-            ExecuteQuery("insert into Accounts(Username, Password, Type) values ('user', 'user', 'user');");
+            try
+            {
+                ExecuteQuery(@"insert into Accounts(Username, Password, Type) values ('admin', 'admin', 'admin');");
+                ExecuteQuery(@"insert into Accounts(Username, Password, Type) values ('user', 'user', 'user');");
+                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image, NumberOfStocks, CreatedBy) values ('TKCL001', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL001)', '3.2', '35', '1.2', '35', '350000', 'http', '10', '1');");
+                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image, NumberOfStocks, CreatedBy) values ('TKCL002', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL002)', '3.2', '35', '1.2', '35', '350000', 'http', '10', '1');");
+                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image, NumberOfStocks, CreatedBy) values ('TKCL003', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL003)', '3.2', '35', '1.2', '35', '350000', 'http', '10', '1');");
+                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image, NumberOfStocks, CreatedBy) values ('TKCL004', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL004)', '3.2', '35', '1.2', '35', '350000', 'http', '10', '1');");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("tao data mau that bai" + e);
+                throw;
+            }
         }
 
         public void ExecuteQuery(string query)
@@ -128,11 +143,11 @@ namespace GetOrderConsole
             CloseConnection();
         }
 
-        public int ExecuteQueryToGetIdAndCount(string query)
+        public int GetIdAndCountId(string query)
         {
             CreateConection();
-            SQLiteCommand cmd = new SQLiteCommand(query, _con);
-            var reader = cmd.ExecuteReader();
+            SQLiteCommand command = new SQLiteCommand(query, _con);
+            var reader = command.ExecuteReader();
             string a;
             using (DataTable dt = new DataTable())
             {
@@ -149,6 +164,22 @@ namespace GetOrderConsole
             }
             CloseConnection();
             return int.Parse(a);
+        }
+
+        public string GetData(string query)
+        {
+            CreateConection();
+            SQLiteCommand command = new SQLiteCommand(query, _con);
+            var reader = command.ExecuteReader();
+            string a;
+            using (DataTable dt = new DataTable())
+            {
+                dt.Load(reader);
+                DataRow row = dt.Rows[0];
+                a = row[0].ToString();
+            }
+            CloseConnection();
+            return a;
         }
 
         public void UpdateData()

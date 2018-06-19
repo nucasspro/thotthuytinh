@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Customers.cs" />
     <Compile Include="DbConnect.cs" />
+    <Compile Include="Products.cs" />
     <Compile Include="WooCommerce.cs" />
     <Compile Include="Zalo.cs" />
     <Compile Include="Facebook.cs" />
