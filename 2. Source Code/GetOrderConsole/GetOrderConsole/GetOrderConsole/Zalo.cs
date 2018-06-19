@@ -66,19 +66,15 @@ namespace GetOrderConsole
                     continue;
                 }
 
-                string unixCreatedTime = ((string)item["createdTime"]).Remove(10, 3);
-                DateTime createdTime = UnixTimestampToDateTime(Convert.ToDouble(unixCreatedTime));
                 //if (Check(time, createdTime) == 1)
                 //{
                 //    continue;
                 //}
-                string unixUpdatedTime = ((string)item["updatedTime"]).Remove(10, 3);
-                DateTime updatedTime = UnixTimestampToDateTime(Convert.ToDouble(unixUpdatedTime));
 
                 Orders orders = new Orders();
                 orders.OrderCode = (string)item["orderCode"];
-                orders.CreatedTime = createdTime;
-                orders.UpdatedTime = updatedTime;
+                orders.CreatedTime = ((string)item["createdTime"]).Remove(10, 3);
+                orders.UpdatedTime = ((string)item["updatedTime"]).Remove(10, 3); ;
                 orders.TotalPrice = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture);
                 orders.CustomerId = GetCustomerIdFromDb("0" + (string)item["customerPhone"]);
                 orders.IsVerify = "Chưa duyệt";

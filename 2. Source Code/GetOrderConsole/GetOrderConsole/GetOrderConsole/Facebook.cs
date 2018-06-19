@@ -138,8 +138,8 @@ namespace GetOrderConsole
 
             orders.OrderCode = GenerateOrderCode();
             //chua fix time
-            orders.CreatedTime = _time1;
-            orders.UpdatedTime = _time1;
+            orders.CreatedTime = ConvertToTimeSpan(_time1.ToString());
+            orders.UpdatedTime = ConvertToTimeSpan(_time1.ToString());
             orders.TotalPrice = (350000 * orderDetail.Quantity).ToString();
             orders.CustomerId = CheckCustomerExists(customers.Phone);
             orders.IsVerify = "Chưa duyệt";
@@ -259,5 +259,13 @@ namespace GetOrderConsole
                 Console.WriteLine("Loi khi insert orders vao db" + e);
             }
         }
+        public string ConvertToTimeSpan(string time)
+        {
+            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
+            var dateTimeOffset = new DateTimeOffset(dateTime);
+            return dateTimeOffset.ToUnixTimeSeconds().ToString();
+        }
     }
+
+    
 }

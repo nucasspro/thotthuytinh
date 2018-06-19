@@ -8,7 +8,7 @@ namespace GetOrderConsole
         {
         }
 
-        public Orders(string orderCode, DateTime createdTime, DateTime updatedTime, string totalPrice, int customerId, string isVerify, int verifyBy, string orderFrom, string type, string deliverCity, string deliverDistrict, string deliverAddress, string callShip, string packageWidth, string packageHeight, string packageWeight)
+        public Orders(string orderCode, string createdTime, string updatedTime, string totalPrice, int customerId, string isVerify, int verifyBy, string orderFrom, string type, string deliverCity, string deliverDistrict, string deliverAddress, string callShip, string packageWidth, string packageHeight, string packageWeight)
         {
             OrderCode = orderCode;
             CreatedTime = createdTime;
@@ -29,8 +29,8 @@ namespace GetOrderConsole
         }
 
         public string OrderCode { get; set; }
-        public DateTime CreatedTime { get; set; }
-        public DateTime UpdatedTime { get; set; }
+        public string CreatedTime { get; set; }
+        public string UpdatedTime { get; set; }
         public string TotalPrice { get; set; }
         public int CustomerId { get; set; }
         public string IsVerify { get; set; }

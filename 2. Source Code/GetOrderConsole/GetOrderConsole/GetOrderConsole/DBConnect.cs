@@ -65,8 +65,8 @@ namespace GetOrderConsole
             const string ordersTable = "CREATE TABLE IF NOT EXISTS Orders (" +
                                        "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                                        "OrderCode TEXT, " +
-                                       "CreatedTime INTEGER NOT NULL, " +
-                                       "UpdatedTime INTEGER NOT NULL, " +
+                                       "CreatedTime TEXT , " +
+                                       "UpdatedTime TEXT , " +
                                        "TotalPrice TEXT, " +
                                        "CustomerId INTEGER, " +
                                        "IsVerify TEXT, " +

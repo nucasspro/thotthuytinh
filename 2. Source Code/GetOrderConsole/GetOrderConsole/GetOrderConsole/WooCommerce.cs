@@ -93,18 +93,19 @@ namespace GetOrderConsole
                         continue;
                     }
 
-                    DateTime createdTime = ConvertToDateTime((string)item["date_created"]);
+                    //DateTime createdTime = ConvertToTimeSpan((string)item["date_created"]);
+                    //DateTime updatedTime = ConvertToTimeSpan((string)item["date_modified"]);
                     //if (Check(time, createdTime) == 1)
                     //{
                     //    continue;
                     //}
-                    DateTime updatedTime = ConvertToDateTime((string)item["date_modified"]);
+
 
                     Orders orders = new Orders
                     {
                         OrderCode = (string)item["order_key"],
-                        CreatedTime = createdTime,
-                        UpdatedTime = updatedTime,
+                        CreatedTime = ConvertToTimeSpan((string)item["date_created"]),
+                        UpdatedTime = ConvertToTimeSpan((string)item["date_modified"]),
                         TotalPrice = item["total"].ToString().Replace(".00", ""),
                         CustomerId = GetCustomerIdFromDb((string)item["billing"]["phone"]),
                         IsVerify = "Chưa duyệt",
@@ -226,6 +227,13 @@ namespace GetOrderConsole
         public DateTime ConvertToDateTime(string time)
         {
             return DateTime.Parse(time).ToLocalTime();
+        }
+
+        public string ConvertToTimeSpan(string time)
+        {
+            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
+            var dateTimeOffset = new DateTimeOffset(dateTime);
+            return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }
     }
 }
