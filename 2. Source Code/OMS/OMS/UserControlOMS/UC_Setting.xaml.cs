@@ -20,22 +20,27 @@ namespace OMS.UserControlOMS
         private void ButtonCheckConnect_OnClick(object sender, RoutedEventArgs e)
         {
             DBConnect dbConnect = new DBConnect();
-            dbConnect.Init(TextBoxDatabasePath.Text);
-            string query = @"select * from Accounts;";
+            string query = @"select Orders.id, Customers.Name, datetime(Orders.CreatedTime, 'unixepoch','localtime'), Orders.IsVerify from Orders inner join Customers where Orders.CustomerId = Customers.Id;";
             DataTable dataTable = dbConnect.SelectQuery(query);
-            List<Accounts> list = new List<Accounts>();
+            List<Orders> list = new List<Orders>();
             foreach (var row in dataTable.Rows)
             {
-                Accounts a = new Accounts
+                Customers customers = new Customers
                 {
-                    Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
-                    Username = (string)((DataRow)row).ItemArray[1],
-                    Password = (string)((DataRow)row).ItemArray[2],
-                    Type = (string)((DataRow)row).ItemArray[3]
+                    Name = (string)((DataRow)row).ItemArray[1]
                 };
-                list.Add(a);
+
+                Orders order = new Orders
+                {
+                    Customer = customers,
+                    Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
+                    CreatedTime = (string)((DataRow)row).ItemArray[2],
+                    IsVerify = (string)((DataRow)row).ItemArray[3]
+                };
+                list.Add(order);
             }
-            ListViewOrder.ItemsSource = list;
+            ListaViewOrder.ItemsSource = list;
+
         }
     }
 }

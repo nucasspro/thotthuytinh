@@ -56,7 +56,7 @@
 
                 <Button Name="ButtonCheckConnect" Click="ButtonCheckConnect_OnClick" Grid.Row="1" Width="150" Height="50" Content="Check connect" Margin="10"></Button>
                 <ListView Grid.Row="2"
-                          x:Name="ListViewOrder"
+                          x:Name="ListaViewOrder"
                           VerticalAlignment="Top"
                           Height="150"
                           DataContext="{Binding Orders}"
@@ -66,13 +66,13 @@
 
                         <GridView>
                             <GridViewColumn
-                                DisplayMemberBinding="{Binding Id}"
+                                DisplayMemberBinding="{Binding CreatedTime}"
                                 Header="OrderCode" />
                             <GridViewColumn
-                                DisplayMemberBinding="{Binding Username}"
+                                DisplayMemberBinding="{Binding CreatedTime}"
                                 Header="CustomerId" />
                             <GridViewColumn
-                                DisplayMemberBinding="{Binding Password}"
+                                DisplayMemberBinding="{Binding CreatedTime}"
                                 Header="OrderFrom" />
                         </GridView>
                     </ListView.View>

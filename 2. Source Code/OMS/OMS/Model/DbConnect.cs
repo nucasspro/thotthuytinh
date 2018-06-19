@@ -7,7 +7,7 @@ namespace OMS.Model
     public class DBConnect
     {
         private readonly SQLiteConnection _con = new SQLiteConnection();
-        private string _path = "";
+        private string _path = @"D:\OMS\OrderDatabase.db3";
 
         public void Init(string path)
         {

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" mc:Ignorable="d"
+
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="15"
@@ -53,6 +54,7 @@
                     <!--combo box get order from-->
                     <ComboBox Grid.Row="0" Height="50"
                         materialDesign:HintAssist.Hint="Get Order From"
+                        x:Name="cbxGetOrderFrom"
                         IsEditable="False"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem
@@ -65,9 +67,14 @@
                         <ComboBoxItem>
                             WooComerce
                         </ComboBoxItem>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding CbxGetOrderFromCommand}" CommandParameter="{Binding ElementName=cbxGetOrderFrom}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <!--combo box get order from-->
-                    <ComboBox Grid.Row="1" Height="50"
+                    <ComboBox Grid.Row="2" Height="50"
                         materialDesign:HintAssist.Hint="Find Order By"
                         IsEditable="False"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}">
@@ -82,7 +89,7 @@
                         </ComboBoxItem>
                     </ComboBox>
                     <!--Search order-->
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="4*"></ColumnDefinition>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -101,12 +108,29 @@
                         </Button>
                     </Grid>
                     <!--Grid view list order-->
-                    <DataGrid Grid.Row="3"
-                        Margin="0 8 0 0"
-                        ItemsSource="{Binding ListOrder}"
-                        CanUserSortColumns="True"
-                        materialDesign:DataGridAssist.CellPadding="4 2 2 2"
-                        materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2" />
+
+                    <ListView Grid.Row="3"
+                          x:Name="ListViewOrder"
+                          VerticalAlignment="Top"
+                          Height="200" 
+                              ItemsSource="{Binding Ordercollection}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                                DisplayMemberBinding="{Binding CreatedTime}"
+                                Header="Order ID" />
+                                <GridViewColumn
+                                DisplayMemberBinding="{Binding CreatedTime}"
+                                Header="CustomerName" />
+                                <GridViewColumn
+                                DisplayMemberBinding="{Binding CreatedTime}"
+                                Header="Date" />
+                                <GridViewColumn
+                                DisplayMemberBinding="{Binding CreatedTime}"
+                                Header="OrderSatus" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
             </GroupBox>
         </Grid>
@@ -192,29 +216,28 @@
                             </ComboBoxItem>
                         </ComboBox>
                         <TextBox
-                            materialDesign:HintAssist.Hint="Product Width" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Package Width" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            materialDesign:HintAssist.Hint="Product Weight" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Package Weight" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            materialDesign:HintAssist.Hint="Product Height" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Package Height" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
                             materialDesign:HintAssist.Hint="Ship Price" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"/>
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True" />
                         <Button Width="150" Height="50" Content="Check Price" Margin="10"></Button>
                         <Grid Height="50" Margin="10">
-                            
                         </Grid>
                         <Grid Height="50" Margin="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Width="150" Height="50" Content="Call Ship" Margin="5" 
+                            <Button Grid.Column="0" Width="150" Height="50" Content="Call Ship" Margin="5"
                                     VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
-                            <Button Grid.Column="1" Width="150" Height="50" Content="Cancel Ship" Margin="5" 
+                            <Button Grid.Column="1" Width="150" Height="50" Content="Cancel Ship" Margin="5"
                                     VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
                         </Grid>
                     </StackPanel>
@@ -226,7 +249,7 @@
                         <GroupBox Grid.Row="0"
                                   Header="Order - Product"
                                   Margin="5">
-                            
+
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="4*"></RowDefinition>
@@ -243,16 +266,24 @@
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Width="150" Height="50" Content="Add Product" Margin="5" 
+                                    <Button Grid.Column="0" Width="150" Height="50" Content="Add Product" Margin="5"
                                     VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
-                                    <Button Grid.Column="1" Width="150" Height="50" Content="Remove Product" Margin="5" 
+                                    <Button Grid.Column="1" Width="150" Height="50" Content="Remove Product" Margin="5"
                                     VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
                                 </Grid>
                             </Grid>
-                            
-                           </GroupBox>
-                        <Button Grid.Row="1" Width="200" Height="70" Content="Save Order" Margin="5" 
-                                    VerticalAlignment="Bottom" HorizontalContentAlignment="Center"></Button>
+                        </GroupBox>
+                        <Button Grid.Row="1" Width="200" Height="70" Margin="5"
+                                    VerticalAlignment="Bottom" HorizontalContentAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="Save Order"></TextBlock>
+                                <materialDesign:PackIcon Grid.Row="1" Kind="ContentSave" Width="25" Height="25" HorizontalAlignment="Center" />
+                            </Grid>
+                        </Button>
                     </Grid>
                 </Grid>
             </GroupBox>
