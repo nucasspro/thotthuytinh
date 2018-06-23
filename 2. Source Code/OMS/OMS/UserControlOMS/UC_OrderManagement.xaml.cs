@@ -12,9 +12,5 @@ namespace OMS.UserControlOMS
             InitializeComponent();
         }
 
-        private void cbxGetOrderFrom_SelectionChanged()
-        {
-
-        }
     }
 }
