@@ -9,8 +9,10 @@
         public string Height { get; set; }
         public string Length { get; set; }
         public string Price { get; set; }
-        public string Image { get; set; }
-        public int NumberOfStocks { get; set; }
-        public virtual Accounts CreatedBy { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
+        public int Quantity { get; set; }
+        public Accounts CreatedBy { get; set; }
     }
 }

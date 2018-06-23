@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GetOrderConsole
+﻿namespace GetOrderConsole
 {
     public class Orders
     {
@@ -8,20 +6,20 @@ namespace GetOrderConsole
         {
         }
 
-        public Orders(string orderCode, string createdTime, string updatedTime, string totalPrice, int customerId, string isVerify, int verifyBy, string orderFrom, string type, string deliverCity, string deliverDistrict, string deliverAddress, string callShip, string packageWidth, string packageHeight, string packageWeight)
+        public Orders(string orderCode, string createdTime, string updatedTime, string subTotal, string grandPrice, int customerId, string status, int verifyBy, string orderFrom, string type, string shippingAddress, string billingAddress, string callShip, string packageWidth, string packageHeight, string packageWeight)
         {
             OrderCode = orderCode;
             CreatedTime = createdTime;
             UpdatedTime = updatedTime;
-            TotalPrice = totalPrice;
+            SubTotal = subTotal;
+            GrandPrice = grandPrice;
             CustomerId = customerId;
-            IsVerify = isVerify;
+            Status = status;
             VerifyBy = verifyBy;
             OrderFrom = orderFrom;
             Type = type;
-            DeliverCity = deliverCity;
-            DeliverDistrict = deliverDistrict;
-            DeliverAddress = deliverAddress;
+            ShippingAddress = shippingAddress;
+            BillingAddress = billingAddress;
             CallShip = callShip;
             PackageWidth = packageWidth;
             PackageHeight = packageHeight;
@@ -31,15 +29,15 @@ namespace GetOrderConsole
         public string OrderCode { get; set; }
         public string CreatedTime { get; set; }
         public string UpdatedTime { get; set; }
-        public string TotalPrice { get; set; }
+        public string SubTotal { get; set; }
+        public string GrandPrice { get; set; }
         public int CustomerId { get; set; }
-        public string IsVerify { get; set; }
+        public string Status { get; set; }
         public int VerifyBy { get; set; }
         public string OrderFrom { get; set; }
         public string Type { get; set; }
-        public string DeliverCity { get; set; }
-        public string DeliverDistrict { get; set; }
-        public string DeliverAddress { get; set; }
+        public string ShippingAddress { get; set; }
+        public string BillingAddress { get; set; }
         public string CallShip { get; set; }
         public string PackageWidth { get; set; }
         public string PackageHeight { get; set; }

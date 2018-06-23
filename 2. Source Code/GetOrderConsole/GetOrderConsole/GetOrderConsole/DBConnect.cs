@@ -57,25 +57,23 @@ namespace GetOrderConsole
                                           "Name TEXT NOT NULL, " +
                                           "Phone TEXT, " +
                                           "Address TEXT, " +
-                                          "NumberOfPurchased INTEGER, " +
-                                          "QuantityPurchased INTEGER, " +
                                           "Type TEXT NOT NULL);";
             query.Add(customersTable);
 
             const string ordersTable = "CREATE TABLE IF NOT EXISTS Orders (" +
                                        "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                                        "OrderCode TEXT, " +
-                                       "CreatedTime TEXT , " +
-                                       "UpdatedTime TEXT , " +
-                                       "TotalPrice TEXT, " +
+                                       "CreatedTime TEXT, " +
+                                       "UpdatedTime TEXT, " +
+                                       "SubTotal TEXT, " +
+                                       "GrandPrice TEXT, " +
                                        "CustomerId INTEGER, " +
-                                       "IsVerify TEXT, " +
+                                       "Status TEXT, " +
                                        "VerifyBy INTEGER, " +
                                        "OrderFrom TEXT NOT NULL, " +
                                        "Type TEXT NOT NULL, " +
-                                       "DeliverCity TEXT, " +
-                                       "DeliverDistrict TEXT, " +
-                                       "DeliverAddress TEXT, " +
+                                       "ShippingAddress TEXT, " +
+                                       "BillingAddress TEXT, " +
                                        "CallShip TEXT, " +
                                        "PackageWidth TEXT, " +
                                        "PackageHeight TEXT, " +
@@ -90,8 +88,10 @@ namespace GetOrderConsole
                                          "Height TEXT, " +
                                          "Length TEXT, " +
                                          "Price TEXT NOT NULL, " +
-                                         "Image TEXT, " +
-                                         "NumberOfStocks INTEGER, " +
+                                         "Image1 TEXT, " +
+                                         "Image2 TEXT, " +
+                                         "Image3 TEXT, " +
+                                         "Quantity INTEGER, " +
                                          "CreatedBy INTEGER);";
             query.Add(productsTable);
 
@@ -123,10 +123,10 @@ namespace GetOrderConsole
             {
                 ExecuteQuery(@"insert into Accounts(Username, Password, Type) values ('admin', 'admin', 'admin');");
                 ExecuteQuery(@"insert into Accounts(Username, Password, Type) values ('user', 'user', 'user');");
-                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image, NumberOfStocks, CreatedBy) values ('TKCL001', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL001)', '3.2', '35', '1.2', '35', '350000', 'http', '10', '1');");
-                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image, NumberOfStocks, CreatedBy) values ('TKCL002', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL002)', '3.2', '35', '1.2', '35', '350000', 'http', '10', '1');");
-                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image, NumberOfStocks, CreatedBy) values ('TKCL003', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL003)', '3.2', '35', '1.2', '35', '350000', 'http', '10', '1');");
-                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image, NumberOfStocks, CreatedBy) values ('TKCL004', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL004)', '3.2', '35', '1.2', '35', '350000', 'http', '10', '1');");
+                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) values ('TKCL001', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL001)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1');");
+                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) values ('TKCL002', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL002)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1');");
+                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) values ('TKCL003', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL003)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1');");
+                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) values ('TKCL004', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL004)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1');");
             }
             catch (Exception e)
             {

@@ -50,8 +50,6 @@ namespace GetOrderConsole
                 customers.Name = (string)item["customerName"];
                 customers.Phone = "0" + (string)item["customerPhone"];
                 customers.Address = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"];
-                customers.NumberOfPurchasedpe = 0;
-                customers.QuantityPurchased = 0;
                 customers.Type = "Khách hàng";
                 InsertCustomersToDb(customers);
             }
@@ -75,21 +73,18 @@ namespace GetOrderConsole
                 orders.OrderCode = (string)item["orderCode"];
                 orders.CreatedTime = ((string)item["createdTime"]).Remove(10, 3);
                 orders.UpdatedTime = ((string)item["updatedTime"]).Remove(10, 3); ;
-                orders.TotalPrice = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture);
+                orders.GrandPrice = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture);
                 orders.CustomerId = GetCustomerIdFromDb("0" + (string)item["customerPhone"]);
-                orders.IsVerify = "Chưa duyệt";
+                orders.Status = "Chưa duyệt";
                 orders.VerifyBy = 1;
                 orders.OrderFrom = "Zalo";
                 orders.Type = "Bán cho khách";
-                orders.DeliverCity = (string)item["deliverCity"];
-                orders.DeliverDistrict = (string)item["deliverDistrict"];
-                orders.DeliverAddress = (string)item["deliverAddress"];
+                orders.BillingAddress = orders.ShippingAddress = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"];
                 orders.CallShip = "Chưa gọi ship";
                 orders.PackageWidth = "0";
                 orders.PackageHeight = "0";
                 orders.PackageWeight = "0";
                 InsertOrdersToDb(orders);
-
 
                 OrderDetail orderDetail = new OrderDetail
                 {
@@ -124,12 +119,13 @@ namespace GetOrderConsole
             string query = $"select count(id) from Customers where Customers.Phone = '{phone}';";
             return _dbConnect.GetIdAndCountId(query);
         }
+
         private void InsertCustomersToDb(Customers customer)
         {
             try
             {
-                string query = "insert into Customers (Name, Phone, Address, NumberOfPurchased, QuantityPurchased, Type) " +
-                               $"VALUES('{customer.Name}', '{customer.Phone}', '{customer.Address}', '{customer.NumberOfPurchasedpe}', '{customer.QuantityPurchased}', '{customer.Type}');";
+                string query = "insert into Customers (Name, Phone, Address, Type) " +
+                               $"VALUES('{customer.Name}', '{customer.Phone}', '{customer.Address}', '{customer.Type}');";
                 _dbConnect.ExecuteQuery(query);
             }
             catch (Exception e)
@@ -137,12 +133,13 @@ namespace GetOrderConsole
                 Console.WriteLine("Loi khi insert customers vao db" + e);
             }
         }
+
         private void InsertOrdersToDb(Orders orders)
         {
             try
             {
-                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, TotalPrice, CustomerId, IsVerify, VerifyBy, OrderFrom, Type, DeliverCity, DeliverDistrict, DeliverAddress, CallShip, PackageWidth, PackageHeight, PackageWeight) " +
-                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.TotalPrice}', '{orders.CustomerId}', '{orders.IsVerify}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.DeliverCity}', '{orders.DeliverDistrict}', '{orders.DeliverAddress}', '{orders.CallShip}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageWeight}');";
+                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageWeight) " +
+                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageWeight}');";
                 _dbConnect.ExecuteQuery(query);
             }
             catch (Exception e)
@@ -164,6 +161,7 @@ namespace GetOrderConsole
                 Console.WriteLine("Loi khi insert orderdetail vao db" + e);
             }
         }
+
         private int Check(int time, DateTime createdTime)
         {
             switch (time)

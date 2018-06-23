@@ -6,7 +6,7 @@
         {
         }
 
-        public Products(string name, string weight, string width, string height, string length, string price, int numberOfStocks, int createdBy)
+        public Products(string name, string weight, string width, string height, string length, string price, string image1, string image2, string image3, int quantity, int createdBy)
         {
             Name = name;
             Weight = weight;
@@ -14,7 +14,10 @@
             Height = height;
             Length = length;
             Price = price;
-            NumberOfStocks = numberOfStocks;
+            Image1 = image1;
+            Image2 = image2;
+            Image3 = image3;
+            Quantity = quantity;
             CreatedBy = createdBy;
         }
 
@@ -24,7 +27,10 @@
         public string Height { get; set; }
         public string Length { get; set; }
         public string Price { get; set; }
-        public int NumberOfStocks { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
+        public int Quantity { get; set; }
         public int CreatedBy { get; set; }
     }
 }

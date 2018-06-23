@@ -126,13 +126,10 @@ namespace GetOrderConsole
                 if (newList[i].Equals("Bạn muốn nhận hàng tại đâu? Phiền bạn ghi chi tiết địa chỉ hộ Shop"))
                 {
                     customers.Address = newList[i + 1];
-                    orders.DeliverCity = newList[i + 1];
-                    orders.DeliverDistrict = newList[i + 1];
-                    orders.DeliverAddress = newList[i + 1];
+                    orders.BillingAddress = newList[i + 1];
+                    orders.ShippingAddress = newList[i + 1];
                 }
             }
-            customers.NumberOfPurchasedpe = 0;
-            customers.QuantityPurchased = orderDetail.Quantity;
             customers.Type = "Khách hàng";
             InsertCustomersToDb(customers);
 
@@ -140,9 +137,10 @@ namespace GetOrderConsole
             //chua fix time
             orders.CreatedTime = ConvertToTimeSpan(_time1.ToString());
             orders.UpdatedTime = ConvertToTimeSpan(_time1.ToString());
-            orders.TotalPrice = (350000 * orderDetail.Quantity).ToString();
+            orders.SubTotal = (350000 * orderDetail.Quantity).ToString();
+            orders.GrandPrice = (350000 * orderDetail.Quantity).ToString();
             orders.CustomerId = CheckCustomerExists(customers.Phone);
-            orders.IsVerify = "Chưa duyệt";
+            orders.Status = "Chưa duyệt";
             orders.VerifyBy = 1;
             orders.OrderFrom = "Facebook";
             orders.Type = "Bán cho khách";
@@ -222,8 +220,8 @@ namespace GetOrderConsole
             }
             try
             {
-                string query = "insert into Customers (Name, Phone, Address, NumberOfPurchased, QuantityPurchased, Type) " +
-                               $"VALUES('{customer.Name}', '{customer.Phone}', '{customer.Address}', '{customer.NumberOfPurchasedpe}', '{customer.QuantityPurchased}', '{customer.Type}');";
+                string query = "insert into Customers (Name, Phone, Address, Type) " +
+                               $"VALUES('{customer.Name}', '{customer.Phone}', '{customer.Address}', '{customer.Type}');";
                 _dbConnect.ExecuteQuery(query);
             }
             catch (Exception e)
@@ -250,8 +248,8 @@ namespace GetOrderConsole
         {
             try
             {
-                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, TotalPrice, CustomerId, IsVerify, VerifyBy, OrderFrom, Type, DeliverCity, DeliverDistrict, DeliverAddress, CallShip, PackageWidth, PackageHeight, PackageWeight) " +
-                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.TotalPrice}', '{orders.CustomerId}', '{orders.IsVerify}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.DeliverCity}', '{orders.DeliverDistrict}', '{orders.DeliverAddress}', '{orders.CallShip}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageWeight}');";
+                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageWeight) " +
+                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageWeight}');";
                 _dbConnect.ExecuteQuery(query);
             }
             catch (Exception e)

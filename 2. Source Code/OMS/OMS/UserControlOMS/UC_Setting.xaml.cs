@@ -35,7 +35,7 @@ namespace OMS.UserControlOMS
                     Customer = customers,
                     Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
                     CreatedTime = (string)((DataRow)row).ItemArray[2],
-                    IsVerify = (string)((DataRow)row).ItemArray[3]
+                    Status = (string)((DataRow)row).ItemArray[3]
                 };
                 list.Add(order);
             }
