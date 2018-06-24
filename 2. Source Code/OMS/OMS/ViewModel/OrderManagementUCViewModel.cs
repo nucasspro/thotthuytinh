@@ -1,10 +1,7 @@
 ﻿using OMS.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -17,6 +14,10 @@ namespace OMS.ViewModel
         public ICommand SearchCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
+
+        #endregion command
+
+        #region Variable
 
         public ObservableCollection<Orders> List { get; set; }
         public string SelectedValue { get; set; }
@@ -33,9 +34,15 @@ namespace OMS.ViewModel
                 if (SelectedItem == null)
                     return;
                 OrderID = SelectedItem.Id.ToString();
-                SelectedItemStatus = SelectedItem.Status.Equals("Chưa duyệt") ? 0 : 1;
-
-                //MessageBox.Show(SelectedItem.Id.ToString());
+                OrderStatus = SelectedItem.Status.Equals("Chưa duyệt") ? 0 : 1;
+                CustomerName = SelectedItem.Customer.Name;
+                GrandPrice = SelectedItem.GrandPrice;
+                ShippingAddress = SelectedItem.ShippingAddress;
+                BillingAddress = SelectedItem.BillingAddress;
+                CallShip = SelectedItem.CallShip.Equals("Đã đặt") ? 0 : 1;
+                PackageHeight = SelectedItem.PackageHeight;
+                PackageWeight = SelectedItem.PackageWeight;
+                PackageWidth = SelectedItem.PackageWidth;
             }
         }
 
@@ -44,27 +51,84 @@ namespace OMS.ViewModel
         public string OrderID
         {
             get => _OrderID;
-            set
-            {
-                _OrderID = value;
-                OnPropertyChanged();
-            }
+            set { _OrderID = value; OnPropertyChanged(); }
         }
 
+        private int _OrderStatus { get; set; }
 
-        private int _SelectedItemStatus { get; set; }
-
-        public int SelectedItemStatus
+        public int OrderStatus
         {
-            get => _SelectedItemStatus;
-            set
-            {
-                _SelectedItemStatus = value;
-                OnPropertyChanged();
-            }
+            get => _OrderStatus;
+            set { _OrderStatus = value; OnPropertyChanged(); }
         }
 
-        #endregion command
+        private string _CustomerName { get; set; }
+
+        public string CustomerName
+        {
+            get => _CustomerName;
+            set { _CustomerName = value; OnPropertyChanged(); }
+        }
+
+        private string _GrandPrice { get; set; }
+
+        public string GrandPrice
+        {
+            get => _GrandPrice;
+            set { _GrandPrice = value; OnPropertyChanged(); }
+        }
+
+        private string _BillingAddress { get; set; }
+
+        public string BillingAddress
+        {
+            get => _BillingAddress;
+            set { _BillingAddress = value; OnPropertyChanged(); }
+        }
+
+        private string _ShippingAddress { get; set; }
+
+        public string ShippingAddress
+        {
+            get => _ShippingAddress;
+            set { _ShippingAddress = value; OnPropertyChanged(); }
+        }
+
+        private int _CallShip { get; set; }
+
+        public int CallShip
+        {
+            get => _CallShip;
+            set { _CallShip = value; OnPropertyChanged(); }
+        }
+
+        private string _PackageWidth { get; set; }
+
+        public string PackageWidth
+        {
+            get => _PackageWidth;
+            set { _PackageWidth = value; OnPropertyChanged(); }
+        }
+
+        private string _PackageWeight { get; set; }
+
+        public string PackageWeight
+        {
+            get => _PackageWeight;
+            set { _PackageWeight = value; OnPropertyChanged(); }
+        }
+
+        private string _PackageHeight { get; set; }
+
+        public string PackageHeight
+        {
+            get => _PackageHeight;
+            set { _PackageHeight = value; OnPropertyChanged(); }
+        }
+
+        #endregion Variable
+
+        #region Method
 
         public OrderManagementUCViewModel()
         {
@@ -82,11 +146,6 @@ namespace OMS.ViewModel
             });
             //LoadCommand = new RelayCommand<Orders>(p => true, p => { LoadData(SelectedItem); });
             //SearchCommand = new RelayCommand<Orders>(p => true, p => { LoadData(); });
-        }
-
-        public ObservableCollection<Orders> FilterData(ObservableCollection<Orders> listSource)
-        {
-            return (ObservableCollection<Orders>)listSource.Where(x => x.OrderFrom == SelectedValue);
         }
 
         public void LoadData(string SelectedValue)
@@ -120,5 +179,7 @@ namespace OMS.ViewModel
                 List.Add(order);
             }
         }
+
+        #endregion Method
     }
 }

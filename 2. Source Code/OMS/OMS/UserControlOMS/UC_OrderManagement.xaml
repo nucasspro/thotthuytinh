@@ -164,14 +164,17 @@
                         <TextBox
                             materialDesign:HintAssist.Hint="Order ID" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            IsReadOnly="True"
                             Text="{Binding OrderID}"
                             />
                         <TextBox
                             materialDesign:HintAssist.Hint="Customer Name" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding CustomerName}"/>
                         <TextBox
                             materialDesign:HintAssist.Hint="Total Price" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding GrandPrice}"/>
                         <TextBox
                             materialDesign:HintAssist.Hint="Order Date" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -180,18 +183,19 @@
                                   x:Name="ComboBoxStatus"
                                   materialDesign:HintAssist.Hint="Order Status"
                                   IsEditable="False"
-                                  
-                                    SelectedIndex="{Binding SelectedItemStatus}"                                 
+                                  SelectedIndex="{Binding OrderStatus}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
                             <ComboBoxItem Content="Chưa duyệt" />
                             <ComboBoxItem Content="Đã duyệt" />
                         </ComboBox>
                         <TextBox
-                            materialDesign:HintAssist.Hint="Address" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            materialDesign:HintAssist.Hint="Billing Address" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding BillingAddress}"/>
                         <TextBox
-                            materialDesign:HintAssist.Hint="District" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            materialDesign:HintAssist.Hint="Shipping Address" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding ShippingAddress}"/>
                         <TextBox
                             materialDesign:HintAssist.Hint="City" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -200,20 +204,24 @@
                         <ComboBox Height="50"
                                   Margin="10"
                                   materialDesign:HintAssist.Hint="Call Ship?"
-                                  IsEditable="True"
+                                  IsEditable="False"
+                                  SelectedIndex="{Binding CallShip}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBoxItem IsSelected="True" Content="Yes" />
-                            <ComboBoxItem Content="No" />
+                            <ComboBoxItem Content="Đã đặt"/>
+                            <ComboBoxItem Content="Chưa đặt"/>
                         </ComboBox>
                         <TextBox
                             materialDesign:HintAssist.Hint="Package Width" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding PackageWidth}"/>
                         <TextBox
                             materialDesign:HintAssist.Hint="Package Weight" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding PackageWeight}"/>
                         <TextBox
                             materialDesign:HintAssist.Hint="Package Height" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding PackageHeight}"/>
                         <TextBox
                             materialDesign:HintAssist.Hint="Ship Price" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True" />

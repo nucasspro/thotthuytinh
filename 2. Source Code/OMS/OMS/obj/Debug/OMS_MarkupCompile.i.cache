@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\OMS\OMS\obj\Debug\
+D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\
 OMS
 none
 false
 DEBUG;TRACE
-D:\OMS\OMS\App.xaml
+D:\HK8\ThietKeHeThongTMDT\OMS\OMS\App.xaml
 91235086669
 
-281210608255
-28595031052
+28877945011
+281559050453
 LoginWindow.xaml;MainWindow.xaml;ResourceXAML\MainResource.xaml;ResourceXAML\TabResource.xaml;UserControlOMS\UC_OrderManagement.xaml;UserControlOMS\UC_ProductManagement.xaml;UserControlOMS\UC_Report.xaml;UserControlOMS\UC_SchedulePost.xaml;UserControlOMS\UC_Setting.xaml;
 
 True

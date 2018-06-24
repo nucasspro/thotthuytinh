@@ -252,7 +252,6 @@ D:\HK8\ThietKeHeThongTMDT\OMS\OMS\bin\Debug\Microsoft.Expression.Interactions.xm
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\bin\Debug\System.Data.SQLite.xml
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\bin\Debug\System.Data.SQLite.dll.config
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\bin\Debug\System.Windows.Interactivity.xml
-D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.baml
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.baml
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.baml
@@ -281,3 +280,4 @@ D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.csproj.CoreCompileInputs.cache
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.csproj.CopyComplete
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.exe
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.pdb
+D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache

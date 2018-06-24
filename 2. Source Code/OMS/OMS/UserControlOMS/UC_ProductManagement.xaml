@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
-             DataContext="{StaticResource ProductManagementUCVM}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="15"
@@ -12,14 +12,15 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
+             DataContext="{StaticResource ProductManagementUCVM}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="700" d:DesignWidth="1366">
     <Grid>
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"></RowDefinition>
-                <RowDefinition Height="1.8*"></RowDefinition>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.8*"/>
             </Grid.RowDefinitions>
 
             <!--Product information-->
@@ -35,23 +36,21 @@
                                 Kind="ReorderHorizontal"
                                 Height="32"
                                 Width="32"
-                                VerticalAlignment="Center" >
-                            </materialDesign:PackIcon>
+                                VerticalAlignment="Center" />
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}">
-                            </TextBlock>
+                                Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
@@ -104,7 +103,7 @@
                                 BorderBrush="#3F51B5"
                                 VerticalAlignment="Top">
 
-                            <Image Height="200"></Image>
+                            <Image Height="200"/>
                         </Border>
 
                         <Button
@@ -122,8 +121,8 @@
             <!--List product-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="9*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
                 <GroupBox Grid.Row="0"
@@ -151,21 +150,45 @@
                     <ListView Grid.Column="0"
                               x:Name="ListViewProduct"
                               VerticalAlignment="Top"
-                              Height="250"
-                              ItemsSource="{Binding items}">
+                              Height="235"
+                              ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                              ItemsSource="{Binding ListProduct}">
 
                         <ListView.View>
-
                             <GridView>
                                 <GridViewColumn
-                                DisplayMemberBinding="{Binding OrderCode}"
-                                Header="OrderCode" />
+                                    DisplayMemberBinding="{Binding Id}"
+                                    Header="Id" />
                                 <GridViewColumn
-                                DisplayMemberBinding="{Binding CustomerId}"
-                                Header="CustomerId" />
+                                    DisplayMemberBinding="{Binding Name}"
+                                    Header="Name" />
                                 <GridViewColumn
-                                DisplayMemberBinding="{Binding OrderFrom}"
-                                Header="OrderFrom" />
+                                    DisplayMemberBinding="{Binding Weight}"
+                                    Header="Weight" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding Width}"
+                                    Header="Width" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding Height}"
+                                    Header="Height" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding Length}"
+                                    Header="Length" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding Image1}"
+                                    Header="Image1" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding Image2}"
+                                    Header="Image2" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding Image3}"
+                                    Header="Image3" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding Quantity}"
+                                    Header="Quantity" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding CreatedBy.Id}"
+                                    Header="CreatedBy" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -180,22 +203,19 @@
                         Width="100"
                         Margin="0,10,0,0"
                         Content="Create"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
-                    </Button>
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"/>
                     <Button
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         Width="100"
                         Margin="0,10,0,0"
                         Content="Save"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
-                    </Button>
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"/>
                     <Button
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         Width="100"
                         Margin="0,10,0,10"
                         Content="Delete"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton">
-                    </Button>
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"/>
                 </StackPanel>
             </Grid>
             <!--/List product-->
