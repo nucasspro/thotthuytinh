@@ -19,8 +19,8 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="1.8*"/>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1.8*" />
             </Grid.RowDefinitions>
 
             <!--Product information-->
@@ -41,16 +41,16 @@
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}"/>
+                                Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
@@ -58,17 +58,26 @@
                             materialDesign:HintAssist.Hint="Product ID"
                             Height="50"
                             Margin="10"
-                            IsReadOnly="True"
+                            IsReadOnly="False"
+                            Text="{Binding ProductId}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
                             materialDesign:HintAssist.Hint="Product Name"
                             Height="50"
                             Margin="10"
+                            Text="{Binding ProductName}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
                             materialDesign:HintAssist.Hint="Price"
                             Height="50"
                             Margin="10"
+                            Text="{Binding ProductPrice}"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Quantity"
+                            Height="50"
+                            Margin="10"
+                            Text="{Binding ProductQuantity}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
 
@@ -77,43 +86,76 @@
                             materialDesign:HintAssist.Hint="Width"
                             Height="50"
                             Margin="10"
+                            Text="{Binding ProductWidth}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
                             materialDesign:HintAssist.Hint="Height"
                             Height="50"
                             Margin="10"
+                            Text="{Binding ProductHeight}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
                             materialDesign:HintAssist.Hint="Weight"
                             Height="50"
                             Margin="10"
+                            Text="{Binding ProductWeight}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
                             materialDesign:HintAssist.Hint="Length"
                             Height="50"
                             Margin="10"
+                            Text="{Binding ProductLength}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
-
-                    <StackPanel Grid.Column="2"
-                                Orientation="Vertical">
-
-                        <Border BorderThickness="1"
-                                Margin="10,10,10,10"
-                                BorderBrush="#3F51B5"
-                                VerticalAlignment="Top">
-
-                            <Image Height="200"/>
-                        </Border>
-
-                        <Button
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="150"
-                            Margin="5,15,5,10"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Add Image" />
-                    </StackPanel>
-
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <Border BorderThickness="1"
+                                    Margin="2"
+                                    BorderBrush="#3F51B5"
+                                    VerticalAlignment="Top">
+                                <Image Height="200" Source="{Binding ProductImage1}" />
+                            </Border>
+                            <Button
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Margin="5,15,5,10"
+                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                Content="Add Image 1" 
+                                Command="{Binding AddImage1Command}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <Border BorderThickness="1"
+                                    Margin="2"
+                                    BorderBrush="#3F51B5"
+                                    VerticalAlignment="Top">
+                                <Image Height="200" Source="{Binding ProductImage2}" />
+                            </Border>
+                            <Button
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Margin="5,15,5,10"
+                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                Content="Add Image 2" 
+                                Command="{Binding AddImage2Command}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <Border BorderThickness="1"
+                                    Margin="2"
+                                    BorderBrush="#3F51B5"
+                                    VerticalAlignment="Top">
+                                <Image Height="200" Source="{Binding ProductImage3}" />
+                            </Border>
+                            <Button
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Margin="5,15,5,10"
+                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                Content="Add Image 3" 
+                                Command="{Binding AddImage3Command}"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </GroupBox>
             <!--/Product information-->
@@ -121,8 +163,8 @@
             <!--List product-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="9*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="9*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
                 <GroupBox Grid.Row="0"
@@ -151,8 +193,9 @@
                               x:Name="ListViewProduct"
                               VerticalAlignment="Top"
                               Height="235"
+                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
                               ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                              ItemsSource="{Binding ListProduct}">
+                              ItemsSource="{Binding ListProduct, Mode=TwoWay}">
 
                         <ListView.View>
                             <GridView>
@@ -162,6 +205,9 @@
                                 <GridViewColumn
                                     DisplayMemberBinding="{Binding Name}"
                                     Header="Name" />
+                                <GridViewColumn
+                                    DisplayMemberBinding="{Binding Price}"
+                                    Header="Price" />
                                 <GridViewColumn
                                     DisplayMemberBinding="{Binding Weight}"
                                     Header="Weight" />
@@ -203,19 +249,25 @@
                         Width="100"
                         Margin="0,10,0,0"
                         Content="Create"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"/>
+                        x:Name="ButtonCreate"
+                        Command="{Binding CreateCommand}"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
                     <Button
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         Width="100"
                         Margin="0,10,0,0"
-                        Content="Save"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"/>
+                        Content="Update"
+                        x:Name="ButtonUpdate"
+                        Command="{Binding UpdateCommand}"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
                     <Button
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         Width="100"
                         Margin="0,10,0,10"
                         Content="Delete"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"/>
+                        x:Name="ButtonDelete"
+                        Command="{Binding DeleteCommand}"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
                 </StackPanel>
             </Grid>
             <!--/List product-->
