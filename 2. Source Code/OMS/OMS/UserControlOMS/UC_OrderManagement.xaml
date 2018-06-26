@@ -69,17 +69,17 @@
                         <ComboBoxItem Content="WooCommerce" />
                     </ComboBox>
                     <!--combo box get order from-->
-                    <ComboBox Grid.Row="2"
+                    <ComboBox Grid.Row="1"
                               Height="50"
+                              x:Name="cbxFindOrderBy"
                               materialDesign:HintAssist.Hint="Find Order By"
                               IsEditable="False"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                        <ComboBoxItem IsSelected="True" Content="Date" />
-                        <ComboBoxItem Content="Status" />
+                        <ComboBoxItem IsSelected="True" Content="OrderID" />
                         <ComboBoxItem Content="Customer Name" />
                     </ComboBox>
                     <!--Search order-->
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="4*" />
                             <ColumnDefinition Width="1*" />
@@ -87,15 +87,20 @@
                         <TextBox Grid.Column="0"
                                  Height="50"
                                  materialDesign:HintAssist.Hint="Nhập dữ liệu cần tìm"
+                                 Text="{Binding SearchContent}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <Button Grid.Column="1"
                                 Width="45"
                                 Height="45"
+                                IsDefault="True"
+                                Command="{Binding ButtonSearchCommand}"
+                                CommandParameter="{Binding ElementName=cbxFindOrderBy}"
                                 Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
                             <materialDesign:PackIcon
                                 Kind="SearchWeb"
                                 Height="25"
-                                Width="25" />
+                                Width="25" 
+                                />
                         </Button>
                     </Grid>
                     <!--Grid view list order-->
@@ -123,7 +128,6 @@
                                 <GridViewColumn
                                 DisplayMemberBinding="{Binding Status}"
                                 Header="Order Satus" />
-                                <GridViewColumn />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -156,9 +160,9 @@
                 </GroupBox.HeaderTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
                         <TextBox
@@ -172,12 +176,19 @@
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding CustomerName}"/>
                         <TextBox
-                            materialDesign:HintAssist.Hint="Total Price" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Sub Total" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding SubTotal}"/>
+
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Grand Price" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding GrandPrice}"/>
                         <TextBox
-                            materialDesign:HintAssist.Hint="Order Date" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            materialDesign:HintAssist.Hint="Created Date" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding CreatedDate}"/>
+
                         <ComboBox Height="50"
                                   Margin="10"
                                   x:Name="ComboBoxStatus"
@@ -196,9 +207,7 @@
                             materialDesign:HintAssist.Hint="Shipping Address" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding ShippingAddress}"/>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="City" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <ComboBox Height="50"
@@ -208,7 +217,7 @@
                                   SelectedIndex="{Binding CallShip}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBoxItem Content="Đã đặt"/>
-                            <ComboBoxItem Content="Chưa đặt"/>
+                            <ComboBoxItem IsSelected="True" Content="Chưa đặt"/>
                         </ComboBox>
                         <TextBox
                             materialDesign:HintAssist.Hint="Package Width" Height="50" Margin="10"
@@ -232,9 +241,9 @@
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Width="150" Height="50" Content="Call Ship" Margin="5"
+                            <Button Grid.Column="0" Width="120" Height="50" Content="Call Ship" Margin="5"
                                     VerticalAlignment="Center" HorizontalContentAlignment="Center" />
-                            <Button Grid.Column="1" Width="150" Height="50" Content="Cancel Ship" Margin="5"
+                            <Button Grid.Column="1" Width="120" Height="50" Content="Cancel Ship" Margin="5"
                                     VerticalAlignment="Center" HorizontalContentAlignment="Center" />
                         </Grid>
                     </StackPanel>
@@ -251,12 +260,29 @@
                                     <RowDefinition Height="4*" />
                                     <RowDefinition Height="1*" />
                                 </Grid.RowDefinitions>
-                                <DataGrid Grid.Row="0"
-                                          Margin="0 8 0 0"
-                                          ItemsSource="{Binding ListOrder}"
-                                          CanUserSortColumns="True"
-                                          materialDesign:DataGridAssist.CellPadding="4 2 2 2"
-                                          materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2" />
+                                <ListView Grid.Row="0"
+                                    x:Name="ListOrderProduct"
+                                    VerticalAlignment="Top"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                    MinHeight="360"
+                                    MaxHeight="390"
+                                    ItemsSource="{Binding ListOrderDetail}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn
+                                                DisplayMemberBinding="{Binding Id}"
+                                                Header="OrderDetail ID" />
+                                            <GridViewColumn
+                                                DisplayMemberBinding="{Binding Products.Name}"
+                                                Header="Product Name" />
+                                            <GridViewColumn
+                                                DisplayMemberBinding="{Binding Quantity}"
+                                                Header="Quantity" />
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
                                 <Grid Grid.Row="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" />
@@ -269,21 +295,35 @@
                                 </Grid>
                             </Grid>
                         </GroupBox>
-                        <Button Grid.Row="1" Width="200" Height="70" Margin="5"
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button  Width="180" Height="70" Margin="5"
+                                     Command="{Binding SaveOrderCommand}"
                                 VerticalAlignment="Bottom" HorizontalContentAlignment="Center">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="Save Order" />
-                                <materialDesign:PackIcon Grid.Row="1" Kind="ContentSave" Width="25" Height="25" HorizontalAlignment="Center" />
-                            </Grid>
-                        </Button>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="Save Order" />
+                                    <materialDesign:PackIcon Grid.Row="1" Kind="ContentSave" Width="25" Height="25" HorizontalAlignment="Center" />
+                                </Grid>
+                            </Button>
+                            <Button  Width="180" Height="70" Margin="5"
+                                     Command="{Binding CreateOrderCommand}"
+                                VerticalAlignment="Bottom" HorizontalContentAlignment="Center">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="Create New Order" />
+                                    <materialDesign:PackIcon Grid.Row="1" Kind="Plus" Width="25" Height="25" HorizontalAlignment="Center" />
+                                </Grid>
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </GroupBox>
-            <!--/Group box order management-->
         </Grid>
     </Grid>
 </UserControl>
