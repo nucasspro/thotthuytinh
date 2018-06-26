@@ -188,7 +188,7 @@
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding GrandPrice}"/>
                         <TextBox
-                            materialDesign:HintAssist.Hint="Created Date" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Created Date" Height="50" Margin="10" IsReadOnly="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding CreatedDate}"/>
 
