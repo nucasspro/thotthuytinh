@@ -231,6 +231,13 @@ namespace OMS.ViewModel
                 LoadData(SelectedValue);
 
             });
+            SaveOrderCommand = new RelayCommand<object>(p => true, p =>
+            {
+
+                UpdateOrder();
+                LoadData(SelectedValue);
+
+            });
         }
 
         public void LoadData(string SelectedValue)
@@ -250,7 +257,9 @@ namespace OMS.ViewModel
                 Orders order = new Orders
                 {
                     Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
-                    Customer = new Customers { Name = (string)((DataRow)row).ItemArray[1],
+                    Customer = new Customers
+                    {
+                        Name = (string)((DataRow)row).ItemArray[1],
                         Phone = (string)((DataRow)row).ItemArray[8]
                     },
                     CreatedTime = (string)((DataRow)row).ItemArray[2],
@@ -412,20 +421,77 @@ namespace OMS.ViewModel
             Query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageWeight) " +
                     $"values ('', '{CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")}', '{CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")}', '{SubTotal}', '{GrandPrice}', "+ReturnCustomerID(CustomerName,CustomerPhone)+", '" + OrderStatusTemp + "','','CreatedByEmployee'," +
                     $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','" + PackageWidth + "','" + PackageHeight + "','" + PackageWeight + "');";
-            MessageBox.Show(Query1);
-            //try
-            //{
-            //    dB.ExecuteQuery(Query1);
-            //    MessageBox.Show("Thêm hóa đơn thành công! ");
-            //    List.Clear();
-            //}
-            //catch (Exception e)
-            //{
-            //    MessageBox.Show("Có lỗi phát sinh khi thêm đơn hàng! Lỗi: " + e);
-            //}
+            //MessageBox.Show(Query1);
+            try
+            {
+                dB.ExecuteQuery(Query1);
+                MessageBox.Show("Thêm hóa đơn thành công! ");
+                List.Clear();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Có lỗi phát sinh khi thêm đơn hàng! Lỗi: " + e);
+            }
             List.Clear();
         }
-    
+        public void UpdateOrder()
+        {
+            DateTime UpdatedDate = DateTime.Now;
+            DBConnect dB = new DBConnect();
+            String Query1, Query2, CallShipTemp, OrderStatusTemp;
+
+            //check field CustomerName, CustomerPhone, Shipping Adress, Billing Adress not null
+            if (CustomerName == null || CustomerPhone == null || ShippingAddress == null || BillingAddress == null)
+            {
+                MessageBox.Show("Bạn phải nhập đầy đủ các trường *");
+                return;
+            }
+
+            //set value  to CallShipTemp and OrderStatusTemp
+            if (CallShip == 0)
+                CallShipTemp = "Chưa gọi ship";
+            else
+                CallShipTemp = "Đã gọi ship";
+            if (OrderStatus == 0)
+                OrderStatusTemp = "Chưa duyệt";
+            else
+                OrderStatusTemp = "Đã duyệt";
+
+            if (!CheckCustomerExist())
+            {
+                Query2 = $"insert into Customers(Name, Phone, Address, Type) " +
+                       $"values ('{CustomerName}', '{CustomerPhone}', '{BillingAddress}', 'Khách hàng')";
+                try
+                {
+                    dB.ExecuteQuery(Query2);
+
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Có lỗi phát sinh khi thêm khách hàng! Lỗi: " + e);
+                }
+            }
+            Query1 = $"update Orders " +
+                        $"set UpdatedTime='{UpdatedDate.ToString("yyyy-MM-dd HH:mm:ss")}', SubTotal='{SubTotal}', " +
+                        $"GrandPrice='{GrandPrice}', CustomerID=" + ReturnCustomerID(CustomerName, CustomerPhone) + ", " +
+                        "Status='" + OrderStatusTemp + "', VerifyBy='', OrderFrom='" + SelectedValue + "', " +
+                        "ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
+                        "CallShip='" + CallShipTemp + "', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
+                        "PackageWeight='" + PackageWeight + "' " +
+                        "where Id="+OrderID+"";
+            MessageBox.Show(Query1);
+            try
+            {
+                dB.ExecuteQuery(Query1);
+                MessageBox.Show("Chỉnh sửa thành công! ");
+                List.Clear();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Có lỗi phát sinh khi sửa đơn hàng! Lỗi: " + e);
+            }
+            List.Clear();
+        }
         #endregion Method
     }
 }
