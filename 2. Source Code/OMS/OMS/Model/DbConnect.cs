@@ -16,7 +16,7 @@ namespace OMS.Model
 
         public void CreateConection()
         {
-            string strConnect = "Data Source=" + _path + ";Version=3;";
+            string strConnect = "Data Source=" + _path + ";Version=3; Pooling=true";
             _con.ConnectionString = strConnect;
             _con.Open();
         }

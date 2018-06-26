@@ -46,7 +46,8 @@ namespace OMS.ViewModel
                 SubTotal = SelectedItem.SubPrice;
                 ShippingAddress = SelectedItem.ShippingAddress;
                 BillingAddress = SelectedItem.BillingAddress;
-                CallShip = SelectedItem.CallShip.Equals("Chưa đặt") ? 0 : 1;
+                CustomerPhone = SelectedItem.Customer.Phone;
+                CallShip = SelectedItem.CallShip.Equals("Chưa gọi ship") ? 0 : 1;
                 PackageHeight = SelectedItem.PackageHeight;
                 PackageWeight = SelectedItem.PackageWeight;
                 PackageWidth = SelectedItem.PackageWidth;
@@ -75,6 +76,14 @@ namespace OMS.ViewModel
         {
             get => _CustomerName;
             set { _CustomerName = value; OnPropertyChanged(); }
+        }
+
+        private string _CustomerPhone { get; set; }
+
+        public string CustomerPhone
+        {
+            get => _CustomerPhone;
+            set { _CustomerPhone = value; OnPropertyChanged(); }
         }
 
         private string _GrandPrice { get; set; }
@@ -152,6 +161,7 @@ namespace OMS.ViewModel
             get => _SearchContent;
             set { _SearchContent = value; OnPropertyChanged(); }
         }
+
         #endregion Variable
 
         #region Method
@@ -206,6 +216,9 @@ namespace OMS.ViewModel
                         case 1:
                             FindOrderByCustomerName();
                             break;
+                        default:
+                            FindOrderByCustomerPhone();
+                            break;
                     }
                 }
 
@@ -213,11 +226,10 @@ namespace OMS.ViewModel
 
             CreateOrderCommand = new RelayCommand<object>(p => true, p =>
             {
-                //if (List.Count != 0)
-                //{
-                //    List.Clear();
-                //}
-                MessageBox.Show(CallShip.ToString() + OrderStatus.ToString());
+
+                CreateOrder();
+                LoadData(SelectedValue);
+
             });
         }
 
@@ -228,7 +240,7 @@ namespace OMS.ViewModel
             string query = @"select Orders.Id, Customers.Name,
                             datetime(Orders.CreatedTime, 'unixepoch','localtime') as CreatedTime,
                             Orders.GrandPrice, Orders.SubTotal,
-                            Orders.Status, Orders.ShippingAddress, Orders.BillingAddress, Orders.CallShip,
+                            Orders.Status, Orders.ShippingAddress, Orders.BillingAddress, Customers.Phone, Orders.CallShip,
                             Orders.PackageWidth, Orders.PackageWeight, Orders.PackageHeight
                             from Orders inner join Customers
                             where Orders.CustomerId = Customers.Id and Orders.OrderFrom = '" + SelectedValue + "';";
@@ -238,17 +250,19 @@ namespace OMS.ViewModel
                 Orders order = new Orders
                 {
                     Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
-                    Customer = new Customers { Name = (string)((DataRow)row).ItemArray[1] },
+                    Customer = new Customers { Name = (string)((DataRow)row).ItemArray[1],
+                        Phone = (string)((DataRow)row).ItemArray[8]
+                    },
                     CreatedTime = (string)((DataRow)row).ItemArray[2],
                     GrandPrice = (string)((DataRow)row).ItemArray[3],
                     SubPrice = (string)((DataRow)row).ItemArray[4],
                     Status = (string)((DataRow)row).ItemArray[5],
                     ShippingAddress = (string)((DataRow)row).ItemArray[6],
                     BillingAddress = (string)((DataRow)row).ItemArray[7],
-                    CallShip = (string)((DataRow)row).ItemArray[8],
-                    PackageWidth = (string)((DataRow)row).ItemArray[9],
-                    PackageWeight = (string)((DataRow)row).ItemArray[10],
-                    PackageHeight = (string)((DataRow)row).ItemArray[11]
+                    CallShip = (string)((DataRow)row).ItemArray[9],
+                    PackageWidth = (string)((DataRow)row).ItemArray[10],
+                    PackageWeight = (string)((DataRow)row).ItemArray[11],
+                    PackageHeight = (string)((DataRow)row).ItemArray[12]
                 };
                 List.Add(order);
                 ListTemp.Add(order);
@@ -303,11 +317,11 @@ namespace OMS.ViewModel
         public void FindOrderByCustomerName()
         {
             int temp = 0;
-            String CustomerName;
+            String CustomerNameTemp;
             foreach (var item in ListTemp)
             {
-                CustomerName = item.Customer.Name.ToUpper();
-                if (CustomerName.Contains(SearchContent.ToUpper()))
+                CustomerNameTemp = item.Customer.Name.ToUpper();
+                if (CustomerNameTemp.Contains(SearchContent.ToUpper()))
                 {
                     List.Add(item);
                     temp++;
@@ -322,6 +336,96 @@ namespace OMS.ViewModel
                 MessageBox.Show("Không có kết quả cần tìm!");
             }
         }
+        public void FindOrderByCustomerPhone()
+        {
+            int temp = 0;
+            String CustomerPhoneTemp;
+            foreach (var item in ListTemp)
+            {
+                CustomerPhoneTemp = item.Customer.Phone;
+                if (CustomerPhoneTemp.Contains(SearchContent))
+                {
+                    List.Add(item);
+                    temp++;
+                }
+            }
+            if (temp == 0)
+            {
+                foreach (var item in ListTemp)
+                {
+                    List.Add(item);
+                }
+                MessageBox.Show("Không có kết quả cần tìm!");
+            }
+        }
+        public Boolean CheckCustomerExist()
+        {
+            DBConnect dB = new DBConnect();
+            String Query = "select * from Customers where Name='" + CustomerName + "' and Phone= '" + CustomerPhone + "' limit 1;";
+            if (dB.ExecuteQueryToGetIdAndCount(Query) == 0)
+                return false;
+            return true;
+        }
+        public int ReturnCustomerID(String CustomerName, String CustomerPhone)
+        {
+            DBConnect dB = new DBConnect();
+            String Query = "select ID from Customers where Name='" + CustomerName + "' and Phone='" + CustomerPhone + "';";
+            return dB.ExecuteQueryToGetIdAndCount(Query);
+        }
+        public void CreateOrder()
+        {
+            DateTime CreatedDate = DateTime.Now;
+            DBConnect dB = new DBConnect();
+            String Query1, Query2, CallShipTemp, OrderStatusTemp;
+
+            //check field CustomerName, CustomerPhone, Shipping Adress, Billing Adress not null
+            if (CustomerName == null || CustomerPhone == null || ShippingAddress == null || BillingAddress == null)
+            {
+                MessageBox.Show("Bạn phải nhập đầy đủ các trường *");
+                return;
+            }
+
+            //set value  to CallShipTemp and OrderStatusTemp
+            if (CallShip == 0)
+                CallShipTemp = "Chưa gọi ship";
+            else
+                CallShipTemp = "Đã gọi ship";
+            if (OrderStatus == 0)
+                OrderStatusTemp = "Chưa duyệt";
+            else
+                OrderStatusTemp = "Đã duyệt";
+
+            if (!CheckCustomerExist())
+            {
+                Query2 = $"insert into Customers(Name, Phone, Address, Type) " +
+                       $"values ('{CustomerName}', '{CustomerPhone}', '{BillingAddress}', 'Khách hàng')";
+                try
+                {
+                    dB.ExecuteQuery(Query2);
+
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Có lỗi phát sinh khi thêm khách hàng! Lỗi: " + e);
+                }
+            }
+            Query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageWeight) " +
+                    $"values ('', '{CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")}', '{CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")}', '{SubTotal}', '{GrandPrice}', "+ReturnCustomerID(CustomerName,CustomerPhone)+", '" + OrderStatusTemp + "','','CreatedByEmployee'," +
+                    $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','" + PackageWidth + "','" + PackageHeight + "','" + PackageWeight + "');";
+            MessageBox.Show(Query1);
+            //try
+            //{
+            //    dB.ExecuteQuery(Query1);
+            //    MessageBox.Show("Thêm hóa đơn thành công! ");
+            //    List.Clear();
+            //}
+            //catch (Exception e)
+            //{
+            //    MessageBox.Show("Có lỗi phát sinh khi thêm đơn hàng! Lỗi: " + e);
+            //}
+            List.Clear();
+        }
+    
         #endregion Method
     }
 }

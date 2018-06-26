@@ -67,6 +67,7 @@
                         <ComboBoxItem Content="Zalo" />
                         <ComboBoxItem Content="Facebook" />
                         <ComboBoxItem Content="WooCommerce" />
+                        <ComboBoxItem Content="CreatedByEmployee" />
                     </ComboBox>
                     <!--combo box get order from-->
                     <ComboBox Grid.Row="1"
@@ -77,6 +78,7 @@
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem IsSelected="True" Content="OrderID" />
                         <ComboBoxItem Content="Customer Name" />
+                        <ComboBoxItem Content="Customer Phone" />
                     </ComboBox>
                     <!--Search order-->
                     <Grid Grid.Row="2">
@@ -172,9 +174,10 @@
                             Text="{Binding OrderID}"
                             />
                         <TextBox
-                            materialDesign:HintAssist.Hint="Customer Name" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Customer Name *" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding CustomerName}"/>
+                            Text="{Binding CustomerName}"
+                            />
                         <TextBox
                             materialDesign:HintAssist.Hint="Sub Total" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
@@ -200,24 +203,28 @@
                             <ComboBoxItem Content="Đã duyệt" />
                         </ComboBox>
                         <TextBox
-                            materialDesign:HintAssist.Hint="Billing Address" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Billing Address *" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding BillingAddress}"/>
                         <TextBox
-                            materialDesign:HintAssist.Hint="Shipping Address" Height="50" Margin="10"
+                            materialDesign:HintAssist.Hint="Shipping Address *" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding ShippingAddress}"/>
 
                     </StackPanel>
                     <StackPanel Grid.Column="1">
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Customer Phone *" Height="50" Margin="10"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CustomerPhone}"></TextBox>
                         <ComboBox Height="50"
                                   Margin="10"
                                   materialDesign:HintAssist.Hint="Call Ship?"
                                   IsEditable="False"
                                   SelectedIndex="{Binding CallShip}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBoxItem Content="Đã đặt"/>
-                            <ComboBoxItem IsSelected="True" Content="Chưa đặt"/>
+                            <ComboBoxItem IsSelected="True" Content="Chưa gọi ship"/>
+                            <ComboBoxItem Content="Đã gọi ship"/>
+                            
                         </ComboBox>
                         <TextBox
                             materialDesign:HintAssist.Hint="Package Width" Height="50" Margin="10"
@@ -235,7 +242,7 @@
                             materialDesign:HintAssist.Hint="Ship Price" Height="50" Margin="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True" />
                         <Button Width="150" Height="50" Content="Check Price" Margin="10"></Button>
-                        <Grid Height="50" Margin="10" />
+                       
                         <Grid Height="50" Margin="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
