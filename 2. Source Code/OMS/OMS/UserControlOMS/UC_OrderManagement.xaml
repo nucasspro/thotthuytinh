@@ -24,7 +24,7 @@
         <Grid Grid.Column="0">
             <GroupBox Header="List Order"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
-                      Margin="5">
+                      Margin="2">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel
@@ -132,6 +132,13 @@
                                 Header="Order Satus" />
                             </GridView>
                         </ListView.View>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <i:InvokeCommandAction
+                                    Command="{Binding OrderDetailCommand}"
+                                     />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ListView>
                 </Grid>
             </GroupBox>
@@ -219,12 +226,20 @@
                         <ComboBox Height="50"
                                   Margin="10"
                                   materialDesign:HintAssist.Hint="Call Ship?"
+                                  x:Name="cbxCallShip"
                                   IsEditable="False"
                                   SelectedIndex="{Binding CallShip}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBoxItem IsSelected="True" Content="Chưa gọi ship"/>
                             <ComboBoxItem Content="Đã gọi ship"/>
-                            
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction
+                                    Command="{Binding SelectionChangedCallShipCommand}"
+                                    CommandParameter="{Binding ElementName=cbxCallShip}"
+                                     />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </ComboBox>
                         <TextBox
                             materialDesign:HintAssist.Hint="Package Width" Height="50" Margin="10"
@@ -249,14 +264,14 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0" Width="120" Height="50" Content="Call Ship" Margin="5"
-                                    VerticalAlignment="Center" HorizontalContentAlignment="Center" />
+                                    VerticalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="{Binding isEnabledCallShip}"/>
                             <Button Grid.Column="1" Width="120" Height="50" Content="Cancel Ship" Margin="5"
-                                    VerticalAlignment="Center" HorizontalContentAlignment="Center" />
+                                    VerticalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="{Binding isEnabledCancelShip}"/>
                         </Grid>
                     </StackPanel>
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="8*" />
+                            <RowDefinition Height="9*" />
                             <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0"
@@ -264,42 +279,69 @@
                                   Margin="5">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="4*" />
                                     <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="5*" />
                                 </Grid.RowDefinitions>
-                                <ListView Grid.Row="0"
+                                <ComboBox   Grid.Row="0"
+                                            IsEditable="True"
+                                            Height="50" Width="auto"
+                                            materialDesign:HintAssist.Hint="Product list*"
+                                            x:Name="CbxProductName"
+                                            ItemsSource="{Binding ListProduct}"
+                                            SelectedValuePath="Name"
+                                            DisplayMemberPath="Name"
+                                            SelectedValue="{Binding ComboboxProductListSelectedValue}"
+                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+
+                                    <TextBox
+                                        materialDesign:HintAssist.Hint="Quanlity*" Height="50" Margin="5" Width="150"
+                                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                        Text="{Binding ProductQuantity}" />
+                                    <Button Grid.Column="1" Width="90" Height="50" Command="{Binding AddProductToOrderCommand}"
+                                                            VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="5" IsEnabled="{Binding AddOrderDetailButtonEnabled}">
+                                        <materialDesign:PackIcon Kind="Plus" Width="40" Height="40"/>
+                                    </Button>
+                                    <Button Grid.Column="1" Width="90" Height="50" Command="{Binding UpdateProductToOrderCommand}"
+                                                            VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="5" IsEnabled="{Binding UpdateOrderDetailButtonEnabled}">
+                                        <materialDesign:PackIcon Kind="Update" Width="40" Height="40"/>
+                                    </Button>
+                                </StackPanel>
+                                <ListView Grid.Row="2"
                                     x:Name="ListOrderProduct"
                                     VerticalAlignment="Top"
                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                                    MinHeight="360"
-                                    MaxHeight="390"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                    Height="auto"
+                                    SelectedItem="{Binding OrderDtailSelectedItem}"
                                     ItemsSource="{Binding ListOrderDetail}">
                                     <ListView.View>
                                         <GridView>
+                                            <GridViewColumn Header="">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Width="50" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl},Mode=FindAncestor},Path=DataContext.DeleteProductFromOrderCommand}"
+                                                                CommandParameter="{Binding}"
+                                                            VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="10">
+                                                            <materialDesign:PackIcon Kind="Delete" />
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
                                             <GridViewColumn
                                                 DisplayMemberBinding="{Binding Id}"
-                                                Header="OrderDetail ID" />
+                                                Header="ODId" />
                                             <GridViewColumn
-                                                DisplayMemberBinding="{Binding Products.Name}"
+                                                DisplayMemberBinding="{Binding Product.Name}"
                                                 Header="Product Name" />
                                             <GridViewColumn
                                                 DisplayMemberBinding="{Binding Quantity}"
                                                 Header="Quantity" />
-
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Width="150" Height="50" Content="Add Product" Margin="5"
-                                    VerticalAlignment="Center" HorizontalContentAlignment="Center" />
-                                    <Button Grid.Column="1" Width="150" Height="50" Content="Remove Product" Margin="5"
-                                    VerticalAlignment="Center" HorizontalContentAlignment="Center" />
-                                </Grid>
+                                
                             </Grid>
                         </GroupBox>
                         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">

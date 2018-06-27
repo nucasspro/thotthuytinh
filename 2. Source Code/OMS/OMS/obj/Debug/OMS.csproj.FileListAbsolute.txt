@@ -216,15 +216,13 @@ D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.csproj.CopyComplete
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.exe
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.pdb
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dragablz.dll
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\OMS.exe.config
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\OMS.exe
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\OMS.pdb
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.ReportSource.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dragablz.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignColors.dll
@@ -250,13 +248,14 @@ C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dragablz.pdb
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dragablz.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignColors.pdb
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Microsoft.Expression.Interactions.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Data.SQLite.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Windows.Interactivity.xml
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.baml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.baml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.baml
@@ -285,3 +284,4 @@ C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.csproj.CopyComplete
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.exe
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.pdb
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
