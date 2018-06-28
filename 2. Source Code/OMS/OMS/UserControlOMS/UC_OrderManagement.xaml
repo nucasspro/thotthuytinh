@@ -27,18 +27,15 @@
                       Margin="2">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel
-                            Orientation="Horizontal">
-                            <materialDesign:PackIcon
-                                Kind="FormatListNumbers"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}" />
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FormatListNumbers"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                       Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
@@ -98,11 +95,9 @@
                                 Command="{Binding ButtonSearchCommand}"
                                 CommandParameter="{Binding ElementName=cbxFindOrderBy}"
                                 Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
-                            <materialDesign:PackIcon
-                                Kind="SearchWeb"
-                                Height="25"
-                                Width="25" 
-                                />
+                            <materialDesign:PackIcon Kind="SearchWeb"
+                                                     Height="25"
+                                                     Width="25" />
                         </Button>
                     </Grid>
                     <!--Grid view list order-->
@@ -118,25 +113,20 @@
                               ItemsSource="{Binding List}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn
-                                DisplayMemberBinding="{Binding Id}"
-                                Header="Order ID" />
-                                <GridViewColumn
-                                DisplayMemberBinding="{Binding Customer.Name}"
-                                Header="Customer Name" />
-                                <GridViewColumn
-                                DisplayMemberBinding="{Binding CreatedTime}"
-                                Header="Date" />
-                                <GridViewColumn
-                                DisplayMemberBinding="{Binding Status}"
-                                Header="Order Satus" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Id}"
+                                                Header="Order ID" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Customer.Name}"
+                                                Header="Customer Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding CreatedTime}"
+                                                Header="Date" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Status}"
+                                                Header="Order Satus" />
                             </GridView>
                         </ListView.View>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                 <i:InvokeCommandAction
-                                    Command="{Binding OrderDetailCommand}"
-                                     />
+                                    Command="{Binding OrderDetailCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ListView>
@@ -152,77 +142,79 @@
                       Margin="5">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel
-                            Orientation="Horizontal">
-                            <materialDesign:PackIcon
-                                Kind="ReorderHorizontal"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}" />
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ReorderHorizontal"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                       Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="4*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Order ID" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            IsReadOnly="True"
-                            Text="{Binding OrderID}"
-                            />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Customer Name *" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding CustomerName}"
-                            />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Sub Total" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding SubTotal}"/>
-
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Grand Price" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding GrandPrice}"/>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Created Date" Height="50" Margin="10" IsReadOnly="True"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding CreatedDate}"/>
-
+                        <TextBox materialDesign:HintAssist.Hint="Order ID"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 IsReadOnly="True"
+                                 Text="{Binding OrderID}" />
+                        <TextBox materialDesign:HintAssist.Hint="Customer Name *"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding CustomerName}" />
+                        <TextBox materialDesign:HintAssist.Hint="Sub Total"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding SubTotal}" />
+                        <TextBox materialDesign:HintAssist.Hint="Grand Price"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding GrandPrice}" />
+                        <TextBox materialDesign:HintAssist.Hint="Created Date"
+                                 Height="50"
+                                 Margin="10"
+                                 IsReadOnly="True"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding CreatedDate}" />
                         <ComboBox Height="50"
                                   Margin="10"
                                   x:Name="ComboBoxStatus"
                                   materialDesign:HintAssist.Hint="Order Status"
                                   IsEditable="False"
                                   SelectedIndex="{Binding OrderStatus}"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBoxItem Content="Chưa duyệt" />
                             <ComboBoxItem Content="Đã duyệt" />
                         </ComboBox>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Billing Address *" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding BillingAddress}"/>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Shipping Address *" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding ShippingAddress}"/>
-
+                        <TextBox materialDesign:HintAssist.Hint="Billing Address *"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding BillingAddress}" />
+                        <TextBox materialDesign:HintAssist.Hint="Shipping Address *"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding ShippingAddress}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1">
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Customer Phone *" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CustomerPhone}"></TextBox>
+                        <TextBox materialDesign:HintAssist.Hint="Customer Phone *"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding CustomerPhone}" />
                         <ComboBox Height="50"
                                   Margin="10"
                                   materialDesign:HintAssist.Hint="Call Ship?"
@@ -230,43 +222,62 @@
                                   IsEditable="False"
                                   SelectedIndex="{Binding CallShip}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBoxItem IsSelected="True" Content="Chưa gọi ship"/>
-                            <ComboBoxItem Content="Đã gọi ship"/>
+                            <ComboBoxItem IsSelected="True" Content="Chưa gọi ship" />
+                            <ComboBoxItem Content="Đã gọi ship" />
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction
                                     Command="{Binding SelectionChangedCallShipCommand}"
-                                    CommandParameter="{Binding ElementName=cbxCallShip}"
-                                     />
+                                    CommandParameter="{Binding ElementName=cbxCallShip}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ComboBox>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Package Width" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding PackageWidth}"/>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Package Weight" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding PackageWeight}"/>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Package Height" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                            Text="{Binding PackageHeight}"/>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Ship Price" Height="50" Margin="10"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True" />
-                        <Button Width="150" Height="50" Content="Check Price" Margin="10"></Button>
-                       
+                        <TextBox materialDesign:HintAssist.Hint="Package Width"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding PackageWidth}" />
+                        <TextBox materialDesign:HintAssist.Hint="Package Weight"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding PackageWeight}" />
+                        <TextBox materialDesign:HintAssist.Hint="Package Height"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding PackageHeight}" />
+                        <TextBox materialDesign:HintAssist.Hint="Ship Price"
+                                 Height="50"
+                                 Margin="10"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 IsReadOnly="True" />
+                        <Button Width="150"
+                                Height="50"
+                                Content="Check Price"
+                                Margin="10" />
+
                         <Grid Height="50" Margin="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Width="120" Height="50" Content="Call Ship" Margin="5"
-                                    VerticalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="{Binding isEnabledCallShip}"/>
-                            <Button Grid.Column="1" Width="120" Height="50" Content="Cancel Ship" Margin="5"
-                                    VerticalAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="{Binding isEnabledCancelShip}"/>
+                            <Button Grid.Column="0"
+                                    Width="120"
+                                    Height="50"
+                                    Content="Call Ship"
+                                    Margin="5"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    IsEnabled="{Binding isEnabledCallShip}" />
+                            <Button Grid.Column="1"
+                                    Width="120"
+                                    Height="50"
+                                    Content="Cancel Ship"
+                                    Margin="5"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    IsEnabled="{Binding isEnabledCancelShip}" />
                         </Grid>
                     </StackPanel>
                     <Grid Grid.Column="2">
@@ -283,90 +294,125 @@
                                     <RowDefinition Height="1*" />
                                     <RowDefinition Height="5*" />
                                 </Grid.RowDefinitions>
-                                <ComboBox   Grid.Row="0"
-                                            IsEditable="True"
-                                            Height="50" Width="auto"
-                                            materialDesign:HintAssist.Hint="Product list*"
-                                            x:Name="CbxProductName"
-                                            ItemsSource="{Binding ListProduct}"
-                                            SelectedValuePath="Name"
-                                            DisplayMemberPath="Name"
-                                            SelectedValue="{Binding ComboboxProductListSelectedValue}"
-                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <ComboBox Grid.Row="0"
+                                          IsEditable="True"
+                                          Height="50" Width="auto"
+                                          materialDesign:HintAssist.Hint="Product list*"
+                                          x:Name="CbxProductName"
+                                          ItemsSource="{Binding ListProduct}"
+                                          SelectedValuePath="Name"
+                                          DisplayMemberPath="Name"
+                                          SelectedValue="{Binding ComboboxProductListSelectedValue}"
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal">
 
-                                    <TextBox
-                                        materialDesign:HintAssist.Hint="Quanlity*" Height="50" Margin="5" Width="150"
-                                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                        Text="{Binding ProductQuantity}" />
-                                    <Button Grid.Column="1" Width="90" Height="50" Command="{Binding AddProductToOrderCommand}"
-                                                            VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="5" IsEnabled="{Binding AddOrderDetailButtonEnabled}">
-                                        <materialDesign:PackIcon Kind="Plus" Width="40" Height="40"/>
+                                    <TextBox materialDesign:HintAssist.Hint="Quanlity*"
+                                             Height="50"
+                                             Margin="5"
+                                             Width="150"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                             Text="{Binding ProductQuantity}" />
+                                    <Button Grid.Column="1"
+                                            Width="90"
+                                            Height="50"
+                                            Command="{Binding AddProductToOrderCommand}"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            Margin="5"
+                                            IsEnabled="{Binding AddOrderDetailButtonEnabled}">
+                                        <materialDesign:PackIcon Kind="Plus"
+                                                                 Width="40"
+                                                                 Height="40" />
                                     </Button>
-                                    <Button Grid.Column="1" Width="90" Height="50" Command="{Binding UpdateProductToOrderCommand}"
-                                                            VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="5" IsEnabled="{Binding UpdateOrderDetailButtonEnabled}">
-                                        <materialDesign:PackIcon Kind="Update" Width="40" Height="40"/>
+                                    <Button Grid.Column="1"
+                                            Width="90"
+                                            Height="50"
+                                            Command="{Binding UpdateProductToOrderCommand}"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            Margin="5"
+                                            IsEnabled="{Binding UpdateOrderDetailButtonEnabled}">
+                                        <materialDesign:PackIcon Kind="Update"
+                                                                 Width="40"
+                                                                 Height="40" />
                                     </Button>
                                 </StackPanel>
                                 <ListView Grid.Row="2"
-                                    x:Name="ListOrderProduct"
-                                    VerticalAlignment="Top"
-                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                    Height="auto"
-                                    SelectedItem="{Binding OrderDtailSelectedItem}"
-                                    ItemsSource="{Binding ListOrderDetail}">
+                                          x:Name="ListOrderProduct"
+                                          VerticalAlignment="Top"
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                          Height="auto"
+                                          SelectedItem="{Binding OrderDtailSelectedItem}"
+                                          ItemsSource="{Binding ListOrderDetail}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Button Width="50" Height="30" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl},Mode=FindAncestor},Path=DataContext.DeleteProductFromOrderCommand}"
+                                                        <Button Width="50"
+                                                                Height="30"
+                                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl},Mode=FindAncestor},Path=DataContext.DeleteProductFromOrderCommand}"
                                                                 CommandParameter="{Binding}"
-                                                            VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="10">
+                                                                VerticalAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                FontSize="10">
                                                             <materialDesign:PackIcon Kind="Delete" />
                                                         </Button>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                            <GridViewColumn
-                                                DisplayMemberBinding="{Binding Id}"
-                                                Header="ODId" />
-                                            <GridViewColumn
-                                                DisplayMemberBinding="{Binding Product.Name}"
-                                                Header="Product Name" />
-                                            <GridViewColumn
-                                                DisplayMemberBinding="{Binding Quantity}"
-                                                Header="Quantity" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Id}"
+                                                            Header="ODId" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Product.Name}"
+                                                            Header="Product Name" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Quantity}"
+                                                            Header="Quantity" />
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                
                             </Grid>
                         </GroupBox>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button  Width="180" Height="70" Margin="5"
-                                     Command="{Binding SaveOrderCommand}"
-                                VerticalAlignment="Bottom" HorizontalContentAlignment="Center">
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                            <Button Width="180"
+                                    Height="70"
+                                    Margin="5"
+                                    Command="{Binding SaveOrderCommand}"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalContentAlignment="Center">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Text="Save Order" />
-                                    <materialDesign:PackIcon Grid.Row="1" Kind="ContentSave" Width="25" Height="25" HorizontalAlignment="Center" />
+                                    <materialDesign:PackIcon Grid.Row="1"
+                                                             Kind="ContentSave"
+                                                             Width="25"
+                                                             Height="25"
+                                                             HorizontalAlignment="Center" />
                                 </Grid>
                             </Button>
-                            <Button  Width="180" Height="70" Margin="5"
-                                     Command="{Binding CreateOrderCommand}"
-                                VerticalAlignment="Bottom" HorizontalContentAlignment="Center">
+                            <Button Width="180"
+                                    Height="70"
+                                    Margin="5"
+                                    Command="{Binding CreateOrderCommand}"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalContentAlignment="Center">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Text="Create New Order" />
-                                    <materialDesign:PackIcon Grid.Row="1" Kind="Plus" Width="25" Height="25" HorizontalAlignment="Center" />
+                                    <materialDesign:PackIcon Grid.Row="1"
+                                                             Kind="Plus"
+                                                             Width="25"
+                                                             Height="25"
+                                                             HorizontalAlignment="Center" />
                                 </Grid>
                             </Button>
                         </StackPanel>

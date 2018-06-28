@@ -19,8 +19,9 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
                 <RowDefinition Height="1.8*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1.5*" />
             </Grid.RowDefinitions>
 
             <!--Product information-->
@@ -32,81 +33,72 @@
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon
-                                Kind="ReorderHorizontal"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}" />
+                            <materialDesign:PackIcon Kind="ReorderHorizontal"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                       Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Product ID"
-                            Height="50"
-                            Margin="10"
-                            IsReadOnly="False"
-                            Text="{Binding ProductId}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Product Name"
-                            Height="50"
-                            Margin="10"
-                            Text="{Binding ProductName}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Price"
-                            Height="50"
-                            Margin="10"
-                            Text="{Binding ProductPrice}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Quantity"
-                            Height="50"
-                            Margin="10"
-                            Text="{Binding ProductQuantity}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox materialDesign:HintAssist.Hint="Product ID"
+                                 Height="50"
+                                 Margin="5"
+                                 IsReadOnly="False"
+                                 Text="{Binding ProductId}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox materialDesign:HintAssist.Hint="Product Name"
+                                 Height="50"
+                                 Margin="5"
+                                 Text="{Binding ProductName}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox materialDesign:HintAssist.Hint="Price"
+                                 Height="50"
+                                 Margin="5"
+                                 Text="{Binding ProductPrice}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox materialDesign:HintAssist.Hint="Quantity"
+                                 Height="50"
+                                 Margin="5"
+                                 Text="{Binding ProductQuantity}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Width"
-                            Height="50"
-                            Margin="10"
-                            Text="{Binding ProductWidth}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Height"
-                            Height="50"
-                            Margin="10"
-                            Text="{Binding ProductHeight}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Weight"
-                            Height="50"
-                            Margin="10"
-                            Text="{Binding ProductWeight}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Length"
-                            Height="50"
-                            Margin="10"
-                            Text="{Binding ProductLength}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox materialDesign:HintAssist.Hint="Width"
+                                 Height="50"
+                                 Margin="5"
+                                 Text="{Binding ProductWidth}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox materialDesign:HintAssist.Hint="Height"
+                                 Height="50"
+                                 Margin="5"
+                                 Text="{Binding ProductHeight}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox materialDesign:HintAssist.Hint="Weight"
+                                 Height="50"
+                                 Margin="5"
+                                 Text="{Binding ProductWeight}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox materialDesign:HintAssist.Hint="Length"
+                                 Height="50"
+                                 Margin="5"
+                                 Text="{Binding ProductLength}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
+
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
@@ -118,73 +110,127 @@
                                     Margin="2"
                                     BorderBrush="#3F51B5"
                                     VerticalAlignment="Top">
-                                <Image Height="200" Source="{Binding ProductImage1}" />
+                                <Image Height="200"
+                                       Source="{Binding ProductImage1}" />
                             </Border>
-                            <Button
-                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                Margin="5,15,5,10"
-                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                                Content="Add Image 1" 
-                                Command="{Binding AddImage1Command}"/>
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Margin="5,5,5,10"
+                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                    Content="Add Image 1"
+                                    Command="{Binding AddImage1Command}" />
                         </StackPanel>
                         <StackPanel Grid.Column="1">
                             <Border BorderThickness="1"
                                     Margin="2"
                                     BorderBrush="#3F51B5"
                                     VerticalAlignment="Top">
-                                <Image Height="200" Source="{Binding ProductImage2}" />
+                                <Image Height="200"
+                                       Source="{Binding ProductImage2}" />
                             </Border>
-                            <Button
-                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                Margin="5,15,5,10"
-                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                                Content="Add Image 2" 
-                                Command="{Binding AddImage2Command}"/>
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Margin="5,5,5,10"
+                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                    Content="Add Image 2"
+                                    Command="{Binding AddImage2Command}" />
                         </StackPanel>
                         <StackPanel Grid.Column="2">
                             <Border BorderThickness="1"
                                     Margin="2"
                                     BorderBrush="#3F51B5"
                                     VerticalAlignment="Top">
-                                <Image Height="200" Source="{Binding ProductImage3}" />
+                                <Image Height="200"
+                                       Source="{Binding ProductImage3}" />
                             </Border>
-                            <Button
-                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                Margin="5,15,5,10"
-                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                                Content="Add Image 3" 
-                                Command="{Binding AddImage3Command}"/>
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Margin="5,5,5,10"
+                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                    Content="Add Image 3"
+                                    Command="{Binding AddImage3Command}" />
                         </StackPanel>
                     </Grid>
                 </Grid>
             </GroupBox>
             <!--/Product information-->
-
-            <!--List product-->
+            <!--Search and action buttons-->
             <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+                <materialDesign:Card Margin="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal">
+                            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                                     Margin="10,5,10,5"
+                                     Width="560"
+                                     x:Name="TextBoxSearch"
+                                     Text="{Binding SearchContent, Mode=OneWayToSource}"
+                                     HorizontalAlignment="Left"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <Button Width="80"
+                                    Height="45"
+                                    Margin="10,5,0,5"
+                                    IsDefault="True"
+                                    Command="{Binding SearchCommand}"
+                                    CommandParameter="{Binding ElementName=TextBoxSearch}"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <materialDesign:PackIcon Kind="SearchWeb"
+                                                         Height="25"
+                                                         Width="25"/>
+                            </Button>
+                        </StackPanel>
 
-                <GroupBox Grid.Row="0"
-                          Header="Product List"
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Width="100"
+                                    Height="45"
+                                    Margin="10,5,10,5"
+                                    Content="Create"
+                                    x:Name="ButtonCreate"
+                                    Command="{Binding CreateCommand}"
+                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Width="100"
+                                    Height="45"
+                                    Margin="10,5,10,5"
+                                    Content="Update"
+                                    x:Name="ButtonUpdate"
+                                    Command="{Binding UpdateCommand}"
+                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Width="100"
+                                    Height="45"
+                                    Margin="10,5,15,5"
+                                    Content="Delete"
+                                    x:Name="ButtonDelete"
+                                    Command="{Binding DeleteCommand}"
+                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+            <!--/Search and action buttons-->
+            <!--List product-->
+            <Grid Grid.Row="2">
+
+                <GroupBox Header="Product List"
                           Style="{DynamicResource MaterialDesignCardGroupBox}"
-                          Margin="5,5,5,5">
+                          Margin="5,2,5,5">
 
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Kind="ReorderHorizontal"
-                                    Height="32"
-                                    Width="32"
-                                    VerticalAlignment="Center" />
-                                <TextBlock
-                                    Margin="8,0,0,0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                    Text="{Binding}" />
+                                <materialDesign:PackIcon Kind="ReorderHorizontal"
+                                                         Height="32"
+                                                         Width="32"
+                                                         VerticalAlignment="Center" />
+                                <TextBlock Margin="8,0,50,0"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                           Text="{Binding}" />
                             </StackPanel>
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
@@ -192,83 +238,39 @@
                     <ListView Grid.Column="0"
                               x:Name="ListViewProduct"
                               VerticalAlignment="Top"
-                              Height="235"
-                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
-                              ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                              ItemsSource="{Binding ListProduct, Mode=TwoWay}">
-
+                              HorizontalAlignment="Stretch"
+                              SelectedItem="{Binding SelectedItem}"
+                              ItemsSource="{Binding ListProduct}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Id}"
-                                    Header="Id" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Name}"
-                                    Header="Name" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Price}"
-                                    Header="Price" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Weight}"
-                                    Header="Weight" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Width}"
-                                    Header="Width" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Height}"
-                                    Header="Height" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Length}"
-                                    Header="Length" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Image1}"
-                                    Header="Image1" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Image2}"
-                                    Header="Image2" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Image3}"
-                                    Header="Image3" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding Quantity}"
-                                    Header="Quantity" />
-                                <GridViewColumn
-                                    DisplayMemberBinding="{Binding CreatedBy.Id}"
-                                    Header="CreatedBy" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Id}"
+                                                Header="Id" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                                Header="Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Price}"
+                                                Header="Price" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Weight}"
+                                                Header="Weight" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Width}"
+                                                Header="Width" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Height}"
+                                                Header="Height" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Length}"
+                                                Header="Length" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Image1}"
+                                                Header="Image1" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Image2}"
+                                                Header="Image2" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Image3}"
+                                                Header="Image3" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Quantity}"
+                                                Header="Quantity" />
+                                <GridViewColumn DisplayMemberBinding="{Binding CreatedBy.Id}"
+                                                Header="CreatedBy" />
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </GroupBox>
-
-                <StackPanel Grid.Column="1"
-                            Orientation="Vertical"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                    <Button
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        Width="100"
-                        Margin="0,10,0,0"
-                        Content="Create"
-                        x:Name="ButtonCreate"
-                        Command="{Binding CreateCommand}"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
-                    <Button
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        Width="100"
-                        Margin="0,10,0,0"
-                        Content="Update"
-                        x:Name="ButtonUpdate"
-                        Command="{Binding UpdateCommand}"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
-                    <Button
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        Width="100"
-                        Margin="0,10,0,10"
-                        Content="Delete"
-                        x:Name="ButtonDelete"
-                        Command="{Binding DeleteCommand}"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
-                </StackPanel>
             </Grid>
             <!--/List product-->
         </Grid>
