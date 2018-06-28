@@ -47,53 +47,67 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
                         <TextBox materialDesign:HintAssist.Hint="Product ID"
-                                 Height="50"
+                                 Height="40"
                                  Margin="5"
                                  IsReadOnly="False"
                                  Text="{Binding ProductId}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox materialDesign:HintAssist.Hint="Product Name"
-                                 Height="50"
+                                 Height="40"
                                  Margin="5"
                                  Text="{Binding ProductName}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox VerticalContentAlignment="Top"
+                                 x:Name="TextBoxCaption"
+                                 Margin="5,0,5,0"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Stretch"
+                                 Height="100"
+                                 VerticalScrollBarVisibility="Auto"
+                                 AcceptsReturn="True"
+                                 Text ="{Binding ProductDescription}"
+                                 materialDesign:HintAssist.Hint="Mô tả"
+                                 materialDesign:TextFieldAssist.TextBoxViewMargin="1 5 1 5"
+                                 materialDesign:HintAssist.FloatingScale="0.7"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         <TextBox materialDesign:HintAssist.Hint="Price"
-                                 Height="50"
+                                 Height="40"
                                  Margin="5"
                                  Text="{Binding ProductPrice}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <TextBox materialDesign:HintAssist.Hint="Quantity"
-                                 Height="50"
-                                 Margin="5"
-                                 Text="{Binding ProductQuantity}"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
+                        <TextBox materialDesign:HintAssist.Hint="Quantity"
+                                 Height="40"
+                                 Margin="5"
+                                 Text="{Binding ProductQuantity}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox materialDesign:HintAssist.Hint="Width"
-                                 Height="50"
+                                 Height="40"
                                  Margin="5"
                                  Text="{Binding ProductWidth}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox materialDesign:HintAssist.Hint="Height"
-                                 Height="50"
+                                 Height="40"
                                  Margin="5"
                                  Text="{Binding ProductHeight}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox materialDesign:HintAssist.Hint="Weight"
-                                 Height="50"
+                                 Height="40"
                                  Margin="5"
                                  Text="{Binding ProductWeight}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox materialDesign:HintAssist.Hint="Length"
-                                 Height="50"
+                                 Height="40"
                                  Margin="5"
                                  Text="{Binding ProductLength}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -114,7 +128,7 @@
                                        Source="{Binding ProductImage1}" />
                             </Border>
                             <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                    Margin="5,5,5,10"
+                                    Margin="5,5,5,5"
                                     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                                     Content="Add Image 1"
                                     Command="{Binding AddImage1Command}" />
@@ -128,7 +142,7 @@
                                        Source="{Binding ProductImage2}" />
                             </Border>
                             <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                    Margin="5,5,5,10"
+                                    Margin="5,5,5,5"
                                     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                                     Content="Add Image 2"
                                     Command="{Binding AddImage2Command}" />
@@ -142,7 +156,7 @@
                                        Source="{Binding ProductImage3}" />
                             </Border>
                             <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                    Margin="5,5,5,10"
+                                    Margin="5,5,5,5"
                                     ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
                                     Content="Add Image 3"
                                     Command="{Binding AddImage3Command}" />
@@ -247,6 +261,8 @@
                                                 Header="Id" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Name}"
                                                 Header="Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Description}"
+                                                Header="Description" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Price}"
                                                 Header="Price" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Weight}"

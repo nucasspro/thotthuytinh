@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             DataContext="{StaticResource ReportUCVM}"
+             DataContext="{StaticResource SchedulePostUCVM}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="15"
@@ -23,25 +23,21 @@
 
             <!--Schedule Box-->
             <GroupBox Grid.Column="0"
-                      Header="Schedule Post"
+                      Header="Lịch đăng bài"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
                       Margin="5,5,0,5">
 
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon
-                                Kind="ReorderHorizontal"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center">
-                            </materialDesign:PackIcon>
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}">
-                            </TextBlock>
+                            <materialDesign:PackIcon Kind="ReorderHorizontal"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center"/>
+                            <TextBlock Margin="8,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                       Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
@@ -57,40 +53,59 @@
                              Height="200"
                              VerticalScrollBarVisibility="Auto"
                              AcceptsReturn="True"
-                             materialDesign:HintAssist.Hint="Caption"
+                             Text ="{Binding Description}"
+                             materialDesign:HintAssist.Hint="Nội dung *"
                              materialDesign:TextFieldAssist.TextBoxViewMargin="1 5 1 5"
                              materialDesign:HintAssist.FloatingScale="0.7"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        Lorem ipsum dolor sit asd
-                        amet, consectetur
-                        as d
-                         asd
-                         asd as
-                         adipiscing elit, sed do eiusasd as
-                        mod tempor incididunt ut lab
-                        ore et dolore magna aliqua. The quick brown fox jumps over
-                        the lazy dog. War and peace. Keep going. Go on. For how long? Not long. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.aaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaa
-                    </TextBox>
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                     <ComboBox Height="50"
                               Margin="10"
-                              materialDesign:HintAssist.Hint="Destination"
+                              x:Name="ComboBoxDestination"
+                              materialDesign:HintAssist.Hint="Đăng trên"
                               IsEditable="False"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                        <ComboBoxItem IsSelected="True" Content="Zalo" />
-                        <ComboBoxItem Content="Facebook" />
+                        <ComboBoxItem Content="Zalo" />
+                        <ComboBoxItem IsSelected="True"
+                                      Content="Facebook" />
                     </ComboBox>
-
+                    <ComboBox IsEditable="True"
+                              Height="50" 
+                              Width="auto"
+                              Margin="10"
+                              materialDesign:HintAssist.Hint="Danh sách sản phẩm*"
+                              x:Name="ComboBoxProduct"
+                              ItemsSource="{Binding ListProduct}"
+                              SelectedValuePath="Name"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding ComboboxProductListSelectedItem}"
+                              SelectedValue="{Binding ComboboxProductListSelectedValue}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
                     <TextBox materialDesign:HintAssist.Hint="Value"
                              Height="50"
                              Margin="10"
+                             x:Name="TextBoxImagePath"
                              IsReadOnly="False"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <DatePicker Height="50"
-                                Margin="10"
-                                materialDesign:HintAssist.Hint="Pick Date"
-                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                    Width="200"
+                                    Margin="10"
+                                    SelectedDateFormat="Short"
+                                    HorizontalAlignment="Left"
+                                    x:Name="DateTimePickerDate"
+                                    SelectedDate="{Binding DateTimePickerDate}"
+                                    materialDesign:HintAssist.Hint="Ngày đăng *"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    FirstDayOfWeek="Monday" />
+                    <materialDesign:TimePicker Is24Hours="True"
+                                                   HorizontalAlignment="Left"
+                                                   x:Name="DateTimePickerTime"
+                                                   SelectedTimeFormat="Short"
+                                                   SelectedTime="{Binding DateTimePickerTime}"
+                                                   materialDesign:HintAssist.Hint="Giờ đăng *"
+                                                   Height="50"
+                                                   Width="200"
+                                                   Margin="10"/>
                 </StackPanel>
                 <!--/Input-->
             </GroupBox>
@@ -98,55 +113,46 @@
 
             <!--List Schedule Box-->
             <GroupBox Grid.Column="1"
-                      Header="List"
+                      Header="Danh sách lịch đăng bài"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
                       Margin="5,5,5,5">
 
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon
-                                Kind="ReorderHorizontal"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center">
-                            </materialDesign:PackIcon>
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}">
-                            </TextBlock>
+                            <materialDesign:PackIcon Kind="ReorderHorizontal"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center"/>
+                            <TextBlock Margin="8,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                       Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="8*"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Border BorderThickness="1"
                             BorderBrush="#3F51B5"
                             VerticalAlignment="Top">
-                        <ListView
-                                  x:Name="ListViewProduct"
+                        <ListView x:Name="ListSchedulePost"
                                   VerticalAlignment="Top"
-                                  Height="530"
-                                  ItemsSource="{Binding items}">
-
+                                  SelectedItem="{Binding ListSchedulePostSelectedItem}"
+                                  ItemsSource="{Binding ListSchedulePost}"
+                                  Height="530">
                             <ListView.View>
-
                                 <GridView>
-                                    <GridViewColumn
-                                        DisplayMemberBinding="{Binding OrderCode}"
-                                        Header="OrderCode" />
-                                    <GridViewColumn
-                                        DisplayMemberBinding="{Binding CustomerId}"
-                                        Header="CustomerId" />
-                                    <GridViewColumn
-                                        DisplayMemberBinding="{Binding OrderFrom}"
-                                        Header="OrderFrom" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Id}"
+                                                    Header="ID bài đăng" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Message}"
+                                                    Header="Nội dung bài đăng" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CreatedTime}"
+                                                    Header="Thời gian hiển thị" />
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -155,27 +161,27 @@
                     <StackPanel Grid.Row="1"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        <Button
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="150"
-                            Margin="5,5,5,5"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Create">
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="150"
-                            Margin="5,5,5,5"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Save">
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="150"
-                            Margin="5,5,5,5"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Delete">
-                        </Button>
+                        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Width="150"
+                                Margin="5,5,5,5"
+                                x:Name="ButtonLoad"
+                                Command="{Binding LoadCommand}"
+                                Content="Load"/>
+                        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Width="150"
+                                Margin="5,5,5,5"
+                                x:Name="ButtonCreate"
+                                Command="{Binding CreateCommand}"
+                                Content="Create"/>
+                        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Margin="5,5,5,5"
+                                Command="{Binding CreateWithAllProductsCommand}"
+                                Content="Create with all product"/>
+                        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                Width="150"
+                                Margin="5,5,5,5"
+                                Content="Delete"
+                                Command="{Binding DeleteCommand}"/>
                     </StackPanel>
                 </Grid>
             </GroupBox>

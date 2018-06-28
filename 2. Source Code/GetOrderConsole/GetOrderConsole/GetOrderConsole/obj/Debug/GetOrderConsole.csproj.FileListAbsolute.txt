@@ -21,7 +21,6 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetO
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.xml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.dll.config
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Net.Http.Formatting.xml
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csprojAssemblyReference.cache
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CoreCompileInputs.cache
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CopyComplete
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.exe

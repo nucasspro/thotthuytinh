@@ -6,9 +6,10 @@
         {
         }
 
-        public Products(string name, string weight, string width, string height, string length, string price, string image1, string image2, string image3, int quantity, int createdBy)
+        public Products(string name, string description, string weight, string width, string height, string length, string price, string image1, string image2, string image3, int quantity, int createdBy)
         {
             Name = name;
+            Description = description;
             Weight = weight;
             Width = width;
             Height = height;
@@ -22,6 +23,7 @@
         }
 
         public string Name { get; set; }
+        public string Description { get; set; }
         public string Weight { get; set; }
         public string Width { get; set; }
         public string Height { get; set; }

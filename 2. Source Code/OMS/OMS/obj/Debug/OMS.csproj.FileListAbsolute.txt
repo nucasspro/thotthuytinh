@@ -285,3 +285,8 @@ C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.exe
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.pdb
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\xNet.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.xml
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.xml

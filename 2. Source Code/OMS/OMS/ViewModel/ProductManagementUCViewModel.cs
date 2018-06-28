@@ -41,6 +41,7 @@ namespace OMS.ViewModel
                     return;
                 ProductId = SelectedItem.Id;
                 ProductName = SelectedItem.Name;
+                ProductDescription = SelectedItem.Description;
                 ProductPrice = SelectedItem.Price;
                 ProductWidth = SelectedItem.Width;
                 ProductWeight = SelectedItem.Weight;
@@ -67,6 +68,14 @@ namespace OMS.ViewModel
         {
             get => _ProductName;
             set { _ProductName = value; OnPropertyChanged(); }
+        }
+
+        private string _ProductDescription { get; set; }
+
+        public string ProductDescription
+        {
+            get => _ProductDescription;
+            set { _ProductDescription = value; OnPropertyChanged(); }
         }
 
         private string _ProductPrice { get; set; }
@@ -178,16 +187,17 @@ namespace OMS.ViewModel
                 {
                     Id = (string)((DataRow)row).ItemArray[0],
                     Name = (string)((DataRow)row).ItemArray[1],
-                    Weight = (string)((DataRow)row).ItemArray[2],
-                    Width = (string)((DataRow)row).ItemArray[3],
-                    Height = (string)((DataRow)row).ItemArray[4],
-                    Length = (string)((DataRow)row).ItemArray[5],
-                    Price = (string)((DataRow)row).ItemArray[6],
-                    Image1 = (string)((DataRow)row).ItemArray[7],
-                    Image2 = (string)((DataRow)row).ItemArray[8],
-                    Image3 = (string)((DataRow)row).ItemArray[9],
-                    Quantity = Convert.ToInt32(((DataRow)row).ItemArray[10]),
-                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[11]) }
+                    Description = (string)((DataRow)row).ItemArray[2],
+                    Weight = (string)((DataRow)row).ItemArray[3],
+                    Width = (string)((DataRow)row).ItemArray[4],
+                    Height = (string)((DataRow)row).ItemArray[5],
+                    Length = (string)((DataRow)row).ItemArray[6],
+                    Price = (string)((DataRow)row).ItemArray[7],
+                    Image1 = (string)((DataRow)row).ItemArray[8],
+                    Image2 = (string)((DataRow)row).ItemArray[9],
+                    Image3 = (string)((DataRow)row).ItemArray[10],
+                    Quantity = Convert.ToInt32(((DataRow)row).ItemArray[11]),
+                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[12]) }
                 };
                 ListProduct.Add(product);
                 ListTemp.Add(product);
@@ -213,7 +223,7 @@ namespace OMS.ViewModel
                 foreach (var item in ListTemp)
                 {
                     // ReSharper disable once ComplexConditionExpression
-                    if (item.Id.ToUpper().Contains(SearchContent) || item.Name.ToUpper().Contains(SearchContent) ||
+                    if (item.Id.ToUpper().Contains(SearchContent) || item.Name.ToUpper().Contains(SearchContent) || item.Description.ToUpper().Contains(SearchContent) ||
                         item.Price == SearchContent || item.Weight == SearchContent || item.Width == SearchContent ||
                         item.Height == SearchContent || item.Length == SearchContent || item.Image1.ToUpper().Contains(SearchContent) ||
                         item.Image2.ToUpper().Contains(SearchContent) || item.Image3.ToUpper().Contains(SearchContent) ||
@@ -251,8 +261,8 @@ namespace OMS.ViewModel
             }
             DBConnect dbConnect = new DBConnect();
             //can check san pham da ton tai hay chua
-            string query = $"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) " +
-                           $"values ('{ProductId}', '{ProductName}', '{ProductWeight}', '{ProductWidth}', '{ProductHeight}', '{ProductLength}', '{ProductPrice}', '{ProductImage1}','{ProductImage2}','{ProductImage3}','{ProductQuantity}', '{new Accounts { Id = 1 }}')";
+            string query = $"insert into Products(Id, Name, Description, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) " +
+                           $"values ('{ProductId}', '{ProductName}', '{ProductDescription}', '{ProductWeight}', '{ProductWidth}', '{ProductHeight}', '{ProductLength}', '{ProductPrice}', '{ProductImage1}','{ProductImage2}','{ProductImage3}','{ProductQuantity}', '{new Accounts { Id = 1 }}')";
             dbConnect.ExecuteQuery(query);
             ListProduct.Clear();
         }
@@ -270,7 +280,7 @@ namespace OMS.ViewModel
             }
             DBConnect dbConnect = new DBConnect();
             string query = $"Update Products " +
-                           $"Set Name = '{ProductName}', Weight = '{ProductWeight}', Width = '{ProductWidth}', Height = '{ProductHeight}', Length = '{ProductLength}', Price = '{ProductPrice}', Image1 = '{ProductImage1}', Image2 = '{ProductImage2}', Image3 = '{ProductImage3}', Quantity = {ProductQuantity} " +
+                           $"Set Name = '{ProductName}', Description = '{ProductDescription}', Weight = '{ProductWeight}', Width = '{ProductWidth}', Height = '{ProductHeight}', Length = '{ProductLength}', Price = '{ProductPrice}', Image1 = '{ProductImage1}', Image2 = '{ProductImage2}', Image3 = '{ProductImage3}', Quantity = {ProductQuantity} " +
                            $"where Id = '{ProductId}';";
             dbConnect.ExecuteQuery(query);
             ListProduct.Clear();

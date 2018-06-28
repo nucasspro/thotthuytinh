@@ -83,6 +83,7 @@ namespace GetOrderConsole
             const string productsTable = "CREATE TABLE IF NOT EXISTS Products (" +
                                          "Id TEXT NOT NULL PRIMARY KEY, " +
                                          "Name TEXT NOT NULL, " +
+                                         "Description TEXT, " +
                                          "Weight TEXT, " +
                                          "Width TEXT, " +
                                          "Height TEXT, " +
