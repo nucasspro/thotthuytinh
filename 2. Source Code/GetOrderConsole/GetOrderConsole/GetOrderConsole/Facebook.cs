@@ -33,7 +33,7 @@ namespace GetOrderConsole
         private string GetAccessToken()
         {
             const string username = "nucasspronewrap@gmail.com";
-            const string password = "Nucass2189401222";
+            const string password = "Nucass26111996";
 
             const string address = "https://nghia.org/public/api/v1/buildLogin.php";
             const string data = "u=" + username + "&p=" + password;
@@ -147,7 +147,7 @@ namespace GetOrderConsole
             orders.CallShip = "Chưa gọi ship";
             orders.PackageWidth = "0";
             orders.PackageHeight = "0";
-            orders.PackageWeight = "0";
+            orders.PackageLenght = "0";
             InsertOrdersToDb(orders);
 
             orderDetail.OrderId = GetOrderIdFromDb(orders.OrderCode);
@@ -248,8 +248,8 @@ namespace GetOrderConsole
         {
             try
             {
-                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageWeight) " +
-                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageWeight}');";
+                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageLenght) " +
+                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageLenght}');";
                 _dbConnect.ExecuteQuery(query);
             }
             catch (Exception e)

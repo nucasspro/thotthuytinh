@@ -179,7 +179,7 @@ namespace OMS.ViewModel
         private void LoadProduct()
         {
             DBConnect dbConnect = new DBConnect();
-            const string query = @"select * from Products;";
+            const string query = @"select * from Products where status = 'Chưa xóa';";
             DataTable dataTable = dbConnect.SelectQuery(query);
             foreach (var row in dataTable.Rows)
             {
@@ -197,7 +197,8 @@ namespace OMS.ViewModel
                     Image2 = (string)((DataRow)row).ItemArray[9],
                     Image3 = (string)((DataRow)row).ItemArray[10],
                     Quantity = Convert.ToInt32(((DataRow)row).ItemArray[11]),
-                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[12]) }
+                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[12]), },
+                    Status = (string)((DataRow)row).ItemArray[13]
                 };
                 ListProduct.Add(product);
                 ListTemp.Add(product);

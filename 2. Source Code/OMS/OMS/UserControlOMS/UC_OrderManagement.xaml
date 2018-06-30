@@ -196,7 +196,10 @@
                                   SelectedIndex="{Binding OrderStatus}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBoxItem Content="Chưa duyệt" />
-                            <ComboBoxItem Content="Đã duyệt" />
+                            <ComboBoxItem Content="Đã đóng gói" />
+                            <ComboBoxItem Content="Đang vận chuyển" />
+                            <ComboBoxItem Content="Đã chuyển hàng" />
+                            <ComboBoxItem Content="Đã thanh toán" />
                         </ComboBox>
                         <TextBox materialDesign:HintAssist.Hint="Billing Address *"
                                  Height="50"
@@ -232,17 +235,17 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ComboBox>
-                        <TextBox materialDesign:HintAssist.Hint="Package Width"
+                        <TextBox materialDesign:HintAssist.Hint="Package Width (cm)"
                                  Height="50"
                                  Margin="10"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding PackageWidth}" />
-                        <TextBox materialDesign:HintAssist.Hint="Package Weight"
+                        <TextBox materialDesign:HintAssist.Hint="Package Lenght (cm)"
                                  Height="50"
                                  Margin="10"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding PackageWeight}" />
-                        <TextBox materialDesign:HintAssist.Hint="Package Height"
+                                 Text="{Binding PackageLenght}" />
+                        <TextBox materialDesign:HintAssist.Hint="Package Height (cm)"
                                  Height="50"
                                  Margin="10"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -250,6 +253,7 @@
                         <TextBox materialDesign:HintAssist.Hint="Ship Price"
                                  Height="50"
                                  Margin="10"
+                                 Text="{Binding ShipPrice}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  IsReadOnly="True" />
                         <Button Width="150"
@@ -369,6 +373,8 @@
                                                             Header="Product Name" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Quantity}"
                                                             Header="Quantity" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Product.Price}"
+                                                            Header="UnitPrice" />
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

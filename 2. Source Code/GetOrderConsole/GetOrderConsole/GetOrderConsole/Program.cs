@@ -16,7 +16,6 @@ namespace GetOrderConsole
             var time = CheckTime();
             RunApplication(time);
 
-            Console.ReadKey();
         }
 
         private static void RunApplication(int time)
@@ -29,12 +28,24 @@ namespace GetOrderConsole
                 zalo.Init(Time1, Time2, Time3);
                 zalo.GetData(time);
                 Console.WriteLine("Zalo END!");
-
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Loi " + e);
+            }
+            try
+            {
                 WooCommerce wooCommerce = new WooCommerce();
                 wooCommerce.Init(Time1, Time2, Time3);
                 wooCommerce.GetData(time);
                 Console.WriteLine("Woo END!");
-
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine("Loi " + e1);
+            }
+            try
+            {
                 Facebook facebook = new Facebook();
                 facebook.Init(Time1, Time2, Time3);
                 facebook.GetData(time);
@@ -42,10 +53,9 @@ namespace GetOrderConsole
 
                 Console.WriteLine("END!");
             }
-            catch (Exception e)
+            catch (Exception e2)
             {
-                Console.WriteLine("Loi " + e);
-                throw;
+                Console.WriteLine("Loi " + e2);
             }
         }
 

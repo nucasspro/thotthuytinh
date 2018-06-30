@@ -18,6 +18,6 @@
         public string CallShip { get; set; }
         public string PackageWidth { get; set; }
         public string PackageHeight { get; set; }
-        public string PackageWeight { get; set; }
+        public string PackageLenght { get; set; }
     }
 }

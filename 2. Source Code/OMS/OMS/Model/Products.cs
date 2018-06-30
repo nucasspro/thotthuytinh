@@ -15,5 +15,6 @@
         public string Image3 { get; set; }
         public int Quantity { get; set; }
         public Accounts CreatedBy { get; set; }
+        public string Status { get; set; }
     }
 }

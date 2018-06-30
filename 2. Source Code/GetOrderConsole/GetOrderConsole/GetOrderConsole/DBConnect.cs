@@ -77,7 +77,7 @@ namespace GetOrderConsole
                                        "CallShip TEXT, " +
                                        "PackageWidth TEXT, " +
                                        "PackageHeight TEXT, " +
-                                       "PackageWeight TEXT);";
+                                       "PackageLenght TEXT);";
             query.Add(ordersTable);
 
             const string productsTable = "CREATE TABLE IF NOT EXISTS Products (" +
@@ -93,7 +93,8 @@ namespace GetOrderConsole
                                          "Image2 TEXT, " +
                                          "Image3 TEXT, " +
                                          "Quantity INTEGER, " +
-                                         "CreatedBy INTEGER);";
+                                         "CreatedBy INTEGER, " +
+                                         "Status TEXT);";
             query.Add(productsTable);
 
             const string orderDetailTable = "CREATE TABLE IF NOT EXISTS OrderDetail (" +
@@ -124,10 +125,10 @@ namespace GetOrderConsole
             {
                 ExecuteQuery(@"insert into Accounts(Username, Password, Type) values ('admin', 'admin', 'admin');");
                 ExecuteQuery(@"insert into Accounts(Username, Password, Type) values ('user', 'user', 'user');");
-                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) values ('TKCL001', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL001)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1');");
-                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) values ('TKCL002', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL002)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1');");
-                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) values ('TKCL003', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL003)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1');");
-                ExecuteQuery(@"insert into Products(Id, Name, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) values ('TKCL004', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL004)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1');");
+                ExecuteQuery(@"insert into Products(Id, Name, Description, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy, Status) values ('TKCL001', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL001)', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL001)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1', 'Chưa xóa');");
+                ExecuteQuery(@"insert into Products(Id, Name, Description, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy, Status) values ('TKCL002', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL002)', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL002)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1', 'Chưa xóa');");
+                ExecuteQuery(@"insert into Products(Id, Name, Description, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy, Status) values ('TKCL003', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL003)', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL003)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1', 'Chưa xóa');");
+                ExecuteQuery(@"insert into Products(Id, Name, Description, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy, Status) values ('TKCL004', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL004)', 'Thớt thủy tinh kính cường lực  3D tròn (TKCL004)', '3.2', '35', '1.2', '35', '350000', 'http', 'http', 'http', '10', '1', 'Chưa xóa');");
             }
             catch (Exception e)
             {

@@ -6,7 +6,7 @@
         {
         }
 
-        public Orders(string orderCode, string createdTime, string updatedTime, string subTotal, string grandPrice, int customerId, string status, int verifyBy, string orderFrom, string type, string shippingAddress, string billingAddress, string callShip, string packageWidth, string packageHeight, string packageWeight)
+        public Orders(string orderCode, string createdTime, string updatedTime, string subTotal, string grandPrice, int customerId, string status, int verifyBy, string orderFrom, string type, string shippingAddress, string billingAddress, string callShip, string packageWidth, string packageHeight, string packageLenght)
         {
             OrderCode = orderCode;
             CreatedTime = createdTime;
@@ -23,7 +23,7 @@
             CallShip = callShip;
             PackageWidth = packageWidth;
             PackageHeight = packageHeight;
-            PackageWeight = packageWeight;
+            PackageLenght = packageLenght;
         }
 
         public string OrderCode { get; set; }
@@ -41,6 +41,6 @@
         public string CallShip { get; set; }
         public string PackageWidth { get; set; }
         public string PackageHeight { get; set; }
-        public string PackageWeight { get; set; }
+        public string PackageLenght { get; set; }
     }
 }

@@ -25,3 +25,30 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetO
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CopyComplete
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.exe
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.pdb
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\EntityFramework.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\EntityFramework.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\GetOrderConsole.exe.config
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\GetOrderConsole.exe
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\GetOrderConsole.pdb
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Microsoft.Owin.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Microsoft.Owin.Security.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Newtonsoft.Json.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Owin.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\vng.zalo.ZaloCSharpSDK.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Microsoft.Owin.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Newtonsoft.Json.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csprojAssemblyReference.cache
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CoreCompileInputs.cache
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CopyComplete
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.exe
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.pdb

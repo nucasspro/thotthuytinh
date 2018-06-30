@@ -290,3 +290,11 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Ne
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\xNet.dll
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.xml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\sapbusinessobjects.wpf.viewer.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\SAPBusinessObjects.WPF.ViewerShared.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\FlashControlV71.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\ShockwaveFlashObjects.dll

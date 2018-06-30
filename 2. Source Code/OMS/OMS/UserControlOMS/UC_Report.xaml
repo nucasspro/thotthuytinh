@@ -1,86 +1,122 @@
-﻿<UserControl x:Class="OMS.UserControlOMS.UC_Report"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer" x:Class="OMS.UserControlOMS.UC_Report"
              mc:Ignorable="d"
              DataContext="{StaticResource ReportUCVM}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
-             TextElement.FontSize="15"
+             TextElement.FontSize="20"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="700" d:DesignWidth="1366">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
 
             <!--Report Box-->
             <GroupBox Grid.Column="0"
-                      Header="Report"
+                      Header="Information"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
-                      Margin="5,5,0,5">
+                      Margin="5">
 
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon
-                                Kind="ReorderHorizontal"
+                                Kind="Information"
                                 Height="32"
                                 Width="32"
-                                VerticalAlignment="Center">
-                            </materialDesign:PackIcon>
+                                VerticalAlignment="Center"/>
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}">
-                            </TextBlock>
+                                Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
 
                 <!--Report Input-->
                 <StackPanel Orientation="Vertical">
-                    <TextBox
-                        materialDesign:HintAssist.Hint="Report Name"
-                        Height="50"
-                        Margin="10"
-                        IsReadOnly="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
-                        materialDesign:HintAssist.Hint="Create By"
-                        Height="50"
-                        Margin="10"
-                        IsReadOnly="True"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
-                        materialDesign:HintAssist.Hint="Value"
-                        Height="50"
-                        Margin="10"
-                        IsReadOnly="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <DatePicker
-                        Height="50"
-                        Margin="10"
-                        materialDesign:HintAssist.Hint="Pick Date"
-                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="BÁO CÁO DOANH THU THEO " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" />
+                        <ComboBox Height="50"
+                                  Margin="10"
+                                  x:Name="cbxChooseTypeReport"
+                                  IsEditable="False"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
+                            <ComboBoxItem IsSelected="True" Content="THÁNG" />
+                            <ComboBoxItem Content="NĂM" />
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction
+                                    Command="{Binding SelectionChangedCommand}"
+                                    CommandParameter="{Binding ElementName=cbxChooseTypeReport}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </StackPanel>
+                    <TextBlock Text="Chọn thời gian báo cáo: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" />
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="Nhập tháng:  " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" />
+                            <ComboBox Height="50" Width="200" IsEnabled="{Binding ReportMonthIsEnbled}"
+                                  Margin="10"
+                                  x:Name="cbxChooseMonth"
+                                  IsEditable="False"
+                                  SelectedIndex="{Binding ReportMonth}"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
+                                <ComboBoxItem IsSelected="True" Content="1" />
+                                <ComboBoxItem Content="2" />
+                                <ComboBoxItem Content="3" />
+                                <ComboBoxItem Content="4" />
+                                <ComboBoxItem Content="5" />
+                                <ComboBoxItem Content="6" />
+                                <ComboBoxItem Content="7" />
+                                <ComboBoxItem Content="8" />
+                                <ComboBoxItem Content="9" />
+                                <ComboBoxItem Content="10" />
+                                <ComboBoxItem Content="11" />
+                                <ComboBoxItem Content="12" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="Nhập năm:  " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" />
+                            <TextBox
+                                materialDesign:HintAssist.Hint="Year" Width="200" Margin="10"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                Text="{Binding ReportYear}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <Button Width="150" Height="50" Content="Preview" Margin="10"
+                            Command="{Binding ButtonPreviewCommand}" CommandParameter="{Binding ElementName=CrystalReportViewer}" />
+                        <Button Width="150" Height="50" Content="Print" Margin="10"
+                            Command="{Binding ButtonPreviewCommand}" CommandParameter="{Binding ElementName=CrystalReportViewer}" />
+                    </StackPanel>
+                    
+
+
                 </StackPanel>
                 <!--/Report Input-->
             </GroupBox>
             <!--/Report Box-->
-            
+
             <!--Preview Box-->
             <GroupBox Grid.Column="1"
                       Header="Preview"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
-                      Margin="5,5,5,5">
+                      Margin="5">
 
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
@@ -89,36 +125,24 @@
                                 Kind="ReorderHorizontal"
                                 Height="32"
                                 Width="32"
-                                VerticalAlignment="Center">
-                            </materialDesign:PackIcon>
+                                VerticalAlignment="Center"/>
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}">
-                            </TextBlock>
+                                Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
 
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="8*"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
 
-                    <!--Cystal Report-->
+                    <Viewer:CrystalReportsViewer x:Name="CrystalReportViewer" 
+                                                 HorizontalAlignment="Left" 
+                                                 Height="602" Margin="10,10,0,0" 
+                                                 VerticalAlignment="Top" Width="908" ShowToolbar="True" ToggleSidePanel="None"
+                                                 />
 
-                    <!--/Cystal Report-->
-
-                    <!--Button Export Report-->
-                    <Button Grid.Row="1"
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                            Width="150"
-                            Margin="5,5,5,5"
-                            ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                            Content="Export to PDF">
-                    </Button>
                     <!--/Button Export Report-->
                 </Grid>
             </GroupBox>

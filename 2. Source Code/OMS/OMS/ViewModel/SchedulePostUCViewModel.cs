@@ -103,10 +103,10 @@ namespace OMS.ViewModel
 
         public SchedulePostUCViewModel()
         {
-            GetPageAccessToken();
+            //GetPageAccessToken();
             ListProduct = new ObservableCollection<Products>();
             ListSchedulePost = new ObservableCollection<Posts>();
-            LoadProduct();
+            //LoadProduct();
 
             LoadCommand = new RelayCommand<Button>(p => true, p =>
             {
@@ -161,12 +161,12 @@ namespace OMS.ViewModel
 
         private void GetPageAccessToken()
         {
-            HttpRequest httpRequest = new HttpRequest();
-            string accessToken = GetAccessToken();
-            string newaddress = $"{GraphUrl}{PageId}?fields=access_token&access_token={accessToken}";
-            var json = JsonConvert.DeserializeObject(httpRequest.Get(newaddress).ToString());
-            JToken jToken = JToken.FromObject(json);
-            _pageAccessToken = jToken["access_token"].ToString();
+            //HttpRequest httpRequest = new HttpRequest();
+            //string accessToken = GetAccessToken();
+            //string newaddress = $"{GraphUrl}{PageId}?fields=access_token&access_token={accessToken}";
+            //var json = JsonConvert.DeserializeObject(httpRequest.Get(newaddress).ToString());
+            //JToken jToken = JToken.FromObject(json);
+            //_pageAccessToken = jToken["access_token"].ToString();
         }
 
         private List<string> GetListPhotoId()
@@ -278,7 +278,7 @@ namespace OMS.ViewModel
         private void LoadProduct()
         {
             DBConnect dbConnect = new DBConnect();
-            const string query = @"select * from Products;";
+            const string query = @"select * from Products where status = 'Chưa xóa';";
             DataTable dataTable = dbConnect.SelectQuery(query);
             foreach (var row in dataTable.Rows)
             {
@@ -296,7 +296,8 @@ namespace OMS.ViewModel
                     Image2 = (string)((DataRow)row).ItemArray[9],
                     Image3 = (string)((DataRow)row).ItemArray[10],
                     Quantity = Convert.ToInt32(((DataRow)row).ItemArray[11]),
-                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[12]) }
+                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[12]) },
+                    Status = (string)((DataRow)row).ItemArray[13]
                 };
                 ListProduct.Add(product);
             }

@@ -10,6 +10,7 @@
 //------------------------------------------------------------------------------
 
 using OMS;
+using RootLibrary.WPF.Localization;
 using System;
 using System.Diagnostics;
 using System.Windows;
