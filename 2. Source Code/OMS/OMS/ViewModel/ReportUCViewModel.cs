@@ -1,10 +1,12 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 using OMS.Model;
 using SAPBusinessObjects.WPF.Viewer;
 using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace OMS.ViewModel
@@ -15,8 +17,9 @@ namespace OMS.ViewModel
 
         public ICommand ButtonPreviewCommand { get; set; }
         public ICommand SelectionChangedCommand { get; set; }
+        public ICommand ButtonExportCommand { get; set; }
 
-        #endregion commandC:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\ViewModel\ReportUCViewModel.cs
+        #endregion command
 
         #region virable
 
@@ -44,6 +47,37 @@ namespace OMS.ViewModel
             set { _ReportMonth = value; OnPropertyChanged(); }
         }
 
+        private int _SelectedIndex { get; set; }
+
+        public int SelectedIndex
+        {
+            get => _SelectedIndex;
+            set { _SelectedIndex = value; OnPropertyChanged(); }
+        }
+
+        private DateTime _StartedDate { get; set; }
+
+        public DateTime StartedDate
+        {
+            get => _StartedDate;
+            set { _StartedDate = value; OnPropertyChanged(); }
+        }
+
+        private DateTime _EndDate { get; set; }
+
+        public DateTime EndDate
+        {
+            get => _EndDate;
+            set { _EndDate = value; OnPropertyChanged(); }
+        }
+        private bool _ExportIsEnabled { get; set; }
+
+        public bool ExportIsEnabled
+        {
+            get => _ExportIsEnabled;
+            set { _ExportIsEnabled = value; OnPropertyChanged(); }
+        }
+
         public RevenueReport CrystalReport { get; set; }
 
 
@@ -57,35 +91,117 @@ namespace OMS.ViewModel
             DateTime now = DateTime.Now;
             ReportMonthIsEnbled = true;
             ReportYear = now.Year;
-            SelectionChangedCommand = new RelayCommand<ComboBox>(p => true, p =>
+            SelectionChangedCommand = new RelayCommand<System.Windows.Controls.ComboBox>(p => true, p =>
             {
-                int temp = p.SelectedIndex;
-                if (temp == 0)
+                SelectedIndex = p.SelectedIndex;
+                if (SelectedIndex == 0)
+                {
                     ReportMonthIsEnbled = true;
+                }
                 else
                     ReportMonthIsEnbled = false;
             });
 
             ButtonPreviewCommand = new RelayCommand<CrystalReportsViewer>(p => true, p =>
             {
-                p.ViewerCore.ReportSource= CrystalReport;
+
                 if (ReportYear < 2000 || ReportYear > 3000)
-                    MessageBox.Show("Năm trong khoảng (2000; 3000)");
-                MessageBox.Show((ReportMonth + 1).ToString() + ReportYear.ToString());
+                    System.Windows.MessageBox.Show("Năm trong khoảng (2000; 3000)");
+                if (SelectedIndex == 0)
+                {
+                    StartedDate = new DateTime(ReportYear, ReportMonth+1, 1, 0, 0, 0);
+                    EndDate = ReturnEndDate(ReportMonth + 1, ReportYear);
+                }
+                else
+                {
+                    StartedDate = new DateTime(ReportYear, 1, 1);
+                    EndDate = new DateTime(ReportYear, 12, 31);
+                }
+                CrystalReport.Database.Tables["Revenue"].SetDataSource(CreateReport(StartedDate, EndDate));
+                p.ViewerCore.ReportSource= CrystalReport;
+                if (CrystalReport != null)
+                    ExportIsEnabled = true;
+                else
+                    ExportIsEnabled = false;
+            });
+
+            ButtonExportCommand = new RelayCommand<object>(p => true, p =>
+            {
+                ExportPDF(CrystalReport);
             });
         }
 
-        private void CreateReport()
+        public DataTable CreateReport(DateTime start, DateTime end)
         {
             DBConnect dB = new DBConnect();
             DataTable dataTable = new DataTable();
-            string test = "select OrderFrom, Id, UpdatedTime, GrandPrice "+
-                            "from Orders";
-            dataTable = dB.SelectQuery(test);
-            
-            
+            string test = "select OrderFrom, Id, datetime(UpdatedTime, 'unixepoch','localtime') as UpdatedTime, cast(GrandPrice as integer) as GrandPrice " +
+                            "from Orders where cast (UpdatedTime as integer) > cast ("+ ConvertToTimeSpan (start.ToString()) + " as integer) " +
+                            "and cast (UpdatedTime as integer) < cast (" + ConvertToTimeSpan(end.ToString()) + " as integer)" +
+                            "and Status='Đã thanh toán';";
+            return dB.SelectQuery(test);
         }
 
+        public bool CheckYear(int year)
+        {
+            if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+                return true;
+            return false;
+        }
+
+        public DateTime ReturnEndDate(int month, int year)
+        {
+            DateTime temp;
+            int date;
+            if (month == 2)
+            {
+                if (CheckYear(year))
+                    date = 29;
+                else
+                    date = 28;
+            }
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+                date = 31;
+            else
+            date = 30;
+            temp = new DateTime(year, month, date, 0, 0, 0);
+            return temp;
+        }
+        public String ConvertToTimeSpan(string time)
+        {
+            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
+            var dateTimeOffset = new DateTimeOffset(dateTime);
+            return dateTimeOffset.ToUnixTimeSeconds().ToString();
+        }
+
+        public void ExportPDF(RevenueReport report)
+        {
+            ExportOptions exportOptions =new ExportOptions();
+            DiskFileDestinationOptions diskFile = new DiskFileDestinationOptions();
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Pdf Files|*.pdf";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                diskFile.DiskFileName = sfd.FileName;
+            }
+            exportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+            exportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+            exportOptions.ExportDestinationOptions = diskFile;
+            exportOptions.ExportFormatOptions = new PdfRtfWordFormatOptions();
+
+            try
+            {
+                report.Export(exportOptions);
+                System.Windows.MessageBox.Show("Xuất File thành công!");
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Có lỗi xảy ra trong quá trình xuất file!");
+            }
+
+
+        }
         #endregion methods
     }
 }

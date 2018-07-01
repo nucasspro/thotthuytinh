@@ -12,13 +12,13 @@
   <xs:element name="RevenueDataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="RevenueDataset" msprop:Generator_UserDSName="RevenueDataset">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Revenue" msprop:Generator_TableClassName="RevenueDataTable" msprop:Generator_TableVarName="tableRevenue" msprop:Generator_RowChangedName="RevenueRowChanged" msprop:Generator_TablePropName="Revenue" msprop:Generator_RowDeletingName="RevenueRowDeleting" msprop:Generator_RowChangingName="RevenueRowChanging" msprop:Generator_RowEvHandlerName="RevenueRowChangeEventHandler" msprop:Generator_RowDeletedName="RevenueRowDeleted" msprop:Generator_RowClassName="RevenueRow" msprop:Generator_UserTableName="Revenue" msprop:Generator_RowEvArgName="RevenueRowChangeEvent">
+        <xs:element name="Revenue" msprop:Generator_TableClassName="RevenueDataTable" msprop:Generator_TableVarName="tableRevenue" msprop:Generator_TablePropName="Revenue" msprop:Generator_RowDeletingName="RevenueRowDeleting" msprop:Generator_RowChangingName="RevenueRowChanging" msprop:Generator_RowEvHandlerName="RevenueRowChangeEventHandler" msprop:Generator_RowDeletedName="RevenueRowDeleted" msprop:Generator_UserTableName="Revenue" msprop:Generator_RowChangedName="RevenueRowChanged" msprop:Generator_RowEvArgName="RevenueRowChangeEvent" msprop:Generator_RowClassName="RevenueRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="OrderFrom" msprop:Generator_ColumnVarNameInTable="columnOrderFrom" msprop:Generator_ColumnPropNameInRow="OrderFrom" msprop:Generator_ColumnPropNameInTable="OrderFromColumn" msprop:Generator_UserColumnName="OrderFrom" type="xs:string" minOccurs="0" />
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" minOccurs="0" />
               <xs:element name="UpdatedTime" msprop:Generator_ColumnVarNameInTable="columnUpdatedTime" msprop:Generator_ColumnPropNameInRow="UpdatedTime" msprop:Generator_ColumnPropNameInTable="UpdatedTimeColumn" msprop:Generator_UserColumnName="UpdatedTime" type="xs:string" minOccurs="0" />
-              <xs:element name="GrandPrice" msprop:Generator_ColumnVarNameInTable="columnGrandPrice" msprop:Generator_ColumnPropNameInRow="GrandPrice" msprop:Generator_ColumnPropNameInTable="GrandPriceColumn" msprop:Generator_UserColumnName="GrandPrice" type="xs:string" minOccurs="0" />
+              <xs:element name="GrandPrice" msprop:Generator_ColumnVarNameInTable="columnGrandPrice" msprop:Generator_ColumnPropNameInRow="GrandPrice" msprop:Generator_ColumnPropNameInTable="GrandPriceColumn" msprop:Generator_UserColumnName="GrandPrice" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

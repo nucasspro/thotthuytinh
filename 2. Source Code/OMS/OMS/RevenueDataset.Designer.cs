@@ -389,7 +389,7 @@ namespace OMS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public RevenueRow AddRevenueRow(string OrderFrom, int Id, string UpdatedTime, string GrandPrice) {
+            public RevenueRow AddRevenueRow(string OrderFrom, int Id, string UpdatedTime, int GrandPrice) {
                 RevenueRow rowRevenueRow = ((RevenueRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         OrderFrom,
@@ -433,7 +433,7 @@ namespace OMS {
                 base.Columns.Add(this.columnId);
                 this.columnUpdatedTime = new global::System.Data.DataColumn("UpdatedTime", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUpdatedTime);
-                this.columnGrandPrice = new global::System.Data.DataColumn("GrandPrice", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnGrandPrice = new global::System.Data.DataColumn("GrandPrice", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGrandPrice);
             }
             
@@ -625,10 +625,10 @@ namespace OMS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string GrandPrice {
+            public int GrandPrice {
                 get {
                     try {
-                        return ((string)(this[this.tableRevenue.GrandPriceColumn]));
+                        return ((int)(this[this.tableRevenue.GrandPriceColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'GrandPrice\' in table \'Revenue\' is DBNull.", e);

@@ -216,6 +216,11 @@ D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.csproj.CopyComplete
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.exe
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.pdb
 D:\HK8\ThietKeHeThongTMDT\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\xNet.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.xml
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\OMS.exe.config
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\OMS.exe
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\OMS.pdb
@@ -225,9 +230,13 @@ C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dragablz.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignColors.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignThemes.Wpf.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\sapbusinessobjects.wpf.viewer.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\SAPBusinessObjects.WPF.ViewerShared.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Data.SQLite.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Data.SQLite.EF6.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Data.SQLite.Linq.dll
@@ -243,16 +252,20 @@ C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\FlashControlV71.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\stdole.dll
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\ShockwaveFlashObjects.dll
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dragablz.pdb
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Dragablz.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignColors.pdb
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Data.SQLite.xml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\System.Windows.Interactivity.xml
@@ -285,16 +298,3 @@ C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.exe
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.pdb
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OMS.csprojAssemblyReference.cache
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.dll
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.dll
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\xNet.dll
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.xml
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.xml
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.dll
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.dll
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Facebook.xml
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\Newtonsoft.Json.xml
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\sapbusinessobjects.wpf.viewer.dll
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\SAPBusinessObjects.WPF.ViewerShared.dll
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\FlashControlV71.dll
-C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\ShockwaveFlashObjects.dll

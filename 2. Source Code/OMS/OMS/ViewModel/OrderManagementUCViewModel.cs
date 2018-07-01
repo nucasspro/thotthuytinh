@@ -971,7 +971,6 @@ namespace OMS.ViewModel
                 PackageWidth = PackageWidthTemp.ToString();
                 PackageLenght = PackageLenghtTemp.ToString();
             }
-            //MessageBox.Show(QuantityTemp.ToString());
 
         }
 

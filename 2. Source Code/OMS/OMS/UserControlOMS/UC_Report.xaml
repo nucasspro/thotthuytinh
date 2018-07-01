@@ -101,8 +101,8 @@
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <Button Width="150" Height="50" Content="Preview" Margin="10"
                             Command="{Binding ButtonPreviewCommand}" CommandParameter="{Binding ElementName=CrystalReportViewer}" />
-                        <Button Width="150" Height="50" Content="Print" Margin="10"
-                            Command="{Binding ButtonPreviewCommand}" CommandParameter="{Binding ElementName=CrystalReportViewer}" />
+                        <Button Width="150" Height="50" Content="Export PDF" Margin="10"
+                            Command="{Binding ButtonExportCommand}" CommandParameter="{Binding ElementName=CrystalReportViewer}" IsEnabled="{Binding ExportIsEnabled}"/>
                     </StackPanel>
                     
 
