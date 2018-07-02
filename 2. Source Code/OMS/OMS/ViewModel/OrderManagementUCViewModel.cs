@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -26,6 +27,8 @@ namespace OMS.ViewModel
         public ICommand AddProductToOrderCommand { get; set; }
         public ICommand UpdateProductToOrderCommand { get; set; }
         public ICommand SelectionChangedCallShipCommand { get; set; }
+
+        public ICommand CheckPriceCommand { get; set; }
 
         #endregion command
 
@@ -77,6 +80,7 @@ namespace OMS.ViewModel
                 BillingAddress = SelectedItem.BillingAddress;
                 CustomerPhone = SelectedItem.Customer.Phone;
                 CallShip = SelectedItem.CallShip.Equals("Chưa gọi ship") ? 0 : 1;
+                ShipPrice = Convert.ToInt32(SelectedItem.ShipPrice);
                 PackageHeight = SelectedItem.PackageHeight;
                 PackageLenght = SelectedItem.PackageLenght;
                 PackageWidth = SelectedItem.PackageWidth;
@@ -603,6 +607,12 @@ namespace OMS.ViewModel
                     }
                 }
             });
+
+
+            CheckPriceCommand = new RelayCommand<object>(p => true, p =>
+                 {
+                     CheckShip(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice));
+                 });
         }
 
         public void LoadData(string SelectedValue)
@@ -612,7 +622,7 @@ namespace OMS.ViewModel
             string query = @"select Orders.Id, Customers.Name,
                             datetime(Orders.CreatedTime, 'unixepoch','localtime') as CreatedTime,
                             Orders.GrandPrice, Orders.SubTotal,
-                            Orders.Status, Orders.ShippingAddress, Orders.BillingAddress, Customers.Phone, Orders.CallShip,
+                            Orders.Status, Orders.ShippingAddress, Orders.BillingAddress, Customers.Phone, Orders.CallShip, Orders.ShipPrice,
                             Orders.PackageWidth, Orders.PackageLenght, Orders.PackageHeight
                             from Orders inner join Customers
                             where Orders.CustomerId = Customers.Id and Orders.OrderFrom = '" + SelectedValue + "';";
@@ -629,9 +639,10 @@ namespace OMS.ViewModel
                     ShippingAddress = (string)((DataRow)row).ItemArray[6],
                     BillingAddress = (string)((DataRow)row).ItemArray[7],
                     CallShip = (string)((DataRow)row).ItemArray[9],
-                    PackageWidth = (string)((DataRow)row).ItemArray[10],
-                    PackageLenght = (string)((DataRow)row).ItemArray[11],
-                    PackageHeight = (string)((DataRow)row).ItemArray[12]
+                    ShipPrice = (string)((DataRow)row).ItemArray[10],
+                    PackageWidth = (string)((DataRow)row).ItemArray[11],
+                    PackageLenght = (string)((DataRow)row).ItemArray[12],
+                    PackageHeight = (string)((DataRow)row).ItemArray[13]
                 };
                 Customers customer = new Customers
                 {
@@ -670,8 +681,10 @@ namespace OMS.ViewModel
             }
             //auto fill subtotal and grand total
             SubTotal = CalculateSubTotal();
-            GrandPrice = (Convert.ToInt32(SubTotal) + ShipPrice).ToString();
+            if(Convert.ToInt32(GrandPrice)< Convert.ToInt32(SubTotal))
+                GrandPrice = SubTotal;
             AutoUpdatePackageDimension();
+
         }
 
         public void FindOrderByID(int id)
@@ -811,9 +824,9 @@ namespace OMS.ViewModel
                     MessageBox.Show("Có lỗi phát sinh khi thêm khách hàng! Lỗi: " + e);
                 }
             }
-            query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageLenght) " +
+            query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
                     $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', " + ReturnCustomerID(CustomerName, CustomerPhone) + ", '" + OrderStatusTemp + "','','CreatedByEmployee'," +
-                    $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','" + PackageWidth + "','" + PackageHeight + "','" + PackageLenght + "');";
+                    $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','"+ShipPrice+"','" + PackageWidth + "','" + PackageHeight + "','" + PackageLenght + "');";
             //MessageBox.Show(Query1);
             try
             {
@@ -884,7 +897,7 @@ namespace OMS.ViewModel
                         $"GrandPrice='{GrandPrice}', CustomerID=" + ReturnCustomerID(CustomerName, CustomerPhone) + ", " +
                         "Status='" + OrderStatusTemp + "', VerifyBy='', OrderFrom='" + SelectedValue + "', " +
                         "ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
-                        "CallShip='" + CallShipTemp + "', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
+                        "CallShip='" + CallShipTemp + "',ShipPrice='"+ShipPrice+"', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
                         "PackageLenght='" + PackageLenght + "' " +
                         "where Id=" + OrderID + "";
             try
@@ -974,33 +987,34 @@ namespace OMS.ViewModel
 
         }
 
-        //private void CheckShip()
-        //{
-        //    string token = "653d044D18768F6c54BeưB857d091B52cb2334a87";
-        //    string url = @"https://services.giaohangtietkiem.vn/services/shipment/fee?";
-        //    string test = "ktx khu b - thủ đức - hcm";
-        //    string[] vs = test.Split('-');
+        private void CheckShip(String fullAddress, int width, int lenght, int height, int price)
+        {
+            string token = "653d044D18768F6c54BeB857d091B52cb2334a87";
+            string url = @"https://services.giaohangtietkiem.vn/services/shipment/fee?";
 
-
-
-
-        //    string address = "82 đường 17 linh trung";
-        //    string district = "Thử Đức";
-        //    string province = "Hồ Chí Minh";
-        //    string pick_address = "ký túc xá khu B";
-        //    string pick_district = "Thử Đức";
-        //    string pick_province = "Hồ Chí Minh";
-        //    int weight = 3000;
-        //    int value = 300000;
-        //    string request =
-        //        $"{url}address={address}&district={district}&province={province}&pick_address={pick_address}&pick_district={pick_district}&pick_province={pick_province}&weight={weight}&value={value}";
-        //    HttpRequest httpRequest = new HttpRequest();
-        //    httpRequest.AddHeader("Token", token);
-        //    var json = JsonConvert.DeserializeObject(httpRequest.Get(request).ToString());
-        //    JToken jToken = JToken.FromObject(json);
-        //    string fee = jToken["fee"]["fee"].ToString();
-        //    MessageBox.Show(fee);
-        //}
+            List<string> data = fullAddress.Split('-').ToList();
+            int count = data.Count;
+            string address = "";
+            for (int i = 0; i < data.Count - 2; i++)
+            {
+                address += data[i] + " -";
+            }
+            string district = data[count - 2].Trim();
+            string province = data[count - 1].Trim();
+            string pick_address = "ký túc xá khu B";
+            string pick_district = "Thủ Đức";
+            string pick_province = "Hồ Chí Minh";
+            int weight = (width * lenght * height) / 6000;
+            int value = price;
+            string request = $"{url}address={address}&district={district}&province={province}&pick_address={pick_address}&pick_district={pick_district}&pick_province={pick_province}&weight={weight}&value={value}";
+            HttpRequest httpRequest = new HttpRequest();
+            httpRequest.AddHeader("Token", token);
+            var json = JsonConvert.DeserializeObject(httpRequest.Get(request).ToString());
+            JToken jToken = JToken.FromObject(json);
+            string fee = jToken["fee"]["fee"].ToString();
+            ShipPrice = Convert.ToInt32(fee);
+            GrandPrice = (Convert.ToInt32(SubTotal) + ShipPrice).ToString();
+        }
         #endregion Method
     }
 }

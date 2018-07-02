@@ -16,6 +16,7 @@
         public string ShippingAddress { get; set; }
         public string BillingAddress { get; set; }
         public string CallShip { get; set; }
+        public string ShipPrice { get; set; }
         public string PackageWidth { get; set; }
         public string PackageHeight { get; set; }
         public string PackageLenght { get; set; }

@@ -81,6 +81,7 @@ namespace GetOrderConsole
                 orders.Type = "Bán cho khách";
                 orders.BillingAddress = orders.ShippingAddress = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"];
                 orders.CallShip = "Chưa gọi ship";
+                orders.ShipPrice = "0";
                 orders.PackageWidth = "0";
                 orders.PackageHeight = "0";
                 orders.PackageLenght = "0";
@@ -138,8 +139,8 @@ namespace GetOrderConsole
         {
             try
             {
-                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageLenght) " +
-                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageLenght}');";
+                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice,PackageWidth, PackageHeight, PackageLenght) " +
+                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.ShipPrice}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageLenght}');";
                 _dbConnect.ExecuteQuery(query);
             }
             catch (Exception e)

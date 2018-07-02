@@ -75,6 +75,7 @@ namespace GetOrderConsole
                                        "ShippingAddress TEXT, " +
                                        "BillingAddress TEXT, " +
                                        "CallShip TEXT, " +
+                                       "ShipPrice TEXT, " +
                                        "PackageWidth TEXT, " +
                                        "PackageHeight TEXT, " +
                                        "PackageLenght TEXT);";

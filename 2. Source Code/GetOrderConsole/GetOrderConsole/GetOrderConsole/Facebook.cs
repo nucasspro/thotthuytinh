@@ -104,12 +104,11 @@ namespace GetOrderConsole
             Customers customers = new Customers();
             OrderDetail orderDetail = new OrderDetail();
 
-            
             for (int i = 0; i < newList.Count; i++)
             {
                 if (newList[i].Contains("Chọn thớt TKCL"))
                 {
-                    orderDetail.ProductId= newList[i].Replace(@"Chọn thớt ","");
+                    orderDetail.ProductId = newList[i].Replace(@"Chọn thớt ", "");
                 }
                 if (newList[i].Equals("Bạn muốn mua mẫu này với số lượng là bao nhiêu?"))
                 {
@@ -145,6 +144,7 @@ namespace GetOrderConsole
             orders.OrderFrom = "Facebook";
             orders.Type = "Bán cho khách";
             orders.CallShip = "Chưa gọi ship";
+            orders.ShipPrice = "0";
             orders.PackageWidth = "0";
             orders.PackageHeight = "0";
             orders.PackageLenght = "0";
@@ -177,6 +177,7 @@ namespace GetOrderConsole
         {
             return DateTime.Parse(time);
         }
+
         public JObject GetListMessageFromChatId(string chatId)
         {
             string getListChatId = $"{GraphUrl}{chatId}?fields=messages.limit(25)%7Bcreated_time%2Cmessage%7D&access_token={_pageAccessToken}";
@@ -184,6 +185,7 @@ namespace GetOrderConsole
             JObject splitList = JObject.Parse(getList);
             return splitList;
         }
+
         private int Check(int time, DateTime createdTime)
         {
             switch (time)
@@ -212,6 +214,7 @@ namespace GetOrderConsole
             string query = $"select count(id) from Customers where Customers.Phone = '{phone}';";
             return _dbConnect.GetIdAndCountId(query);
         }
+
         private void InsertCustomersToDb(Customers customer)
         {
             if (CheckCustomerExists(customer.Phone) >= 1)
@@ -248,8 +251,8 @@ namespace GetOrderConsole
         {
             try
             {
-                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, PackageWidth, PackageHeight, PackageLenght) " +
-                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageLenght}');";
+                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
+                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.ShipPrice}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageLenght}');";
                 _dbConnect.ExecuteQuery(query);
             }
             catch (Exception e)
@@ -257,6 +260,7 @@ namespace GetOrderConsole
                 Console.WriteLine("Loi khi insert orders vao db" + e);
             }
         }
+
         public string ConvertToTimeSpan(string time)
         {
             DateTime dateTime = DateTime.Parse(time).ToLocalTime();
@@ -264,6 +268,4 @@ namespace GetOrderConsole
             return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }
     }
-
-    
 }

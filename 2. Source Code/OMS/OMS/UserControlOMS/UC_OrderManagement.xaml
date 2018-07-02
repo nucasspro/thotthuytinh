@@ -259,6 +259,7 @@
                         <Button Width="150"
                                 Height="50"
                                 Content="Check Price"
+                                Command="{Binding CheckPriceCommand}"
                                 Margin="10" />
 
                         <Grid Height="50" Margin="10">
