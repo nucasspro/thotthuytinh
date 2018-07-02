@@ -261,10 +261,12 @@
                                                 Header="Id" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Name}"
                                                 Header="Name" />
-                                <GridViewColumn DisplayMemberBinding="{Binding Description}"
-                                                Header="Description" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Quantity}"
+                                                Header="Quantity" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Price}"
                                                 Header="Price" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Description}"
+                                                Header="Description" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Weight}"
                                                 Header="Weight" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Width}"
@@ -279,8 +281,6 @@
                                                 Header="Image2" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Image3}"
                                                 Header="Image3" />
-                                <GridViewColumn DisplayMemberBinding="{Binding Quantity}"
-                                                Header="Quantity" />
                                 <GridViewColumn DisplayMemberBinding="{Binding CreatedBy.Id}"
                                                 Header="CreatedBy" />
                             </GridView>

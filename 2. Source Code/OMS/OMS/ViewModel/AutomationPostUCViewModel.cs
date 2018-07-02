@@ -5,7 +5,6 @@ using OMS.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.IO;
 using System.Net;
 using System.Windows;
@@ -15,7 +14,7 @@ using xNet;
 
 namespace OMS.ViewModel
 {
-    public class SchedulePostUCViewModel : BaseViewModel
+    public class AutomationPostUCViewModel : BaseViewModel
     {
         #region Command
 
@@ -91,39 +90,35 @@ namespace OMS.ViewModel
         private const string GraphUrl = @"https://graph.facebook.com/v3.0/";
 
         //thotthuytinh
-        //private const string PageId = "1790501110988348";
+        private const string PageId = "1790501110988348";
+
         //raplyrics
-        private const string PageId = "722487931126157";
+        //private const string PageId = "722487931126157";
 
         private string _pageAccessToken;
+        public Products Product;
 
         #endregion Variable
 
         #region Method
 
-        public SchedulePostUCViewModel()
+        public AutomationPostUCViewModel()
         {
+            DateTimePickerDate = DateTime.Today;
             //GetPageAccessToken();
             ListProduct = new ObservableCollection<Products>();
             ListSchedulePost = new ObservableCollection<Posts>();
-            //LoadProduct();
-
-            LoadCommand = new RelayCommand<Button>(p => true, p =>
+            Product = new Products();
+            foreach (var item in Product.LoadProduct())
             {
-                LoadSchedulePost();
-            });
+                ListProduct.Add(item);
+            }
 
-            CreateCommand = new RelayCommand<Button>(p => true, p =>
-            {
-                CreateASchedulePost();
-                LoadSchedulePost();
-            });
+            LoadCommand = new RelayCommand<Button>(p => true, p => { LoadSchedulePost(); });
 
-            CreateWithAllProductsCommand = new RelayCommand<Button>(p => true, p =>
-            {
-                CreateWithAllProducts();
-                LoadSchedulePost();
-            });
+            CreateCommand = new RelayCommand<Button>(p => true, p => { CreateASchedulePost(); LoadSchedulePost(); });
+
+            CreateWithAllProductsCommand = new RelayCommand<Button>(p => true, p => { CreateWithAllProducts(); LoadSchedulePost(); });
 
             // ReSharper disable once ComplexConditionExpression
             DeleteCommand = new RelayCommand<Button>(p => true, p =>
@@ -146,7 +141,7 @@ namespace OMS.ViewModel
         private string GetAccessToken()
         {
             const string username = "nucasspronewrap@gmail.com";
-            const string password = "Nucass2189401222";
+            const string password = "Nucasspro9696";
 
             const string address = "https://nghia.org/public/api/v1/buildLogin.php";
             const string data = "u=" + username + "&p=" + password;
@@ -161,12 +156,12 @@ namespace OMS.ViewModel
 
         private void GetPageAccessToken()
         {
-            //HttpRequest httpRequest = new HttpRequest();
-            //string accessToken = GetAccessToken();
-            //string newaddress = $"{GraphUrl}{PageId}?fields=access_token&access_token={accessToken}";
-            //var json = JsonConvert.DeserializeObject(httpRequest.Get(newaddress).ToString());
-            //JToken jToken = JToken.FromObject(json);
-            //_pageAccessToken = jToken["access_token"].ToString();
+            HttpRequest httpRequest = new HttpRequest();
+            string accessToken = GetAccessToken();
+            string newaddress = $"{GraphUrl}{PageId}?fields=access_token&access_token={accessToken}";
+            var json = JsonConvert.DeserializeObject(httpRequest.Get(newaddress).ToString());
+            JToken jToken = JToken.FromObject(json);
+            _pageAccessToken = jToken["access_token"].ToString();
         }
 
         private List<string> GetListPhotoId()
@@ -176,16 +171,14 @@ namespace OMS.ViewModel
                 MessageBox.Show("Các trường * không được bỏ trống!");
                 return null;
             }
-            else
+
+            List<string> listPhotoId = new List<string>
             {
-                List<string> listPhotoId = new List<string>
-                {
-                    UploadAPhoto(ComboboxProductListSelectedItem.Image1),
-                    UploadAPhoto(ComboboxProductListSelectedItem.Image2),
-                    UploadAPhoto(ComboboxProductListSelectedItem.Image3)
-                };
-                return listPhotoId;
-            }
+                UploadAPhoto(ComboboxProductListSelectedItem.Image1),
+                UploadAPhoto(ComboboxProductListSelectedItem.Image2),
+                UploadAPhoto(ComboboxProductListSelectedItem.Image3)
+            };
+            return listPhotoId;
         }
 
         private string UploadAPhoto(string photoPath)
@@ -204,7 +197,7 @@ namespace OMS.ViewModel
             var imageId = facebook.Post($"/{PageId}/photos", new
             {
                 published = "False",
-                scheduled_publish_time = "1530253379",
+                //scheduled_publish_time = "1530253379",
                 file =
                     new FacebookMediaStream { ContentType = "image/png", FileName = "test upload image4" }.SetValue(
                         imageStream)
@@ -235,20 +228,22 @@ namespace OMS.ViewModel
             string published = "False";
             string dateTime = DateTimePickerDate.ToString("MM/dd/yyyy") + " " + DateTimePickerTime.ToString("HH:mm:ss");
             string scheduledPublishTime = ConvertToTimeSpan(dateTime);
-            string fields = $"/feed?message={Description}&published={published}&scheduled_publish_time={scheduledPublishTime}&access_token={_pageAccessToken}";
+            //string fields = $"/feed?message={Description}&published={published}&scheduled_publish_time={scheduledPublishTime}&access_token={_pageAccessToken}";
 
-            foreach (var item in ListProduct)
+            for (int i = 0; i < ListProduct.Count; i++)
             {
+                string newScheduledPublishTime = (Convert.ToInt32(scheduledPublishTime) + 3600 * 24 * (i + 1)).ToString();
+                string fields = $"/feed?message={ListProduct[i].Description}&published={published}&scheduled_publish_time={newScheduledPublishTime}&access_token={_pageAccessToken}";
                 List<string> list = new List<string>
                 {
-                    UploadAPhoto(item.Image1),
-                    UploadAPhoto(item.Image2),
-                    UploadAPhoto(item.Image3)
+                    UploadAPhoto(ListProduct[i].Image1),
+                    UploadAPhoto(ListProduct[i].Image2),
+                    UploadAPhoto(ListProduct[i].Image3)
                 };
                 string newFields = fields;
-                for (int i = 0; i < list.Count; i++)
+                for (int j = 0; j < list.Count; j++)
                 {
-                    newFields += $"&attached_media[{i}]={{\"media_fbid\":\"{list[i]}\"}}";
+                    newFields += $"&attached_media[{j}]={{\"media_fbid\":\"{list[j]}\"}}";
                 }
                 string newAddress = GraphUrl + PageId + newFields;
                 HttpRequest httpRequest = new HttpRequest();
@@ -272,34 +267,6 @@ namespace OMS.ViewModel
             catch (Exception e)
             {
                 MessageBox.Show("loi" + e);
-            }
-        }
-
-        private void LoadProduct()
-        {
-            DBConnect dbConnect = new DBConnect();
-            const string query = @"select * from Products where status = 'Chưa xóa';";
-            DataTable dataTable = dbConnect.SelectQuery(query);
-            foreach (var row in dataTable.Rows)
-            {
-                Products product = new Products
-                {
-                    Id = (string)((DataRow)row).ItemArray[0],
-                    Name = (string)((DataRow)row).ItemArray[1],
-                    Description = (string)((DataRow)row).ItemArray[2],
-                    Weight = (string)((DataRow)row).ItemArray[3],
-                    Width = (string)((DataRow)row).ItemArray[4],
-                    Height = (string)((DataRow)row).ItemArray[5],
-                    Length = (string)((DataRow)row).ItemArray[6],
-                    Price = (string)((DataRow)row).ItemArray[7],
-                    Image1 = (string)((DataRow)row).ItemArray[8],
-                    Image2 = (string)((DataRow)row).ItemArray[9],
-                    Image3 = (string)((DataRow)row).ItemArray[10],
-                    Quantity = Convert.ToInt32(((DataRow)row).ItemArray[11]),
-                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[12]) },
-                    Status = (string)((DataRow)row).ItemArray[13]
-                };
-                ListProduct.Add(product);
             }
         }
 
@@ -330,7 +297,7 @@ namespace OMS.ViewModel
 
         private string ConvertToTimeSpan(string time)
         {
-            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
+            DateTime dateTime = DateTime.Parse(time);
             var dateTimeOffset = new DateTimeOffset(dateTime);
             return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }

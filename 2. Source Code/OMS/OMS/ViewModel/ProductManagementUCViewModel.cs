@@ -2,7 +2,6 @@
 using OMS.Model;
 using System;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -158,6 +157,8 @@ namespace OMS.ViewModel
             set { _SearchContent = value.ToUpper().Trim(); OnPropertyChanged(); }
         }
 
+        public Products Products;
+
         #endregion Variable
 
         #region Method
@@ -166,42 +167,49 @@ namespace OMS.ViewModel
         {
             ListProduct = new ObservableCollection<Products>();
             ListTemp = new ObservableCollection<Products>();
-            LoadProduct();
+            Products = new Products();
+            foreach (var item in Products.LoadProduct())
+            {
+                ListTemp.Add(item);
+                ListProduct.Add(item);
+            }
+
             CreateCommand = new RelayCommand<Button>(p => true, p => { CreateProduct(); LoadProduct(); });
             UpdateCommand = new RelayCommand<Button>(p => true, p => { UpdateProduct(); LoadProduct(); });
-            DeleteCommand = new RelayCommand<Button>(p => true, p => { UpdateProduct(); LoadProduct(); });
-            AddImage1Command = new RelayCommand<Button>(p => true, p => ProductImage1 = FindFilePath());
-            AddImage2Command = new RelayCommand<Button>(p => true, p => ProductImage2 = FindFilePath());
-            AddImage3Command = new RelayCommand<Button>(p => true, p => ProductImage3 = FindFilePath());
+            DeleteCommand = new RelayCommand<Button>(p => true, p => { DeleteProduct(); LoadProduct(); });
+            // ReSharper disable once ComplexConditionExpression
+            AddImage1Command = new RelayCommand<Button>(p => true, p =>
+            {
+                string path = FindFilePath();
+                if (path == "")
+                    return;
+                ProductImage1 = path;
+            });
+            // ReSharper disable once ComplexConditionExpression
+            AddImage2Command = new RelayCommand<Button>(p => true, p =>
+            {
+                string path = FindFilePath();
+                if (path == "")
+                    return;
+                ProductImage2 = path;
+            });
+            // ReSharper disable once ComplexConditionExpression
+            AddImage3Command = new RelayCommand<Button>(p => true, p =>
+            {
+                string path = FindFilePath();
+                if (path == "")
+                    return;
+                ProductImage3 = path;
+            });
             SearchCommand = new RelayCommand<TextBox>(p => true, p => SearchProduct());
         }
 
         private void LoadProduct()
         {
-            DBConnect dbConnect = new DBConnect();
-            const string query = @"select * from Products where status = 'Chưa xóa';";
-            DataTable dataTable = dbConnect.SelectQuery(query);
-            foreach (var row in dataTable.Rows)
+            foreach (var item in Products.LoadProduct())
             {
-                Products product = new Products
-                {
-                    Id = (string)((DataRow)row).ItemArray[0],
-                    Name = (string)((DataRow)row).ItemArray[1],
-                    Description = (string)((DataRow)row).ItemArray[2],
-                    Weight = (string)((DataRow)row).ItemArray[3],
-                    Width = (string)((DataRow)row).ItemArray[4],
-                    Height = (string)((DataRow)row).ItemArray[5],
-                    Length = (string)((DataRow)row).ItemArray[6],
-                    Price = (string)((DataRow)row).ItemArray[7],
-                    Image1 = (string)((DataRow)row).ItemArray[8],
-                    Image2 = (string)((DataRow)row).ItemArray[9],
-                    Image3 = (string)((DataRow)row).ItemArray[10],
-                    Quantity = Convert.ToInt32(((DataRow)row).ItemArray[11]),
-                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[12]), },
-                    Status = (string)((DataRow)row).ItemArray[13]
-                };
-                ListProduct.Add(product);
-                ListTemp.Add(product);
+                ListTemp.Add(item);
+                ListProduct.Add(item);
             }
         }
 
@@ -255,17 +263,46 @@ namespace OMS.ViewModel
             {
                 _ProductQuantity = Convert.ToInt32(_ProductQuantity);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(@"Số hàng tồn phải là số nguyên");
+                MessageBox.Show(@"Số hàng tồn phải là số nguyên.");
                 return;
             }
-            DBConnect dbConnect = new DBConnect();
-            //can check san pham da ton tai hay chua
-            string query = $"insert into Products(Id, Name, Description, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy) " +
-                           $"values ('{ProductId}', '{ProductName}', '{ProductDescription}', '{ProductWeight}', '{ProductWidth}', '{ProductHeight}', '{ProductLength}', '{ProductPrice}', '{ProductImage1}','{ProductImage2}','{ProductImage3}','{ProductQuantity}', '{new Accounts { Id = 1 }}')";
-            dbConnect.ExecuteQuery(query);
-            ListProduct.Clear();
+
+            foreach (var item in ListProduct)
+            {
+                if (item.Id != ProductId)
+                    continue;
+                MessageBox.Show(@"Sản phẩm đã tồn tại.");
+                return;
+            }
+
+            try
+            {
+                Products tempProduct = new Products
+                {
+                    Id = ProductId,
+                    Name = ProductName,
+                    Description = ProductDescription,
+                    Weight = ProductWeight,
+                    Width = ProductWidth,
+                    Height = ProductHeight,
+                    Length = ProductLength,
+                    Price = ProductPrice,
+                    Image1 = ProductImage1,
+                    Image2 = ProductImage2,
+                    Image3 = ProductImage3,
+                    Quantity = ProductQuantity,
+                    CreatedBy = new Accounts { Id = 1 },
+                    Status = "Chưa xóa"
+                };
+                Products.CreateProduct(tempProduct);
+                ListProduct.Clear();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"Tạo sản phẩm thất bại.");
+            }
         }
 
         private void UpdateProduct()
@@ -274,16 +311,46 @@ namespace OMS.ViewModel
             {
                 _ProductQuantity = Convert.ToInt32(_ProductQuantity);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(@"Số hàng tồn phải là số nguyên");
+                MessageBox.Show(@"Số hàng tồn phải là số nguyên");
                 return;
             }
-            DBConnect dbConnect = new DBConnect();
-            string query = $"Update Products " +
-                           $"Set Name = '{ProductName}', Description = '{ProductDescription}', Weight = '{ProductWeight}', Width = '{ProductWidth}', Height = '{ProductHeight}', Length = '{ProductLength}', Price = '{ProductPrice}', Image1 = '{ProductImage1}', Image2 = '{ProductImage2}', Image3 = '{ProductImage3}', Quantity = {ProductQuantity} " +
-                           $"where Id = '{ProductId}';";
-            dbConnect.ExecuteQuery(query);
+
+            try
+            {
+                Products tempProduct = new Products
+                {
+                    Id = ProductId,
+                    Name = ProductName,
+                    Description = ProductDescription,
+                    Weight = ProductWeight,
+                    Width = ProductWidth,
+                    Height = ProductHeight,
+                    Length = ProductLength,
+                    Price = ProductPrice,
+                    Image1 = ProductImage1,
+                    Image2 = ProductImage2,
+                    Image3 = ProductImage3,
+                    Quantity = ProductQuantity,
+                };
+                Products.UpdateProduct(tempProduct);
+                ListProduct.Clear();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Cập nhật thất bại.");
+            }
+        }
+
+        private void DeleteProduct()
+        {
+            if (SelectedItem == null)
+            {
+                MessageBox.Show("Chọn sản phẩm muốn xóa.");
+                return;
+            }
+            Products.DeleteProduct(SelectedItem.Id);
             ListProduct.Clear();
         }
 

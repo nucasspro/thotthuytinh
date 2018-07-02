@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Data;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 
 namespace OMS.Model
 {
@@ -27,6 +26,7 @@ namespace OMS.Model
         public string PackageLenght { get; set; }
 
         #region method
+
         public DataTable CreateReport(DateTime start, DateTime end)
         {
             DBConnect dB = new DBConnect();
@@ -37,10 +37,11 @@ namespace OMS.Model
                             "and Status='Đã thanh toán';";
             return dB.SelectQuery(test);
         }
+
         public ObservableCollection<Orders> LoadData(string SelectedValue)
         {
             DBConnect dbConnect = new DBConnect();
-            ObservableCollection<Orders> temp =new ObservableCollection<Orders>();
+            ObservableCollection<Orders> temp = new ObservableCollection<Orders>();
             string query = @"select Orders.Id, Customers.Name,
                             datetime(Orders.CreatedTime, 'unixepoch','localtime') as CreatedTime,
                             Orders.GrandPrice, Orders.SubTotal,
@@ -91,7 +92,7 @@ namespace OMS.Model
             return dB.ExecuteQueryToGetIdAndCount(query);
         }
 
-        public bool CreateOrder(string CreatedDate, string SubTotal , string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght)
+        public bool CreateOrder(string CreatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght)
         {
             DBConnect dB = new DBConnect();
             string query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
@@ -130,6 +131,6 @@ namespace OMS.Model
             }
         }
 
-        #endregion
+        #endregion method
     }
 }

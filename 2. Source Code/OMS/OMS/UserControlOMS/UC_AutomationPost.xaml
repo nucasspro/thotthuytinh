@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             DataContext="{StaticResource SchedulePostUCVM}"
+             DataContext="{StaticResource AutomationPostUCVM}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="15"
@@ -23,7 +23,7 @@
 
             <!--Schedule Box-->
             <GroupBox Grid.Column="0"
-                      Header="Lịch đăng bài"
+                      Header="Automation Post"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
                       Margin="5,5,0,5">
 
@@ -54,7 +54,7 @@
                              VerticalScrollBarVisibility="Auto"
                              AcceptsReturn="True"
                              Text ="{Binding Description}"
-                             materialDesign:HintAssist.Hint="Nội dung *"
+                             materialDesign:HintAssist.Hint="Content *"
                              materialDesign:TextFieldAssist.TextBoxViewMargin="1 5 1 5"
                              materialDesign:HintAssist.FloatingScale="0.7"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
@@ -62,7 +62,7 @@
                     <ComboBox Height="50"
                               Margin="10"
                               x:Name="ComboBoxDestination"
-                              materialDesign:HintAssist.Hint="Đăng trên"
+                              materialDesign:HintAssist.Hint="Destination"
                               IsEditable="False"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem Content="Zalo" />
@@ -73,7 +73,7 @@
                               Height="50" 
                               Width="auto"
                               Margin="10"
-                              materialDesign:HintAssist.Hint="Danh sách sản phẩm*"
+                              materialDesign:HintAssist.Hint="Products*"
                               x:Name="ComboBoxProduct"
                               ItemsSource="{Binding ListProduct}"
                               SelectedValuePath="Name"
@@ -81,31 +81,29 @@
                               SelectedItem="{Binding ComboboxProductListSelectedItem}"
                               SelectedValue="{Binding ComboboxProductListSelectedValue}"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
-                    <TextBox materialDesign:HintAssist.Hint="Value"
-                             Height="50"
-                             Margin="10"
-                             x:Name="TextBoxImagePath"
-                             IsReadOnly="False"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <DatePicker Height="50"
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10,15,10,10">
+                        <DatePicker Height="40"
                                     Width="200"
-                                    Margin="10"
+                                    Margin="0,0,5,0"
                                     SelectedDateFormat="Short"
                                     HorizontalAlignment="Left"
                                     x:Name="DateTimePickerDate"
                                     SelectedDate="{Binding DateTimePickerDate}"
-                                    materialDesign:HintAssist.Hint="Ngày đăng *"
+                                    materialDesign:HintAssist.Hint="Pick Date*"
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                                     FirstDayOfWeek="Monday" />
-                    <materialDesign:TimePicker Is24Hours="True"
+                        <materialDesign:TimePicker Is24Hours="True"
                                                    HorizontalAlignment="Left"
                                                    x:Name="DateTimePickerTime"
                                                    SelectedTimeFormat="Short"
                                                    SelectedTime="{Binding DateTimePickerTime}"
-                                                   materialDesign:HintAssist.Hint="Giờ đăng *"
-                                                   Height="50"
+                                                   materialDesign:HintAssist.Hint="Pick Time*"
+                                                   Height="40"
                                                    Width="200"
-                                                   Margin="10"/>
+                                                   Margin="5,0,0,0"/>
+                    </StackPanel>
+                    
                 </StackPanel>
                 <!--/Input-->
             </GroupBox>
@@ -113,7 +111,7 @@
 
             <!--List Schedule Box-->
             <GroupBox Grid.Column="1"
-                      Header="Danh sách lịch đăng bài"
+                      Header="List"
                       Style="{DynamicResource MaterialDesignCardGroupBox}"
                       Margin="5,5,5,5">
 

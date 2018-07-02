@@ -41,7 +41,7 @@
             <TabItem Header="Report">
                 <uc:UC_Report></uc:UC_Report>
             </TabItem>
-            <TabItem Header="Schedule Post">
+            <TabItem Header="Automation Post">
                 <uc:UC_SchedulePost></uc:UC_SchedulePost>
             </TabItem>
             <TabItem Header="Setting">

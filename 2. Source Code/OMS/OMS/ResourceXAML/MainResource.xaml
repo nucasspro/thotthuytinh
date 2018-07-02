@@ -6,6 +6,6 @@
     <viewmodel:LoginViewModel x:Key="LoginVM"/>
     <viewmodel:OrderManagementUCViewModel x:Key="OrderManagementUCVM"/>
     <viewmodel:ReportUCViewModel x:Key="ReportUCVM"/>
-    <viewmodel:SchedulePostUCViewModel x:Key="SchedulePostUCVM"/>
+    <viewmodel:AutomationPostUCViewModel x:Key="AutomationPostUCVM"/>
     <viewmodel:ProductManagementUCViewModel x:Key="ProductManagementUCVM"/>
 </ResourceDictionary>

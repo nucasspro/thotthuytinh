@@ -21,10 +21,10 @@ namespace OMS.Model
         public Accounts CreatedBy { get; set; }
         public string Status { get; set; }
 
-        public ObservableCollection< Products> LoadProduct()
+        public ObservableCollection<Products> LoadProduct()
         {
             DBConnect dbConnect = new DBConnect();
-            ObservableCollection<Products> temp= new ObservableCollection<Products>();
+            ObservableCollection<Products> temp = new ObservableCollection<Products>();
             const string query = @"select * from Products where status = 'Chưa xóa';";
             DataTable dataTable = dbConnect.SelectQuery(query);
             foreach (var row in dataTable.Rows)
@@ -49,6 +49,35 @@ namespace OMS.Model
                 temp.Add(product);
             }
             return temp;
+        }
+
+        public void CreateProduct(Products product)
+        {
+            DBConnect dbConnect = new DBConnect();
+            string query = $"insert into Products(Id, Name, Description, Weight, Width, Height, Length, Price, Image1, Image2, Image3, Quantity, CreatedBy, Status) " +
+                           $"values ('{product.Id}', '{product.Name}', '{product.Description}', '{product.Weight}', '{product.Width}', '{product.Height}', '{product.Length}', " +
+                           $"'{product.Price}', '{product.Image1}','{product.Image2}','{product.Image3}','{product.Quantity}', '{product.CreatedBy}', '{product.Status}')";
+            dbConnect.ExecuteQuery(query);
+        }
+
+        public void UpdateProduct(Products product)
+        {
+            DBConnect dbConnect = new DBConnect();
+            // ReSharper disable once ComplexConditionExpression
+            string query = $"Update Products " +
+                           $"Set Name = '{product.Name}', Description = '{product.Description}', Weight = '{product.Weight}', Width = '{product.Width}', Height = '{product.Height}', Length = '{product.Length}', " +
+                           $"Price = '{product.Price}', Image1 = '{product.Image1}', Image2 = '{product.Image2}', Image3 = '{product.Image3}', Quantity = {product.Quantity} " +
+                           $"where Id = '{product.Id}';";
+            dbConnect.ExecuteQuery(query);
+        }
+
+        public void DeleteProduct(string id)
+        {
+            DBConnect dbConnect = new DBConnect();
+            string query = $"Update Products " +
+                           $"Set Status = 'Đã xóa' " +
+                           $"where Id = '{id}';";
+            dbConnect.ExecuteQuery(query);
         }
 
     }
