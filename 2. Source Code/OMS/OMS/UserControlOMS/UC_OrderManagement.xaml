@@ -16,6 +16,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="700" d:DesignWidth="1360">
     <Grid>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="3*" />
@@ -378,6 +379,13 @@
                                                             Header="UnitPrice" />
                                         </GridView>
                                     </ListView.View>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseMove">
+                                            <i:InvokeCommandAction
+                                    Command="{Binding ListOrderDetailMouseMoveCommand}"
+                                     />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </ListView>
                             </Grid>
                         </GroupBox>

@@ -104,9 +104,14 @@ namespace OMS.ViewModel
 
             ButtonPreviewCommand = new RelayCommand<CrystalReportsViewer>(p => true, p =>
             {
+                Orders orders;
+                DataTable temp;
 
+                //validate information
                 if (ReportYear < 2000 || ReportYear > 3000)
                     System.Windows.MessageBox.Show("Năm trong khoảng (2000; 3000)");
+
+                //set value to StartedDate and EndDate
                 if (SelectedIndex == 0)
                 {
                     StartedDate = new DateTime(ReportYear, ReportMonth+1, 1, 0, 0, 0);
@@ -117,7 +122,10 @@ namespace OMS.ViewModel
                     StartedDate = new DateTime(ReportYear, 1, 1);
                     EndDate = new DateTime(ReportYear, 12, 31);
                 }
-                CrystalReport.Database.Tables["Revenue"].SetDataSource(CreateReport(StartedDate, EndDate));
+
+                orders = new Orders();
+                temp = orders.CreateReport(StartedDate, EndDate);
+                CrystalReport.Database.Tables["Revenue"].SetDataSource(temp);
                 p.ViewerCore.ReportSource= CrystalReport;
                 if (CrystalReport != null)
                     ExportIsEnabled = true;
@@ -131,16 +139,6 @@ namespace OMS.ViewModel
             });
         }
 
-        public DataTable CreateReport(DateTime start, DateTime end)
-        {
-            DBConnect dB = new DBConnect();
-            DataTable dataTable = new DataTable();
-            string test = "select OrderFrom, Id, datetime(UpdatedTime, 'unixepoch','localtime') as UpdatedTime, cast(GrandPrice as integer) as GrandPrice " +
-                            "from Orders where cast (UpdatedTime as integer) > cast ("+ ConvertToTimeSpan (start.ToString()) + " as integer) " +
-                            "and cast (UpdatedTime as integer) < cast (" + ConvertToTimeSpan(end.ToString()) + " as integer)" +
-                            "and Status='Đã thanh toán';";
-            return dB.SelectQuery(test);
-        }
 
         public bool CheckYear(int year)
         {
@@ -166,12 +164,6 @@ namespace OMS.ViewModel
             date = 30;
             temp = new DateTime(year, month, date, 0, 0, 0);
             return temp;
-        }
-        public String ConvertToTimeSpan(string time)
-        {
-            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
-            var dateTimeOffset = new DateTimeOffset(dateTime);
-            return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }
 
         public void ExportPDF(RevenueReport report)

@@ -4,7 +4,6 @@ using OMS.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +28,7 @@ namespace OMS.ViewModel
         public ICommand SelectionChangedCallShipCommand { get; set; }
 
         public ICommand CheckPriceCommand { get; set; }
+        public ICommand ListOrderDetailMouseMoveCommand { get; set; }
 
         #endregion command
 
@@ -59,16 +59,20 @@ namespace OMS.ViewModel
                     case "Chưa duyệt":
                         OrderStatus = 0;
                         break;
+
                     case "Đã đóng gói":
                         OrderStatus = 1;
                         break;
+
                     case "Đang vận chuyển":
                         OrderStatus = 2;
                         break;
+
                     case "Đã chuyển hàng":
                         OrderStatus = 3;
                         break;
-                    default :
+
+                    default:
                         OrderStatus = 4;
                         break;
                 }
@@ -292,6 +296,11 @@ namespace OMS.ViewModel
             }
         }
 
+        public Orders orders;
+        public Products products;
+        public OrderDetail orderDetail;
+        public Customers customers;
+
         #endregion Variable
 
         #region Method
@@ -302,19 +311,40 @@ namespace OMS.ViewModel
             ListTemp = new ObservableCollection<Orders>();
             ListOrderDetail = new ObservableCollection<OrderDetail>();
             ListProduct = new ObservableCollection<Products>();
+            orders = new Orders();
+            products = new Products();
+            orderDetail = new OrderDetail();
+            customers = new Customers();
 
             // ReSharper disable once ComplexConditionExpression
             SelectionChangedCommand = new RelayCommand<ComboBox>(p => true, p =>
             {
-                if (List.Count != 0)
-                {
-                    List.Clear();
-                    ListProduct.Clear();
-                }
+                List.Clear();
+                ListProduct.Clear();
                 ComboBoxItem comboBox = (ComboBoxItem)p.SelectedItem;
                 SelectedValue = comboBox.Content.ToString();
-                LoadData(SelectedValue);
-                LoadProduct();
+                foreach (var item in orders.LoadData(SelectedValue))
+                {
+                    List.Add(item);
+                    ListTemp.Add(item);
+                }
+                foreach (var item in products.LoadProduct())
+                {
+                    ListProduct.Add(item);
+                }
+            });
+
+            ListOrderDetailMouseMoveCommand = new RelayCommand<object>(p => true, p =>
+            {
+                //auto fill subtotal and grand total
+                SubTotal = CalculateSubTotal();
+                if (Convert.ToInt32(GrandPrice) < Convert.ToInt32(SubTotal))
+                    GrandPrice = SubTotal;
+                if (Convert.ToInt32(SubTotal) == 0)
+                    GrandPrice = "0";
+                AutoUpdatePackageDimension();
+
+
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -362,7 +392,7 @@ namespace OMS.ViewModel
             CreateOrderCommand = new RelayCommand<object>(p => true, p =>
             {
                 CreateOrder();
-                LoadData(SelectedValue);
+                List = orders.LoadData(SelectedValue);
             });
 
             SaveOrderCommand = new RelayCommand<object>(p => true, p =>
@@ -370,7 +400,7 @@ namespace OMS.ViewModel
                 if (MessageBox.Show("Bạn có muốn lưu?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     UpdateOrder();
-                    LoadData(SelectedValue);
+                    List = orders.LoadData(SelectedValue);
                 }
             });
 
@@ -396,7 +426,10 @@ namespace OMS.ViewModel
             {
                 if (ListOrderDetail != null)
                     ListOrderDetail.Clear();
-                LoadDataToOrderDetail(SelectedValue, OrderID);
+                foreach (var item in orderDetail.LoadDataToOrderDetail(SelectedValue, OrderID))
+                {
+                    ListOrderDetail.Add(item);
+                }
 
                 AddOrderDetailButtonEnabled = true;
                 UpdateOrderDetailButtonEnabled = true;
@@ -416,12 +449,10 @@ namespace OMS.ViewModel
             // ReSharper disable once ComplexConditionExpression
             AddProductToOrderCommand = new RelayCommand<object>(p => true, p =>
             {
-                DBConnect dB = new DBConnect();
                 string ProductIDTemp = null;
                 int ProductQuantityTemp = 0;
                 int ProductQuantityStock = 0;
                 int OrderIDTemp = Convert.ToInt32(OrderID);
-                string query1, query2;
                 if (ComboboxProductListSelectedValue == null || ProductQuantity == null)
                 {
                     MessageBox.Show("Các trường * không được bỏ trống!");
@@ -452,23 +483,18 @@ namespace OMS.ViewModel
                         //Kiểm tra số lượng bán có nhiều hơn số lượng tồn không?
                         if (CheckProductQuantity(ProductQuantityTemp, ProductQuantityStock))
                         {
-                            query1 = $"insert into OrderDetail (OrderID, ProductID, Quantity)" +
-                                     $" values (" + OrderIDTemp + ",'" + ProductIDTemp + "'," + ProductQuantityTemp + ");";
-                            query2 = $"Update Products " +
-                                     $"Set Quantity = {ProductQuantityStock - ProductQuantityTemp} " +
-                                    $"where Id = '{ProductIDTemp}';";
-                            try
+                            if (orderDetail.AddProductToOrder(OrderIDTemp, ProductIDTemp, ProductQuantityTemp, ProductQuantityStock))
                             {
-                                dB.ExecuteQuery(query1);
-                                dB.ExecuteQuery(query2);
                                 MessageBox.Show("Đã thêm thành công!");
                                 ListOrderDetail.Clear();
-                                LoadDataToOrderDetail(SelectedValue, OrderID);
+                                foreach (var item in orderDetail.LoadDataToOrderDetail(SelectedValue, OrderID))
+                                {
+                                    ListOrderDetail.Add(item);
+                                }
                             }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show("Xảy ra lỗi khi thêm sản phẩm vào hóa đơn! Lỗi: " + e);
-                            }
+                            else
+                                MessageBox.Show("Xảy ra lỗi khi thêm sản phẩm vào hóa đơn!");
+
                         }
                     }
                     catch (Exception e)
@@ -482,7 +508,6 @@ namespace OMS.ViewModel
             // ReSharper disable once ComplexConditionExpression
             DeleteProductFromOrderCommand = new RelayCommand<object>(p => true, p =>
             {
-                DBConnect dB = new DBConnect();
                 string ProductIDTemp = null;
                 int ProductQuantityTemp = 0;
                 int ProductQuantityStock = 0;
@@ -501,25 +526,22 @@ namespace OMS.ViewModel
                         ProductQuantityStock = item.Quantity;
                     }
                 }
-                string query1 = $"delete from OrderDetail where Id =" + OrderDetailId + "";
-                string query2 = $"Update Products " +
-                                $"Set Quantity = {ProductQuantityStock + ProductQuantityTemp} " +
-                                $"where Id = '{ProductIDTemp}';";
-                try
+                if (MessageBox.Show("Bạn có muốn xóa chi tiết có Id = " + OrderDetailId + " ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    if (MessageBox.Show("Bạn có muốn xóa chi tiết có Id = " + OrderDetailId + " ?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (orderDetail.DeleteProductFromOrder(OrderDetailId, ProductIDTemp, ProductQuantityTemp, ProductQuantityStock))
                     {
-                        dB.ExecuteQuery(query1);
-                        dB.ExecuteQuery(query2);
                         MessageBox.Show("Đã xóa thành công!");
                         ListOrderDetail.Clear();
-                        LoadDataToOrderDetail(SelectedValue, OrderID);
+                        foreach (var item in orderDetail.LoadDataToOrderDetail(SelectedValue, OrderID))
+                        {
+                            ListOrderDetail.Add(item);
+                        }
                     }
+                        
+                    else
+                        MessageBox.Show("Đã xảy ra lỗi khi xóa chi tiết có Id = " + OrderDetailId);
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Đã xảy ra lỗi khi xóa chi tiết có Id = " + OrderDetailId + "! Lỗi: " + e);
-                }
+                
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -532,7 +554,6 @@ namespace OMS.ViewModel
                 int ProductQuantityStock = 0;
                 int temp = 0;
                 int OrderIDTemp = Convert.ToInt32(OrderID);
-                string query1, query2;
                 if (ComboboxProductListSelectedValue == null || ProductQuantity == null)
                 {
                     MessageBox.Show("Các trường * không được bỏ trống!");
@@ -541,6 +562,8 @@ namespace OMS.ViewModel
                 {
                     try
                     {
+                        //Lấy số lượng sau khi đã chỉnh sửa.
+                        ProductQuantityAfter = Convert.ToInt32(ProductQuantity);
                         //Kiểm tra sản phẩm đã tồn tại trong hóa đơn chưa
                         foreach (var item in ListOrderDetail)
                         {
@@ -572,32 +595,27 @@ namespace OMS.ViewModel
                                 continue;
                             }
                         }
-                        //Lấy số lượng sau khi đã chỉnh sửa.
-                        ProductQuantityAfter = Convert.ToInt32(ProductQuantity);
+
                         //Kiểm tra số lượng bán có nhiều hơn số lượng tồn không?
                         if (CheckProductQuantity(ProductQuantityAfter, ProductQuantityStock))
                         {
-                            query1 = $"update OrderDetail" +
-                                    $" set ProductID = '" + ProductIDTemp + "',Quantity= " + ProductQuantityAfter + "" +
-                                    $" where Id =" + OrderDetailId + ";";
-                            query2 = $"Update Products " +
-                                    $"Set Quantity = {ProductQuantityStock - (ProductQuantityAfter - ProductQuantityBefore)} " +
-                                    $"where Id = '{ProductIDTemp}';";
-                            try
-                            {
                                 if (MessageBox.Show("Bạn có muốn lưu?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                                 {
-                                    dB.ExecuteQuery(query1);
-                                    dB.ExecuteQuery(query2);
-                                    MessageBox.Show("Đã lưu thành công!");
+                                    if (orderDetail.UpdateProductOrder(OrderDetailId, ProductIDTemp, ProductQuantityAfter, ProductQuantityBefore, ProductQuantityStock))
+                                {
+                                    MessageBox.Show("Cập nhật thành công!");
                                     ListOrderDetail.Clear();
-                                    LoadDataToOrderDetail(SelectedValue, OrderID);
+                                    foreach (var item in orderDetail.LoadDataToOrderDetail(SelectedValue, OrderID))
+                                    {
+                                        ListOrderDetail.Add(item);
+                                    }
                                 }
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show("Xảy ra lỗi khi thêm sản phẩm vào hóa đơn! Lỗi: " + e);
-                            }
+                                       
+                                    else
+                                        MessageBox.Show("Đã xảy ra lỗi khi cập nhật chi tiết có Id = " + OrderDetailId);
+
+
+                                }
                         }
                     }
                     catch (Exception e)
@@ -608,83 +626,10 @@ namespace OMS.ViewModel
                 }
             });
 
-
             CheckPriceCommand = new RelayCommand<object>(p => true, p =>
                  {
                      CheckShip(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice));
                  });
-        }
-
-        public void LoadData(string SelectedValue)
-        {
-            DBConnect dbConnect = new DBConnect();
-            //string query = @"select Orders.id, Customers.Name, datetime(Orders.CreatedTime, 'unixepoch','localtime') as CreatedTime, Orders.Status, Orders.OrderFrom from Orders inner join Customers where Orders.CustomerId = Customers.Id;";
-            string query = @"select Orders.Id, Customers.Name,
-                            datetime(Orders.CreatedTime, 'unixepoch','localtime') as CreatedTime,
-                            Orders.GrandPrice, Orders.SubTotal,
-                            Orders.Status, Orders.ShippingAddress, Orders.BillingAddress, Customers.Phone, Orders.CallShip, Orders.ShipPrice,
-                            Orders.PackageWidth, Orders.PackageLenght, Orders.PackageHeight
-                            from Orders inner join Customers
-                            where Orders.CustomerId = Customers.Id and Orders.OrderFrom = '" + SelectedValue + "';";
-            DataTable dataTable = dbConnect.SelectQuery(query);
-            foreach (var row in dataTable.Rows)
-            {
-                Orders order = new Orders
-                {
-                    Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
-                    CreatedTime = (string)((DataRow)row).ItemArray[2],
-                    GrandPrice = (string)((DataRow)row).ItemArray[3],
-                    SubPrice = (string)((DataRow)row).ItemArray[4],
-                    Status = (string)((DataRow)row).ItemArray[5],
-                    ShippingAddress = (string)((DataRow)row).ItemArray[6],
-                    BillingAddress = (string)((DataRow)row).ItemArray[7],
-                    CallShip = (string)((DataRow)row).ItemArray[9],
-                    ShipPrice = (string)((DataRow)row).ItemArray[10],
-                    PackageWidth = (string)((DataRow)row).ItemArray[11],
-                    PackageLenght = (string)((DataRow)row).ItemArray[12],
-                    PackageHeight = (string)((DataRow)row).ItemArray[13]
-                };
-                Customers customer = new Customers
-                {
-                    Name = (string)((DataRow)row).ItemArray[1],
-                    Phone = (string)((DataRow)row).ItemArray[8]
-                };
-                order.Customer = customer;
-                List.Add(order);
-                ListTemp.Add(order);
-            }
-        }
-
-        public void LoadDataToOrderDetail(string SelectedValue, string OrderID)
-        {
-            int temp = Convert.ToInt32(OrderID);
-            DBConnect dbConnect = new DBConnect();
-            string query = @"select temp.Id, temp.Name, temp.Quantity, temp.Price
-                            from (select OrderDetail.Id, Products.Name, Products.Price, OrderDetail.Quantity, OrderDetail.OrderId
-		                    from OrderDetail inner join Products
-		                    where OrderDetail.ProductId=Products.id) as temp inner join Orders
-                            where temp.OrderID=Orders.Id
-                            and Orders.OrderFrom = '" + SelectedValue + "' " +
-                            "and Orders.Id=" + temp + ";";
-            DataTable dataTable = dbConnect.SelectQuery(query);
-            foreach (var row in dataTable.Rows)
-            {
-                OrderDetail orderDetail = new OrderDetail
-                {
-                    Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
-                    Product = new Products { Name = (string)((DataRow)row).ItemArray[1],
-                                                Price = (string)((DataRow)row).ItemArray[3]
-                    },
-                    Quantity = Convert.ToInt32(((DataRow)row).ItemArray[2])
-                };
-                ListOrderDetail.Add(orderDetail);
-            }
-            //auto fill subtotal and grand total
-            SubTotal = CalculateSubTotal();
-            if(Convert.ToInt32(GrandPrice)< Convert.ToInt32(SubTotal))
-                GrandPrice = SubTotal;
-            AutoUpdatePackageDimension();
-
         }
 
         public void FindOrderByID(int id)
@@ -763,18 +708,12 @@ namespace OMS.ViewModel
             return true;
         }
 
-        public int ReturnCustomerID(String CustomerName, String CustomerPhone)
-        {
-            DBConnect dB = new DBConnect();
-            string query = "select ID from Customers where Name='" + CustomerName + "' and Phone='" + CustomerPhone + "';";
-            return dB.ExecuteQueryToGetIdAndCount(query);
-        }
+
 
         public void CreateOrder()
         {
             string CreatedDate = ConvertToTimeSpan(DateTime.Now.ToLocalTime().ToString());
-            DBConnect dB = new DBConnect();
-            string query1, query2, CallShipTemp, OrderStatusTemp;
+            string CallShipTemp, OrderStatusTemp;
 
             //check field CustomerName, CustomerPhone, Shipping Adress, Billing Adress not null
             if (CustomerName == null || CustomerPhone == null || ShippingAddress == null || BillingAddress == null)
@@ -788,24 +727,24 @@ namespace OMS.ViewModel
                 CallShipTemp = "Chưa gọi ship";
             else
                 CallShipTemp = "Đã gọi ship";
-            //if (OrderStatus == 0)
-            //    OrderStatusTemp = "Chưa duyệt";
-            //else
-            //    OrderStatusTemp = "Đã duyệt";
             switch (OrderStatus)
             {
                 case 0:
                     OrderStatusTemp = "Chưa duyệt";
                     break;
+
                 case 1:
                     OrderStatusTemp = "Đã đóng gói";
                     break;
+
                 case 2:
                     OrderStatusTemp = "Đang vận chuyển";
                     break;
+
                 case 3:
                     OrderStatusTemp = "Đã chuyển hàng";
                     break;
+
                 default:
                     OrderStatusTemp = "Đã thanh toán";
                     break;
@@ -813,39 +752,23 @@ namespace OMS.ViewModel
 
             if (!CheckCustomerExist())
             {
-                query2 = $"insert into Customers(Name, Phone, Address, Type) " +
-                       $"values ('{CustomerName}', '{CustomerPhone}', '{BillingAddress}', 'Khách hàng')";
-                try
-                {
-                    dB.ExecuteQuery(query2);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Có lỗi phát sinh khi thêm khách hàng! Lỗi: " + e);
-                }
+                if (!customers.AddCustomer(CustomerName, CustomerPhone, BillingAddress))
+                    MessageBox.Show("Có lỗi xảy ra khi thêm khách hàng!");
             }
-            query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
-                    $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', " + ReturnCustomerID(CustomerName, CustomerPhone) + ", '" + OrderStatusTemp + "','','CreatedByEmployee'," +
-                    $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','"+ShipPrice+"','" + PackageWidth + "','" + PackageHeight + "','" + PackageLenght + "');";
-            //MessageBox.Show(Query1);
-            try
-            {
-                dB.ExecuteQuery(query1);
+            if (orders.CreateOrder(CreatedDate, SubTotal, GrandPrice, CustomerName, CustomerPhone, OrderStatusTemp, ShippingAddress, BillingAddress, CallShipTemp, ShipPrice, PackageWidth, PackageHeight, PackageLenght))
                 MessageBox.Show("Thêm hóa đơn thành công! ");
+            else
+            {
+                MessageBox.Show("Có lỗi phát sinh khi thêm đơn hàng!");
                 List.Clear();
             }
-            catch (Exception e)
-            {
-                MessageBox.Show("Có lỗi phát sinh khi thêm đơn hàng! Lỗi: " + e);
-            }
-            List.Clear();
+           
         }
 
         public void UpdateOrder()
         {
             string UpdatedDate = ConvertToTimeSpan(DateTime.Now.ToLocalTime().ToString());
-            DBConnect dB = new DBConnect();
-            string query1, query2, CallShipTemp=null, OrderStatusTemp;
+            string  CallShipTemp = null, OrderStatusTemp;
 
             //check field CustomerName, CustomerPhone, Shipping Adress, Billing Adress not null
             if (CustomerName == null || CustomerPhone == null || ShippingAddress == null || BillingAddress == null)
@@ -865,15 +788,19 @@ namespace OMS.ViewModel
                 case 0:
                     OrderStatusTemp = "Chưa duyệt";
                     break;
+
                 case 1:
                     OrderStatusTemp = "Đã đóng gói";
                     break;
+
                 case 2:
                     OrderStatusTemp = "Đang vận chuyển";
                     break;
+
                 case 3:
                     OrderStatusTemp = "Đã chuyển hàng";
                     break;
+
                 default:
                     OrderStatusTemp = "Đã thanh toán";
                     break;
@@ -881,36 +808,18 @@ namespace OMS.ViewModel
 
             if (!CheckCustomerExist())
             {
-                query2 = $"insert into Customers(Name, Phone, Address, Type) " +
-                       $"values ('{CustomerName}', '{CustomerPhone}', '{BillingAddress}', 'Khách hàng')";
-                try
-                {
-                    dB.ExecuteQuery(query2);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Có lỗi phát sinh khi thêm khách hàng! Lỗi: " + e);
-                }
+                if (!customers.AddCustomer(CustomerName, CustomerPhone, BillingAddress))
+                    MessageBox.Show("Có lỗi xảy ra khi thêm khách hàng!");
             }
-            query1 = $"update Orders " +
-                        $"set UpdatedTime='{UpdatedDate}', SubTotal='{SubTotal}', " +
-                        $"GrandPrice='{GrandPrice}', CustomerID=" + ReturnCustomerID(CustomerName, CustomerPhone) + ", " +
-                        "Status='" + OrderStatusTemp + "', VerifyBy='', OrderFrom='" + SelectedValue + "', " +
-                        "ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
-                        "CallShip='" + CallShipTemp + "',ShipPrice='"+ShipPrice+"', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
-                        "PackageLenght='" + PackageLenght + "' " +
-                        "where Id=" + OrderID + "";
-            try
+
+            if (orders.UpdateOrder(UpdatedDate, SubTotal, GrandPrice, CustomerName, CustomerPhone, OrderStatusTemp, ShippingAddress, BillingAddress, CallShipTemp, ShipPrice, PackageWidth, PackageHeight, PackageLenght, SelectedValue, OrderID))
+                MessageBox.Show("Cập nhật hóa đơn thành công! ");
+            else
             {
-                dB.ExecuteQuery(query1);
-                MessageBox.Show("Chỉnh sửa thành công! ");
+                MessageBox.Show("Có lỗi phát sinh khi cập nhật hóa đơn!");
                 List.Clear();
             }
-            catch (Exception e)
-            {
-                MessageBox.Show("Có lỗi phát sinh khi sửa đơn hàng! Lỗi: " + e);
-            }
-            List.Clear();
+  
         }
 
         public string ConvertToTimeSpan(string time)
@@ -918,34 +827,6 @@ namespace OMS.ViewModel
             DateTime dateTime = DateTime.Parse(time).ToLocalTime();
             var dateTimeOffset = new DateTimeOffset(dateTime);
             return dateTimeOffset.ToUnixTimeSeconds().ToString();
-        }
-
-        public void LoadProduct()
-        {
-            DBConnect dbConnect = new DBConnect();
-            const string query = @"select * from Products where status = 'Chưa xóa';";
-            DataTable dataTable = dbConnect.SelectQuery(query);
-            foreach (var row in dataTable.Rows)
-            {
-                Products product = new Products
-                {
-                    Id = (string)((DataRow)row).ItemArray[0],
-                    Name = (string)((DataRow)row).ItemArray[1],
-                    Description = (string)((DataRow)row).ItemArray[2],
-                    Weight = (string)((DataRow)row).ItemArray[3],
-                    Width = (string)((DataRow)row).ItemArray[4],
-                    Height = (string)((DataRow)row).ItemArray[5],
-                    Length = (string)((DataRow)row).ItemArray[6],
-                    Price = (string)((DataRow)row).ItemArray[7],
-                    Image1 = (string)((DataRow)row).ItemArray[8],
-                    Image2 = (string)((DataRow)row).ItemArray[9],
-                    Image3 = (string)((DataRow)row).ItemArray[10],
-                    Quantity = Convert.ToInt32(((DataRow)row).ItemArray[11]),
-                    CreatedBy = new Accounts { Id = Convert.ToInt32(((DataRow)row).ItemArray[12]) },
-                    Status = (string)((DataRow)row).ItemArray[13]
-                };
-                ListProduct.Add(product);
-            }
         }
 
         public bool CheckProductQuantity(int temp, int stock)
@@ -960,10 +841,11 @@ namespace OMS.ViewModel
 
         public String CalculateSubTotal()
         {
-            int temp=0;
+            int temp = 0;
             foreach (var item in ListOrderDetail)
             {
-                    temp += Convert.ToInt32(item.Product.Price)*item.Quantity;            }
+                temp += Convert.ToInt32(item.Product.Price) * item.Quantity;
+            }
             return temp.ToString();
         }
 
@@ -984,7 +866,12 @@ namespace OMS.ViewModel
                 PackageWidth = PackageWidthTemp.ToString();
                 PackageLenght = PackageLenghtTemp.ToString();
             }
-
+            else
+            {
+                PackageHeight = "0";
+                PackageWidth = "0";
+                PackageLenght = "0";
+            }
         }
 
         private void CheckShip(String fullAddress, int width, int lenght, int height, int price)
@@ -1015,6 +902,7 @@ namespace OMS.ViewModel
             ShipPrice = Convert.ToInt32(fee);
             GrandPrice = (Convert.ToInt32(SubTotal) + ShipPrice).ToString();
         }
+
         #endregion Method
     }
 }

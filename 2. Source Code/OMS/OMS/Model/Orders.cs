@@ -1,4 +1,9 @@
-﻿namespace OMS.Model
+﻿using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+namespace OMS.Model
 {
     public class Orders
     {
@@ -20,5 +25,111 @@
         public string PackageWidth { get; set; }
         public string PackageHeight { get; set; }
         public string PackageLenght { get; set; }
+
+        #region method
+        public DataTable CreateReport(DateTime start, DateTime end)
+        {
+            DBConnect dB = new DBConnect();
+            DataTable dataTable = new DataTable();
+            string test = "select OrderFrom, Id, datetime(UpdatedTime, 'unixepoch','localtime') as UpdatedTime, cast(GrandPrice as integer) as GrandPrice " +
+                            "from Orders where cast (UpdatedTime as integer) > cast (" + ConvertToTimeSpan(start.ToString()) + " as integer) " +
+                            "and cast (UpdatedTime as integer) < cast (" + ConvertToTimeSpan(end.ToString()) + " as integer)" +
+                            "and Status='Đã thanh toán';";
+            return dB.SelectQuery(test);
+        }
+        public ObservableCollection<Orders> LoadData(string SelectedValue)
+        {
+            DBConnect dbConnect = new DBConnect();
+            ObservableCollection<Orders> temp =new ObservableCollection<Orders>();
+            string query = @"select Orders.Id, Customers.Name,
+                            datetime(Orders.CreatedTime, 'unixepoch','localtime') as CreatedTime,
+                            Orders.GrandPrice, Orders.SubTotal,
+                            Orders.Status, Orders.ShippingAddress, Orders.BillingAddress, Customers.Phone, Orders.CallShip, Orders.ShipPrice,
+                            Orders.PackageWidth, Orders.PackageLenght, Orders.PackageHeight
+                            from Orders inner join Customers
+                            where Orders.CustomerId = Customers.Id and Orders.OrderFrom = '" + SelectedValue + "';";
+            DataTable dataTable = dbConnect.SelectQuery(query);
+            foreach (var row in dataTable.Rows)
+            {
+                Orders order = new Orders
+                {
+                    Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
+                    CreatedTime = (string)((DataRow)row).ItemArray[2],
+                    GrandPrice = (string)((DataRow)row).ItemArray[3],
+                    SubPrice = (string)((DataRow)row).ItemArray[4],
+                    Status = (string)((DataRow)row).ItemArray[5],
+                    ShippingAddress = (string)((DataRow)row).ItemArray[6],
+                    BillingAddress = (string)((DataRow)row).ItemArray[7],
+                    CallShip = (string)((DataRow)row).ItemArray[9],
+                    ShipPrice = (string)((DataRow)row).ItemArray[10],
+                    PackageWidth = (string)((DataRow)row).ItemArray[11],
+                    PackageLenght = (string)((DataRow)row).ItemArray[12],
+                    PackageHeight = (string)((DataRow)row).ItemArray[13]
+                };
+                Customers customer = new Customers
+                {
+                    Name = (string)((DataRow)row).ItemArray[1],
+                    Phone = (string)((DataRow)row).ItemArray[8]
+                };
+                order.Customer = customer;
+                temp.Add(order);
+            }
+            return temp;
+        }
+
+        public String ConvertToTimeSpan(string time)
+        {
+            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
+            var dateTimeOffset = new DateTimeOffset(dateTime);
+            return dateTimeOffset.ToUnixTimeSeconds().ToString();
+        }
+
+        public int ReturnCustomerID(String CustomerName, String CustomerPhone)
+        {
+            DBConnect dB = new DBConnect();
+            string query = "select ID from Customers where Name='" + CustomerName + "' and Phone='" + CustomerPhone + "';";
+            return dB.ExecuteQueryToGetIdAndCount(query);
+        }
+
+        public bool CreateOrder(string CreatedDate, string SubTotal , string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght)
+        {
+            DBConnect dB = new DBConnect();
+            string query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
+                                $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', " + ReturnCustomerID(CustomerName, CustomerPhone) + ", '" + OrderStatusTemp + "','','CreatedByEmployee'," +
+                                $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','" + ShipPrice + "','" + PackageWidth + "','" + PackageHeight + "','" + PackageLenght + "');";
+            try
+            {
+                dB.ExecuteQuery(query1);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateOrder(string UpdatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght, string SelectedValue, string OrderID)
+        {
+            DBConnect dB = new DBConnect();
+            string query1 = $"update Orders " +
+                        $"set UpdatedTime='{UpdatedDate}', SubTotal='{SubTotal}', " +
+                        $"GrandPrice='{GrandPrice}', CustomerID=" + ReturnCustomerID(CustomerName, CustomerPhone) + ", " +
+                        "Status='" + OrderStatusTemp + "', VerifyBy='', OrderFrom='" + SelectedValue + "', " +
+                        "ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
+                        "CallShip='" + CallShipTemp + "',ShipPrice='" + ShipPrice + "', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
+                        "PackageLenght='" + PackageLenght + "' " +
+                        "where Id=" + OrderID + "";
+            try
+            {
+                dB.ExecuteQuery(query1);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }
