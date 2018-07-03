@@ -15,14 +15,18 @@ namespace OMS.ViewModel
         #endregion command
 
         public bool IsLogin;
+        public int isVeryfy;
         public Model.DBConnect dBConnect;
         private String _UserName;
         public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
         private String _Password;
         public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
 
+        public Model.Accounts accounts;
+
         public LoginViewModel()
         {
+            accounts = new Model.Accounts();
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; },
                (p =>
                {
@@ -37,10 +41,11 @@ namespace OMS.ViewModel
                 }));
         }
 
+
         private void Login(Window p)
         {
-            dBConnect = new Model.DBConnect();
-            String query;
+
+
             if (p == null)
                 return;
             if (UserName == null || Password == null)
@@ -49,8 +54,7 @@ namespace OMS.ViewModel
             }
             else
             {
-                query = "select id from Accounts where Username='" + UserName + "' and Password ='" + Password + "' limit 1;";
-                if (dBConnect.ExecuteQueryToGetIdAndCount(query) == 0)
+                if (accounts.CheckAccount(UserName, Password) == 0)
                 {
                     MessageBox.Show("Tài khoản không tồn tại!");
                 }
@@ -58,8 +62,9 @@ namespace OMS.ViewModel
                 {
                     IsLogin = true;
                     p.Close();
+                    isVeryfy = accounts.CheckAccount(UserName, Password);
                 }
-                
+
             }
         }
     }
