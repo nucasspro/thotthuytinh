@@ -11,18 +11,12 @@ namespace GetOrderConsole
         private const string SecretKey = "hGq0eOPke9SvuMmGfiKx";
         private ZaloOaInfo _zaloOaInfo;
         private ZaloStoreClient _storeClient;
-        private DbConnect _dbConnect;
         private DateTime _time1, _time2, _time3;
 
-        public Zalo()
-        {
-        }
-
-        public void Init(DateTime time1, DateTime time2, DateTime time3)
+        public Zalo(DateTime time1, DateTime time2, DateTime time3)
         {
             _zaloOaInfo = new ZaloOaInfo(OaId, SecretKey);
             _storeClient = new ZaloStoreClient(_zaloOaInfo);
-            _dbConnect = new DbConnect();
             _time1 = time1;
             _time2 = time2;
             _time3 = time3;
@@ -40,9 +34,10 @@ namespace GetOrderConsole
 
         private void GetCustomers(JToken jToken)
         {
+            Customers tempCustomers = new Customers();
             foreach (var item in jToken)
             {
-                if (CheckCustomerExists("0" + (string)item["customerPhone"]) >= 1)
+                if (tempCustomers.CheckCustomerExists("0" + (string)item["customerPhone"]) >= 1)
                 {
                     continue;
                 }
@@ -51,15 +46,18 @@ namespace GetOrderConsole
                 customers.Phone = "0" + (string)item["customerPhone"];
                 customers.Address = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"];
                 customers.Type = "Khách hàng";
-                InsertCustomersToDb(customers);
+                tempCustomers.InsertCustomersToDb(customers);
             }
         }
 
         private void GetOrdersAndOrderDetail(JToken jToken, int time)
         {
+            Orders tempOrders = new Orders();
+            OrderDetail tempOrderDetail = new OrderDetail();
+            Customers tempCustomers = new Customers();
             foreach (var item in jToken)
             {
-                if (GetOrderIdFromDb((string)item["orderCode"]) != 0)
+                if (tempOrders.GetOrderIdFromDb((string)item["orderCode"]) != 0)
                 {
                     continue;
                 }
@@ -72,9 +70,10 @@ namespace GetOrderConsole
                 Orders orders = new Orders();
                 orders.OrderCode = (string)item["orderCode"];
                 orders.CreatedTime = ((string)item["createdTime"]).Remove(10, 3);
-                orders.UpdatedTime = ((string)item["updatedTime"]).Remove(10, 3); ;
+                orders.UpdatedTime = ((string)item["updatedTime"]).Remove(10, 3);
+                orders.SubTotal = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture);
                 orders.GrandPrice = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture);
-                orders.CustomerId = GetCustomerIdFromDb("0" + (string)item["customerPhone"]);
+                orders.CustomerId = tempCustomers.GetCustomerIdFromDb("0" + (string)item["customerPhone"]);
                 orders.Status = "Chưa duyệt";
                 orders.VerifyBy = 1;
                 orders.OrderFrom = "Zalo";
@@ -85,82 +84,22 @@ namespace GetOrderConsole
                 orders.PackageWidth = "0";
                 orders.PackageHeight = "0";
                 orders.PackageLenght = "0";
-                InsertOrdersToDb(orders);
+                tempOrders.InsertOrdersToDb(orders);
 
                 OrderDetail orderDetail = new OrderDetail
                 {
-                    OrderId = GetOrderIdFromDb((string)item["orderCode"]),
+                    OrderId = tempOrders.GetOrderIdFromDb((string)item["orderCode"]),
                     ProductId = (string)item["productCode"],
                     Quantity = (int)item["numItem"]
                 };
-                InsertOrderDetailToDb(orderDetail);
+                tempOrderDetail.InsertOrderDetailToDb(orderDetail);
             }
-        }
-
-        private int GetCustomerIdFromDb(string phone)
-        {
-            string query = $"select Id from Customers where Customers.Phone = '{phone}' limit 1;";
-            return _dbConnect.GetIdAndCountId(query);
-        }
-
-        private int GetOrderIdFromDb(string orderCode)
-        {
-            string query = $"select Orders.Id from Orders where Orders.OrderCode = '{orderCode}' limit 1;";
-            return _dbConnect.GetIdAndCountId(query);
         }
 
         private static object GetOrderList(ZaloStoreClient storeClient)
         {
             JObject getOrderOfOa = storeClient.getOrderOfOa(0, 10, 0);
             return getOrderOfOa;
-        }
-
-        private int CheckCustomerExists(string phone)
-        {
-            string query = $"select count(id) from Customers where Customers.Phone = '{phone}';";
-            return _dbConnect.GetIdAndCountId(query);
-        }
-
-        private void InsertCustomersToDb(Customers customer)
-        {
-            try
-            {
-                string query = "insert into Customers (Name, Phone, Address, Type) " +
-                               $"VALUES('{customer.Name}', '{customer.Phone}', '{customer.Address}', '{customer.Type}');";
-                _dbConnect.ExecuteQuery(query);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Loi khi insert customers vao db" + e);
-            }
-        }
-
-        private void InsertOrdersToDb(Orders orders)
-        {
-            try
-            {
-                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice,PackageWidth, PackageHeight, PackageLenght) " +
-                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.ShipPrice}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageLenght}');";
-                _dbConnect.ExecuteQuery(query);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Loi khi insert orders vao db" + e);
-            }
-        }
-
-        private void InsertOrderDetailToDb(OrderDetail orderDetail)
-        {
-            try
-            {
-                string query = "INSERT INTO OrderDetail (OrderId, ProductId, Quantity) " +
-                               $"VALUES('{orderDetail.OrderId}','{orderDetail.ProductId}', '{orderDetail.Quantity}');";
-                _dbConnect.ExecuteQuery(query);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Loi khi insert orderdetail vao db" + e);
-            }
         }
 
         private int Check(int time, DateTime createdTime)

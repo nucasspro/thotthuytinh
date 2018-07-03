@@ -52,3 +52,30 @@ C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\Ge
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CopyComplete
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.exe
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.pdb
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\GetOrderConsole.exe.config
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\GetOrderConsole.exe
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\GetOrderConsole.pdb
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\EntityFramework.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\EntityFramework.SqlServer.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Microsoft.Owin.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Microsoft.Owin.Security.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Newtonsoft.Json.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Owin.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.EF6.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.Linq.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Net.Http.Formatting.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\vng.zalo.ZaloCSharpSDK.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\xNet.dll
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\EntityFramework.xml
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\EntityFramework.SqlServer.xml
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Microsoft.Owin.xml
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Microsoft.Owin.Security.xml
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\Newtonsoft.Json.xml
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.xml
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Data.SQLite.dll.config
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\System.Net.Http.Formatting.xml
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CoreCompileInputs.cache
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CopyComplete
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.exe
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.pdb

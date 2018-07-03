@@ -36,5 +36,12 @@
         public int Quantity { get; set; }
         public int CreatedBy { get; set; }
         public string Status { get; set; }
+
+        public string GetProductIdFromDb(string productId)
+        {
+            DbConnect dbConnect = new DbConnect();
+            string query = $"select Products.Id from Products where Products.Id = '{productId}' limit 1;";
+            return dbConnect.GetData(query);
+        }
     }
 }

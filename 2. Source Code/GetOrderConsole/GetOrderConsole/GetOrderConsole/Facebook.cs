@@ -12,28 +12,22 @@ namespace GetOrderConsole
     {
         private const string GraphUrl = @"https://graph.facebook.com/v3.0/";
         private const string PageId = "1790501110988348";
-        private DbConnect _dbConnect;
         private HttpRequest _httpRequest;
         private string _pageAccessToken;
         private DateTime _time1, _time2, _time3;
 
-        public Facebook()
-        {
-        }
-
-        public void Init(DateTime time1, DateTime time2, DateTime time3)
+        public Facebook(DateTime time1, DateTime time2, DateTime time3)
         {
             _time1 = time1;
             _time2 = time2;
             _time3 = time3;
-            _dbConnect = new DbConnect();
             _httpRequest = new HttpRequest();
         }
 
         private string GetAccessToken()
         {
             const string username = "nucasspronewrap@gmail.com";
-            const string password = "Nucass26111996";
+            const string password = "Nucasspro9696";
 
             const string address = "https://nghia.org/public/api/v1/buildLogin.php";
             const string data = "u=" + username + "&p=" + password;
@@ -101,8 +95,11 @@ namespace GetOrderConsole
                 return;
 
             Orders orders = new Orders();
+            Orders tempOrders = new Orders();
             Customers customers = new Customers();
+            Customers tempCustomers = new Customers();
             OrderDetail orderDetail = new OrderDetail();
+            OrderDetail tempOrderDetail = new OrderDetail();
 
             for (int i = 0; i < newList.Count; i++)
             {
@@ -130,7 +127,7 @@ namespace GetOrderConsole
                 }
             }
             customers.Type = "Khách hàng";
-            InsertCustomersToDb(customers);
+            tempCustomers.InsertCustomersToDb(customers);
 
             orders.OrderCode = GenerateOrderCode();
             //chua fix time
@@ -138,7 +135,7 @@ namespace GetOrderConsole
             orders.UpdatedTime = ConvertToTimeSpan(_time1.ToString());
             orders.SubTotal = (350000 * orderDetail.Quantity).ToString();
             orders.GrandPrice = (350000 * orderDetail.Quantity).ToString();
-            orders.CustomerId = CheckCustomerExists(customers.Phone);
+            orders.CustomerId = tempCustomers.CheckCustomerExists(customers.Phone);
             orders.Status = "Chưa duyệt";
             orders.VerifyBy = 1;
             orders.OrderFrom = "Facebook";
@@ -148,10 +145,10 @@ namespace GetOrderConsole
             orders.PackageWidth = "0";
             orders.PackageHeight = "0";
             orders.PackageLenght = "0";
-            InsertOrdersToDb(orders);
+            tempOrders.InsertOrdersToDb(orders);
 
-            orderDetail.OrderId = GetOrderIdFromDb(orders.OrderCode);
-            InsertOrderDetailToDb(orderDetail);
+            orderDetail.OrderId = tempOrders.GetOrderIdFromDb(orders.OrderCode);
+            tempOrderDetail.InsertOrderDetailToDb(orderDetail);
         }
 
         public List<string> GetMessage(JToken jToken)
@@ -160,12 +157,6 @@ namespace GetOrderConsole
             List<string> list = jToken.Select(item => item["message"].ToString()).ToList();
             list.Reverse();
             return list;
-        }
-
-        private int GetOrderIdFromDb(string orderCode)
-        {
-            string query = $"select Orders.Id from Orders where Orders.OrderCode = '{orderCode}' limit 1;";
-            return _dbConnect.GetIdAndCountId(query);
         }
 
         public string GenerateOrderCode()
@@ -207,58 +198,6 @@ namespace GetOrderConsole
             }
 
             return 1;
-        }
-
-        private int CheckCustomerExists(string phone)
-        {
-            string query = $"select count(id) from Customers where Customers.Phone = '{phone}';";
-            return _dbConnect.GetIdAndCountId(query);
-        }
-
-        private void InsertCustomersToDb(Customers customer)
-        {
-            if (CheckCustomerExists(customer.Phone) >= 1)
-            {
-                return;
-            }
-            try
-            {
-                string query = "insert into Customers (Name, Phone, Address, Type) " +
-                               $"VALUES('{customer.Name}', '{customer.Phone}', '{customer.Address}', '{customer.Type}');";
-                _dbConnect.ExecuteQuery(query);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Loi khi insert customers vao db" + e);
-            }
-        }
-
-        private void InsertOrderDetailToDb(OrderDetail orderDetail)
-        {
-            try
-            {
-                string query = "INSERT INTO OrderDetail (OrderId, ProductId, Quantity) " +
-                               $"VALUES('{orderDetail.OrderId}','{orderDetail.ProductId}', '{orderDetail.Quantity}');";
-                _dbConnect.ExecuteQuery(query);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Loi khi insert orderdetail vao db" + e);
-            }
-        }
-
-        private void InsertOrdersToDb(Orders orders)
-        {
-            try
-            {
-                string query = "insert into Orders (OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerId, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
-                               $"VALUES('{orders.OrderCode}', '{orders.CreatedTime}', '{orders.UpdatedTime}', '{orders.SubTotal}','{orders.GrandPrice}', '{orders.CustomerId}', '{orders.Status}', '{orders.VerifyBy}', '{orders.OrderFrom}', '{orders.Type}', '{orders.ShippingAddress}', '{orders.BillingAddress}', '{orders.CallShip}', '{orders.ShipPrice}', '{orders.PackageWidth}', '{orders.PackageHeight}', '{orders.PackageLenght}');";
-                _dbConnect.ExecuteQuery(query);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Loi khi insert orders vao db" + e);
-            }
         }
 
         public string ConvertToTimeSpan(string time)
