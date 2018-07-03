@@ -7,9 +7,8 @@ namespace OMS.Model
     public class DBConnect
     {
         private readonly SQLiteConnection _con = new SQLiteConnection();
-        private string _path = @"C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\OrderDatabase.db3";
-        //private string _path =
-        //    @"D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\OrderDatabase.db3";
+        //private string _path = @"C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\OrderDatabase.db3";
+        private string _path = @"D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\OrderDatabase.db3";
 
 
         public void Init(string path)

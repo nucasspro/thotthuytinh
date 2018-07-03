@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Windows;
 
 namespace OMS.Model
 
@@ -12,6 +11,8 @@ namespace OMS.Model
         public Orders OrderId { get; set; }
         public Products Product { get; set; }
         public int Quantity { get; set; }
+
+        #region method
 
         public ObservableCollection<OrderDetail> LoadDataToOrderDetail(string SelectedValue, string OrderID)
         {
@@ -49,7 +50,7 @@ namespace OMS.Model
             return listtemp;
         }
 
-        public bool DeleteProductFromOrder( int OrderDetailID, string ProductID, int ProductQuantity, int ProductQuanlityStock)
+        public bool DeleteProductFromOrder(int OrderDetailID, string ProductID, int ProductQuantity, int ProductQuanlityStock)
         {
             DBConnect dB = new DBConnect();
             string query1 = $"delete from OrderDetail where Id =" + OrderDetailID + "";
@@ -109,5 +110,7 @@ namespace OMS.Model
                 return false;
             }
         }
+
+        #endregion method
     }
 }

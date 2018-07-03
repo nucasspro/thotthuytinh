@@ -52,14 +52,12 @@ D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\OM
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.baml
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_SchedulePost.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Setting.baml
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\LoginWindow.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\MainWindow.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.g.cs
-D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_SchedulePost.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_Setting.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\App.g.cs
 D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\GeneratedInternalTypeHelper.g.cs
@@ -376,3 +374,12 @@ D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_Automat
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_AutomationPost.g.cs
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_AutomationPost.baml
 C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_AutomationPost.g.cs
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.ReportSource.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\CrystalDecisions.Shared.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\sapbusinessobjects.wpf.viewer.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\SAPBusinessObjects.WPF.ViewerShared.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\FlashControlV71.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\bin\Debug\ShockwaveFlashObjects.dll
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_AutomationPost.baml
+D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\OMS\OMS\obj\Debug\UserControlOMS\UC_AutomationPost.g.cs

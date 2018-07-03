@@ -21,6 +21,8 @@ namespace OMS.Model
         public Accounts CreatedBy { get; set; }
         public string Status { get; set; }
 
+        #region method
+
         public ObservableCollection<Products> LoadProduct()
         {
             DBConnect dbConnect = new DBConnect();
@@ -80,5 +82,6 @@ namespace OMS.Model
             dbConnect.ExecuteQuery(query);
         }
 
+        #endregion method
     }
 }

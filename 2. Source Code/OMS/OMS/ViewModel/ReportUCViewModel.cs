@@ -1,17 +1,14 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
+﻿using CrystalDecisions.Shared;
 using OMS.Model;
 using SAPBusinessObjects.WPF.Viewer;
 using System;
 using System.Data;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace OMS.ViewModel
 {
-    internal class ReportUCViewModel : BaseViewModel
+    public class ReportUCViewModel : BaseViewModel
     {
         #region command
 
@@ -70,6 +67,7 @@ namespace OMS.ViewModel
             get => _EndDate;
             set { _EndDate = value; OnPropertyChanged(); }
         }
+
         private bool _ExportIsEnabled { get; set; }
 
         public bool ExportIsEnabled
@@ -79,7 +77,6 @@ namespace OMS.ViewModel
         }
 
         public RevenueReport CrystalReport { get; set; }
-
 
         #endregion virable
 
@@ -114,7 +111,7 @@ namespace OMS.ViewModel
                 //set value to StartedDate and EndDate
                 if (SelectedIndex == 0)
                 {
-                    StartedDate = new DateTime(ReportYear, ReportMonth+1, 1, 0, 0, 0);
+                    StartedDate = new DateTime(ReportYear, ReportMonth + 1, 1, 0, 0, 0);
                     EndDate = ReturnEndDate(ReportMonth + 1, ReportYear);
                 }
                 else
@@ -126,7 +123,7 @@ namespace OMS.ViewModel
                 orders = new Orders();
                 temp = orders.CreateReport(StartedDate, EndDate);
                 CrystalReport.Database.Tables["Revenue"].SetDataSource(temp);
-                p.ViewerCore.ReportSource= CrystalReport;
+                p.ViewerCore.ReportSource = CrystalReport;
                 if (CrystalReport != null)
                     ExportIsEnabled = true;
                 else
@@ -138,7 +135,6 @@ namespace OMS.ViewModel
                 ExportPDF(CrystalReport);
             });
         }
-
 
         public bool CheckYear(int year)
         {
@@ -161,14 +157,14 @@ namespace OMS.ViewModel
             if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
                 date = 31;
             else
-            date = 30;
+                date = 30;
             temp = new DateTime(year, month, date, 0, 0, 0);
             return temp;
         }
 
         public void ExportPDF(RevenueReport report)
         {
-            ExportOptions exportOptions =new ExportOptions();
+            ExportOptions exportOptions = new ExportOptions();
             DiskFileDestinationOptions diskFile = new DiskFileDestinationOptions();
 
             SaveFileDialog sfd = new SaveFileDialog();
@@ -191,9 +187,8 @@ namespace OMS.ViewModel
             {
                 System.Windows.MessageBox.Show("Có lỗi xảy ra trong quá trình xuất file!");
             }
-
-
         }
+
         #endregion methods
     }
 }

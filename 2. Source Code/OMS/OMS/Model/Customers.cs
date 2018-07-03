@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace OMS.Model
 {
@@ -10,6 +9,8 @@ namespace OMS.Model
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Type { get; set; }
+
+        #region method
 
         public bool AddCustomer(string CustomerName, string CustomerPhone, string BillingAddress)
         {
@@ -27,7 +28,6 @@ namespace OMS.Model
             }
         }
 
-
-
+        #endregion method
     }
 }

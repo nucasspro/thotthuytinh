@@ -158,6 +158,7 @@ namespace OMS.ViewModel
         }
 
         public Products Products;
+        public int AccountId;
 
         #endregion Variable
 
@@ -165,9 +166,13 @@ namespace OMS.ViewModel
 
         public ProductManagementUCViewModel()
         {
+            var loginVm = new LoginViewModel();
+            AccountId = loginVm.isVeryfy;
+
             ListProduct = new ObservableCollection<Products>();
             ListTemp = new ObservableCollection<Products>();
             Products = new Products();
+
             foreach (var item in Products.LoadProduct())
             {
                 ListTemp.Add(item);
@@ -293,7 +298,7 @@ namespace OMS.ViewModel
                     Image2 = ProductImage2,
                     Image3 = ProductImage3,
                     Quantity = ProductQuantity,
-                    CreatedBy = new Accounts { Id = 1 },
+                    CreatedBy = new Accounts { Id = AccountId },
                     Status = "Chưa xóa"
                 };
                 Products.CreateProduct(tempProduct);

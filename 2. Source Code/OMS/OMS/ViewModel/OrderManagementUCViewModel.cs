@@ -333,7 +333,7 @@ namespace OMS.ViewModel
                     ListProduct.Add(item);
                 }
             });
-
+            // ReSharper disable once ComplexConditionExpression
             ListOrderDetailMouseMoveCommand = new RelayCommand<object>(p => true, p =>
             {
                 //auto fill subtotal and grand total
@@ -343,8 +343,6 @@ namespace OMS.ViewModel
                 if (Convert.ToInt32(SubTotal) == 0)
                     GrandPrice = "0";
                 AutoUpdatePackageDimension();
-
-
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -394,7 +392,7 @@ namespace OMS.ViewModel
                 CreateOrder();
                 List = orders.LoadData(SelectedValue);
             });
-
+            // ReSharper disable once ComplexConditionExpression
             SaveOrderCommand = new RelayCommand<object>(p => true, p =>
             {
                 if (MessageBox.Show("Bạn có muốn lưu?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -494,7 +492,6 @@ namespace OMS.ViewModel
                             }
                             else
                                 MessageBox.Show("Xảy ra lỗi khi thêm sản phẩm vào hóa đơn!");
-
                         }
                     }
                     catch (Exception e)
@@ -537,11 +534,9 @@ namespace OMS.ViewModel
                             ListOrderDetail.Add(item);
                         }
                     }
-                        
                     else
                         MessageBox.Show("Đã xảy ra lỗi khi xóa chi tiết có Id = " + OrderDetailId);
                 }
-                
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -599,9 +594,9 @@ namespace OMS.ViewModel
                         //Kiểm tra số lượng bán có nhiều hơn số lượng tồn không?
                         if (CheckProductQuantity(ProductQuantityAfter, ProductQuantityStock))
                         {
-                                if (MessageBox.Show("Bạn có muốn lưu?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                                {
-                                    if (orderDetail.UpdateProductOrder(OrderDetailId, ProductIDTemp, ProductQuantityAfter, ProductQuantityBefore, ProductQuantityStock))
+                            if (MessageBox.Show("Bạn có muốn lưu?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            {
+                                if (orderDetail.UpdateProductOrder(OrderDetailId, ProductIDTemp, ProductQuantityAfter, ProductQuantityBefore, ProductQuantityStock))
                                 {
                                     MessageBox.Show("Cập nhật thành công!");
                                     ListOrderDetail.Clear();
@@ -610,12 +605,9 @@ namespace OMS.ViewModel
                                         ListOrderDetail.Add(item);
                                     }
                                 }
-                                       
-                                    else
-                                        MessageBox.Show("Đã xảy ra lỗi khi cập nhật chi tiết có Id = " + OrderDetailId);
-
-
-                                }
+                                else
+                                    MessageBox.Show("Đã xảy ra lỗi khi cập nhật chi tiết có Id = " + OrderDetailId);
+                            }
                         }
                     }
                     catch (Exception e)
@@ -699,7 +691,7 @@ namespace OMS.ViewModel
             }
         }
 
-        public Boolean CheckCustomerExist()
+        public bool CheckCustomerExist()
         {
             DBConnect dB = new DBConnect();
             string query = "select * from Customers where Name='" + CustomerName + "' and Phone= '" + CustomerPhone + "' limit 1;";
@@ -708,7 +700,15 @@ namespace OMS.ViewModel
             return true;
         }
 
-
+        public bool CheckProductQuantity(int temp, int stock)
+        {
+            if (temp > stock)
+            {
+                MessageBox.Show("Số lượng không đủ!");
+                return false;
+            }
+            return true;
+        }
 
         public void CreateOrder()
         {
@@ -762,13 +762,12 @@ namespace OMS.ViewModel
                 MessageBox.Show("Có lỗi phát sinh khi thêm đơn hàng!");
                 List.Clear();
             }
-           
         }
 
         public void UpdateOrder()
         {
             string UpdatedDate = ConvertToTimeSpan(DateTime.Now.ToLocalTime().ToString());
-            string  CallShipTemp = null, OrderStatusTemp;
+            string CallShipTemp = null, OrderStatusTemp;
 
             //check field CustomerName, CustomerPhone, Shipping Adress, Billing Adress not null
             if (CustomerName == null || CustomerPhone == null || ShippingAddress == null || BillingAddress == null)
@@ -819,27 +818,38 @@ namespace OMS.ViewModel
                 MessageBox.Show("Có lỗi phát sinh khi cập nhật hóa đơn!");
                 List.Clear();
             }
-  
         }
 
-        public string ConvertToTimeSpan(string time)
+        private void CheckShip(String fullAddress, int width, int lenght, int height, int price)
         {
-            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
-            var dateTimeOffset = new DateTimeOffset(dateTime);
-            return dateTimeOffset.ToUnixTimeSeconds().ToString();
-        }
+            string token = "653d044D18768F6c54BeB857d091B52cb2334a87";
+            string url = @"https://services.giaohangtietkiem.vn/services/shipment/fee?";
 
-        public bool CheckProductQuantity(int temp, int stock)
-        {
-            if (temp > stock)
+            List<string> data = fullAddress.Split('-').ToList();
+            int count = data.Count;
+            string address = "";
+            for (int i = 0; i < data.Count - 2; i++)
             {
-                MessageBox.Show("Số lượng không đủ!");
-                return false;
+                address += data[i] + " -";
             }
-            return true;
+            string district = data[count - 2].Trim();
+            string province = data[count - 1].Trim();
+            string pick_address = "ký túc xá khu B";
+            string pick_district = "Thủ Đức";
+            string pick_province = "Hồ Chí Minh";
+            int weight = (width * lenght * height) / 6000;
+            int value = price;
+            string request = $"{url}address={address}&district={district}&province={province}&pick_address={pick_address}&pick_district={pick_district}&pick_province={pick_province}&weight={weight}&value={value}";
+            HttpRequest httpRequest = new HttpRequest();
+            httpRequest.AddHeader("Token", token);
+            var json = JsonConvert.DeserializeObject(httpRequest.Get(request).ToString());
+            JToken jToken = JToken.FromObject(json);
+            string fee = jToken["fee"]["fee"].ToString();
+            ShipPrice = Convert.ToInt32(fee);
+            GrandPrice = (Convert.ToInt32(SubTotal) + ShipPrice).ToString();
         }
 
-        public String CalculateSubTotal()
+        public string CalculateSubTotal()
         {
             int temp = 0;
             foreach (var item in ListOrderDetail)
@@ -874,33 +884,11 @@ namespace OMS.ViewModel
             }
         }
 
-        private void CheckShip(String fullAddress, int width, int lenght, int height, int price)
+        public string ConvertToTimeSpan(string time)
         {
-            string token = "653d044D18768F6c54BeB857d091B52cb2334a87";
-            string url = @"https://services.giaohangtietkiem.vn/services/shipment/fee?";
-
-            List<string> data = fullAddress.Split('-').ToList();
-            int count = data.Count;
-            string address = "";
-            for (int i = 0; i < data.Count - 2; i++)
-            {
-                address += data[i] + " -";
-            }
-            string district = data[count - 2].Trim();
-            string province = data[count - 1].Trim();
-            string pick_address = "ký túc xá khu B";
-            string pick_district = "Thủ Đức";
-            string pick_province = "Hồ Chí Minh";
-            int weight = (width * lenght * height) / 6000;
-            int value = price;
-            string request = $"{url}address={address}&district={district}&province={province}&pick_address={pick_address}&pick_district={pick_district}&pick_province={pick_province}&weight={weight}&value={value}";
-            HttpRequest httpRequest = new HttpRequest();
-            httpRequest.AddHeader("Token", token);
-            var json = JsonConvert.DeserializeObject(httpRequest.Get(request).ToString());
-            JToken jToken = JToken.FromObject(json);
-            string fee = jToken["fee"]["fee"].ToString();
-            ShipPrice = Convert.ToInt32(fee);
-            GrandPrice = (Convert.ToInt32(SubTotal) + ShipPrice).ToString();
+            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
+            var dateTimeOffset = new DateTimeOffset(dateTime);
+            return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }
 
         #endregion Method

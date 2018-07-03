@@ -1,4 +1,4 @@
-﻿using System;
+﻿using OMS.Model;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,38 +14,32 @@ namespace OMS.ViewModel
 
         #endregion command
 
+        #region Variable
+
         public bool IsLogin;
         public int isVeryfy;
-        public Model.DBConnect dBConnect;
-        private String _UserName;
+        private string _UserName;
         public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
-        private String _Password;
+
+        private string _Password;
         public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
 
-        public Model.Accounts accounts;
+        public Accounts Accounts;
+
+        #endregion Variable
+
+        #region Method
 
         public LoginViewModel()
         {
-            accounts = new Model.Accounts();
-            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; },
-               (p =>
-               {
-                   Password = p.Password;
-               }));
+            Accounts = new Accounts();
+            PasswordChangedCommand = new RelayCommand<PasswordBox>(p => true, p => { Password = p.Password; });
 
-            HitLoginButtonCommand = new RelayCommand<Window>((p) => { return true; },
-                (p =>
-                {
-                    IsLogin = false;
-                    Login(p);
-                }));
+            HitLoginButtonCommand = new RelayCommand<Window>(p => true, p => { IsLogin = false; Login(p); });
         }
-
 
         private void Login(Window p)
         {
-
-
             if (p == null)
                 return;
             if (UserName == null || Password == null)
@@ -54,7 +48,7 @@ namespace OMS.ViewModel
             }
             else
             {
-                if (accounts.CheckAccount(UserName, Password) == 0)
+                if (Accounts.CheckAccount(UserName, Password) == 0)
                 {
                     MessageBox.Show("Tài khoản không tồn tại!");
                 }
@@ -62,10 +56,11 @@ namespace OMS.ViewModel
                 {
                     IsLogin = true;
                     p.Close();
-                    isVeryfy = accounts.CheckAccount(UserName, Password);
+                    isVeryfy = Accounts.CheckAccount(UserName, Password);
                 }
-
             }
         }
+
+        #endregion Method
     }
 }

@@ -19,8 +19,8 @@
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="7*" />
             </Grid.ColumnDefinitions>
 
             <!--Report Box-->
@@ -32,16 +32,14 @@
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon
-                                Kind="Information"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center"/>
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}"/>
+                            <materialDesign:PackIcon Kind="Information"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                       Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
@@ -49,12 +47,14 @@
                 <!--Report Input-->
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="BÁO CÁO DOANH THU THEO " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" />
+                        <TextBlock Text="BÁO CÁO DOANH THU THEO "
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" Margin="10" />
                         <ComboBox Height="50"
                                   Margin="10"
                                   x:Name="cbxChooseTypeReport"
                                   IsEditable="False"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBoxItem IsSelected="True" Content="THÁNG" />
                             <ComboBoxItem Content="NĂM" />
                             <i:Interaction.Triggers>
@@ -66,16 +66,24 @@
                             </i:Interaction.Triggers>
                         </ComboBox>
                     </StackPanel>
-                    <TextBlock Text="Chọn thời gian báo cáo: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" />
+                    <TextBlock Text="Chọn thời gian báo cáo: "
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="10" />
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="10">
-                            <TextBlock Text="Nhập tháng:  " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" />
-                            <ComboBox Height="50" Width="200" IsEnabled="{Binding ReportMonthIsEnbled}"
-                                  Margin="10"
-                                  x:Name="cbxChooseMonth"
-                                  IsEditable="False"
-                                  SelectedIndex="{Binding ReportMonth}"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
+                            <TextBlock Text="Nhập tháng:"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="10" />
+                            <ComboBox Height="50"
+                                      Width="200"
+                                      IsEnabled="{Binding ReportMonthIsEnbled}"
+                                      Margin="10"
+                                      x:Name="cbxChooseMonth"
+                                      IsEditable="False"
+                                      SelectedIndex="{Binding ReportMonth}"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                                 <ComboBoxItem IsSelected="True" Content="1" />
                                 <ComboBoxItem Content="2" />
                                 <ComboBoxItem Content="3" />
@@ -91,22 +99,32 @@
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="10">
-                            <TextBlock Text="Nhập năm:  " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" />
-                            <TextBox
-                                materialDesign:HintAssist.Hint="Year" Width="200" Margin="10"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                Text="{Binding ReportYear}"/>
+                            <TextBlock Text="Nhập năm:  "
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="10" />
+                            <TextBox materialDesign:HintAssist.Hint="Year"
+                                     Width="200"
+                                     Margin="10"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     Text="{Binding ReportYear}" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <Button Width="150" Height="50" Content="Preview" Margin="10"
-                            Command="{Binding ButtonPreviewCommand}" CommandParameter="{Binding ElementName=CrystalReportViewer}" />
-                        <Button Width="150" Height="50" Content="Export PDF" Margin="10"
-                            Command="{Binding ButtonExportCommand}" CommandParameter="{Binding ElementName=CrystalReportViewer}" IsEnabled="{Binding ExportIsEnabled}"/>
+                        <Button Width="150"
+                                Height="50"
+                                Content="Preview"
+                                Margin="10"
+                                Command="{Binding ButtonPreviewCommand}"
+                                CommandParameter="{Binding ElementName=CrystalReportViewer}" />
+                        <Button Width="150"
+                                Height="50"
+                                Content="Export PDF"
+                                Margin="10"
+                                Command="{Binding ButtonExportCommand}"
+                                CommandParameter="{Binding ElementName=CrystalReportViewer}"
+                                IsEnabled="{Binding ExportIsEnabled}" />
                     </StackPanel>
-                    
-
-
                 </StackPanel>
                 <!--/Report Input-->
             </GroupBox>
@@ -121,27 +139,27 @@
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon
-                                Kind="ReorderHorizontal"
-                                Height="32"
-                                Width="32"
-                                VerticalAlignment="Center"/>
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                Text="{Binding}"/>
+                            <materialDesign:PackIcon Kind="ReorderHorizontal"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                       Text="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
 
                 <Grid>
 
-                    <Viewer:CrystalReportsViewer x:Name="CrystalReportViewer" 
-                                                 HorizontalAlignment="Left" 
-                                                 Height="602" Margin="10,10,0,0" 
-                                                 VerticalAlignment="Top" Width="908" ShowToolbar="True" ToggleSidePanel="None"
-                                                 />
+                    <Viewer:CrystalReportsViewer x:Name="CrystalReportViewer"
+                                                 HorizontalAlignment="Left"
+                                                 Height="602" Margin="10,10,0,0"
+                                                 VerticalAlignment="Top" 
+                                                 Width="908" 
+                                                 ShowToolbar="True" 
+                                                 ToggleSidePanel="None" />
 
                     <!--/Button Export Report-->
                 </Grid>

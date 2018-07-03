@@ -30,11 +30,10 @@ namespace OMS.Model
         public DataTable CreateReport(DateTime start, DateTime end)
         {
             DBConnect dB = new DBConnect();
-            DataTable dataTable = new DataTable();
             string test = "select OrderFrom, Id, datetime(UpdatedTime, 'unixepoch','localtime') as UpdatedTime, cast(GrandPrice as integer) as GrandPrice " +
-                            "from Orders where cast (UpdatedTime as integer) > cast (" + ConvertToTimeSpan(start.ToString()) + " as integer) " +
-                            "and cast (UpdatedTime as integer) < cast (" + ConvertToTimeSpan(end.ToString()) + " as integer)" +
-                            "and Status='Đã thanh toán';";
+                           "from Orders where cast (UpdatedTime as integer) > cast (" + ConvertToTimeSpan(start.ToString()) + " as integer) " +
+                           "and cast (UpdatedTime as integer) < cast (" + ConvertToTimeSpan(end.ToString()) + " as integer)" +
+                           "and Status='Đã thanh toán';";
             return dB.SelectQuery(test);
         }
 
@@ -78,14 +77,14 @@ namespace OMS.Model
             return temp;
         }
 
-        public String ConvertToTimeSpan(string time)
+        public string ConvertToTimeSpan(string time)
         {
             DateTime dateTime = DateTime.Parse(time).ToLocalTime();
             var dateTimeOffset = new DateTimeOffset(dateTime);
             return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }
 
-        public int ReturnCustomerID(String CustomerName, String CustomerPhone)
+        public int ReturnCustomerID(string CustomerName, string CustomerPhone)
         {
             DBConnect dB = new DBConnect();
             string query = "select ID from Customers where Name='" + CustomerName + "' and Phone='" + CustomerPhone + "';";
