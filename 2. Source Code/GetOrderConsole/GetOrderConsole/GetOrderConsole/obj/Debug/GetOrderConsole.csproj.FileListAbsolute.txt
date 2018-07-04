@@ -79,3 +79,4 @@ D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderCon
 D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csproj.CopyComplete
 D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.exe
 D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.pdb
+D:\HK8\ThietKeHeThongTMDT\New folder\GetOrderConsole\GetOrderConsole\GetOrderConsole\obj\Debug\GetOrderConsole.csprojAssemblyReference.cache

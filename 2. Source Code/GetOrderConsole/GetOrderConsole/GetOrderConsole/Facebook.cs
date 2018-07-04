@@ -12,6 +12,9 @@ namespace GetOrderConsole
     {
         private const string GraphUrl = @"https://graph.facebook.com/v3.0/";
         private const string PageId = "1790501110988348";
+
+        //private const string PageId = "722487931126157";
+
         private HttpRequest _httpRequest;
         private string _pageAccessToken;
         private DateTime _time1, _time2, _time3;
@@ -52,6 +55,34 @@ namespace GetOrderConsole
             return pageAccessToken;
         }
 
+        //public void GetData(int time)
+        //{
+        //    _pageAccessToken = GetPageAccessToken();
+        //    const string fields = @"?fields=conversations%7Bid%2Cupdated_time%7D&access_token=";
+        //    string getListChatId = $"{GraphUrl}{PageId}{fields}{_pageAccessToken}";
+        //    string getList = _httpRequest.Get(getListChatId).ToString();
+        //    JObject splitList = JObject.Parse(getList);
+        //    JToken jToken = splitList["conversations"]["data"];
+        //    JToken jTokenPaging = splitList["conversations"]["paging"];
+
+        //    if (jTokenPaging.ToString().Contains("\"next\": "))
+        //    {
+        //        var a = jTokenPaging["next"];
+        //    }
+
+        //    foreach (var data in jToken)
+        //    {
+        //        DateTime updatedTime = ConvertToDateTime((string)data["updated_time"]);
+        //        //if (Check(time, updatedTime) == 1)
+        //        //{
+        //        //    continue;
+        //        //}
+        //        string id = (string)data["id"];
+        //        JToken jToken2 = GetListMessageFromChatId(id)["messages"];
+        //        GetOrders(GetMessage(jToken2));
+        //    }
+        //}
+
         public void GetData(int time)
         {
             _pageAccessToken = GetPageAccessToken();
@@ -72,6 +103,39 @@ namespace GetOrderConsole
                 JToken jToken2 = GetListMessageFromChatId(id)["messages"];
                 GetOrders(GetMessage(jToken2));
             }
+            JToken jTokenPaging = splitList["conversations"]["paging"];
+
+            if (jTokenPaging.ToString().Contains("\"next\": "))
+            {
+                string next = jTokenPaging["next"].ToString();
+                while (GetJson(next) != null)
+                {
+                    next = GetJson(next);
+                }
+            }
+        }
+
+        public string GetJson(string url)
+        {
+            string getList = _httpRequest.Get(url).ToString();
+            JObject splitList = JObject.Parse(getList);
+            JToken jToken = splitList["data"];
+
+            JToken jTokenPaging = splitList["paging"];
+            foreach (var data in jToken)
+            {
+                DateTime updatedTime = ConvertToDateTime((string)data["updated_time"]);
+                //if (Check(time, updatedTime) == 1)
+                //{
+                //    continue;
+                //}
+                string id = (string)data["id"];
+                JToken jToken2 = GetListMessageFromChatId(id)["messages"];
+                GetOrders(GetMessage(jToken2));
+            }
+            if (jTokenPaging.ToString().Contains("\"next\": "))
+                return jTokenPaging["next"].ToString();
+            return null;
         }
 
         public void GetOrders(List<string> list)
@@ -141,6 +205,7 @@ namespace GetOrderConsole
             orders.OrderFrom = "Facebook";
             orders.Type = "Bán cho khách";
             orders.CallShip = "Chưa gọi ship";
+            orders.ShipId = "";
             orders.ShipPrice = "0";
             orders.PackageWidth = "0";
             orders.PackageHeight = "0";

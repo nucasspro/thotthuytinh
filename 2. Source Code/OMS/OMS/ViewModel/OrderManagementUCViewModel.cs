@@ -4,7 +4,9 @@ using OMS.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,6 +31,9 @@ namespace OMS.ViewModel
 
         public ICommand CheckPriceCommand { get; set; }
         public ICommand ListOrderDetailMouseMoveCommand { get; set; }
+
+        public ICommand CreateShippingOrder { get; set; }
+        public ICommand CancelShippingOrder { get; set; }
 
         #endregion command
 
@@ -85,6 +90,7 @@ namespace OMS.ViewModel
                 CustomerPhone = SelectedItem.Customer.Phone;
                 CallShip = SelectedItem.CallShip.Equals("Chưa gọi ship") ? 0 : 1;
                 ShipPrice = Convert.ToInt32(SelectedItem.ShipPrice);
+                ShipId = SelectedItem.ShipId;
                 PackageHeight = SelectedItem.PackageHeight;
                 PackageLenght = SelectedItem.PackageLenght;
                 PackageWidth = SelectedItem.PackageWidth;
@@ -235,17 +241,17 @@ namespace OMS.ViewModel
             set { _UpdateOrderDetailButtonEnabled = value; OnPropertyChanged(); }
         }
 
-        private String _ProductQuantity { get; set; }
+        private string _ProductQuantity { get; set; }
 
-        public String ProductQuantity
+        public string ProductQuantity
         {
             get => _ProductQuantity;
             set { _ProductQuantity = value; OnPropertyChanged(); }
         }
 
-        private String _UnitPrice { get; set; }
+        private string _UnitPrice { get; set; }
 
-        public String UnitPrice
+        public string UnitPrice
         {
             get => _UnitPrice;
             set { _UnitPrice = value; OnPropertyChanged(); }
@@ -259,9 +265,17 @@ namespace OMS.ViewModel
             set { _ShipPrice = value; OnPropertyChanged(); }
         }
 
-        private String _ComboboxProductListSelectedValue { get; set; }
+        private string _ShipId { get; set; }
 
-        public String ComboboxProductListSelectedValue
+        public string ShipId
+        {
+            get => _ShipId;
+            set { _ShipId = value; OnPropertyChanged(); }
+        }
+
+        private string _ComboboxProductListSelectedValue { get; set; }
+
+        public string ComboboxProductListSelectedValue
         {
             get => _ComboboxProductListSelectedValue;
             set { _ComboboxProductListSelectedValue = value; OnPropertyChanged(); }
@@ -335,6 +349,7 @@ namespace OMS.ViewModel
                     ListProduct.Add(item);
                 }
             });
+
             // ReSharper disable once ComplexConditionExpression
             ListOrderDetailMouseMoveCommand = new RelayCommand<object>(p => true, p =>
             {
@@ -394,6 +409,7 @@ namespace OMS.ViewModel
                 CreateOrder();
                 List = orders.LoadData(SelectedValue);
             });
+
             // ReSharper disable once ComplexConditionExpression
             SaveOrderCommand = new RelayCommand<object>(p => true, p =>
             {
@@ -620,10 +636,19 @@ namespace OMS.ViewModel
                 }
             });
 
-            CheckPriceCommand = new RelayCommand<object>(p => true, p =>
-                 {
-                     CheckShip(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice));
-                 });
+            CheckPriceCommand = new RelayCommand<object>(p => true, p => { CheckShip(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice)); });
+
+            CreateShippingOrder = new RelayCommand<Button>(p => true, p =>
+            {
+                CreateShipOrder(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice));
+                List = orders.LoadData(SelectedValue);
+            });
+
+            CancelShippingOrder = new RelayCommand<Button>(p => true, p =>
+            {
+                CancelShipOrder(ShipId);
+                List = orders.LoadData(SelectedValue);
+            });
         }
 
         public void FindOrderByID(int id)
@@ -822,7 +847,7 @@ namespace OMS.ViewModel
             }
         }
 
-        private void CheckShip(String fullAddress, int width, int lenght, int height, int price)
+        private string CheckShip(string fullAddress, int width, int lenght, int height, int price)
         {
             string token = "653d044D18768F6c54BeB857d091B52cb2334a87";
             string url = @"https://services.giaohangtietkiem.vn/services/shipment/fee?";
@@ -849,6 +874,128 @@ namespace OMS.ViewModel
             string fee = jToken["fee"]["fee"].ToString();
             ShipPrice = Convert.ToInt32(fee);
             GrandPrice = (Convert.ToInt32(SubTotal) + ShipPrice).ToString();
+            return fee;
+        }
+
+        public void CreateShipOrder(string fullAddress, int width, int lenght, int height, int price)
+        {
+            string url = @"https://services.giaohangtietkiem.vn/services/shipment/order";
+            string token = "653d044D18768F6c54BeB857d091B52cb2334a87";
+
+            string pick_address = "ký túc xá khu B";
+            string pick_district = "Thủ Đức";
+            string pick_province = "Hồ Chí Minh";
+
+            string shopName = "Dang Nhat Hai Long";
+            string shopPhone = "0963209769";
+
+            string customerName = CustomerName;
+            string customerPhone = CustomerPhone;
+
+            List<string> data = fullAddress.Split('-').ToList();
+            int count = data.Count;
+            string address = "";
+            for (int i = 0; i < data.Count - 2; i++)
+            {
+                address += data[i] + " -";
+            }
+            string district = data[count - 2].Trim();
+            string province = data[count - 1].Trim();
+
+            string shipPrice = CheckShip(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice));
+
+            string jsonProducts = "{\"products\": [";
+
+            foreach (var item in ListOrderDetail)
+            {
+                string tempProductWeight = "";
+                foreach (var item1 in ListProduct)
+                {
+                    if (item1.Name.Contains(item.Product.Name))
+                    {
+                        tempProductWeight = item1.Weight;
+                    }
+                }
+                //string temp = "{\"name\": \"" + item.Product.Name + "\", \"weight\": " + tempProductWeight + ", \"quantity\": " + item.Quantity + "},";
+                string temp = $"{{\"name\": \"{item.Product.Name}\", \"weight\": {tempProductWeight}, \"quantity\": {item.Quantity}}},";
+                jsonProducts += temp;
+            }
+
+            jsonProducts += "],";
+            jsonProducts = jsonProducts.Replace("},]", "}]");
+
+            string id = RandomShippingId();
+            // ReSharper disable once ComplexConditionExpression
+            string jsonOrder =
+                $"\"order\": {{\"id\": \"{id}\", \"pick_name\": \"{shopName}\", \"pick_address\": \"{pick_address}\", \"pick_province\": \"{pick_province}\", " +
+                $"\"pick_district\": \"{pick_district}\", \"pick_tel\": \"{shopPhone}\", \"tel\": \"{customerPhone}\", \"name\": \"{customerName}\", " +
+                $"\"address\": \"{address}\", \"province\": \"{province}\", \"district\": \"{district}\", \"is_freeship\": \"0\", " +
+                $"\"pick_date\": \"{DateTime.Today.ToShortDateString()}\", \"pick_money\": {Convert.ToInt32(price)} }}}}";
+
+            string fullJson = jsonProducts + jsonOrder;
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Headers.Add("Token", token);
+            httpWebRequest.Method = "POST";
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                streamWriter.Write(fullJson);
+            }
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var responseText = streamReader.ReadToEnd();
+                var json = JsonConvert.DeserializeObject(responseText);
+                JToken jToken = JToken.FromObject(json);
+                if (jToken["success"].Contains("false"))
+                {
+                    MessageBox.Show("Tạo đơn hàng bên ship thất bại.");
+                    return;
+                }
+                else
+                {
+                    ShipId = jToken["order"]["label"].ToString();
+                }
+            }
+
+            try
+            {
+                Orders tempOrders = new Orders();
+                tempOrders.UpdateShipId(OrderID, ShipId);
+                MessageBox.Show("Tạo đơn hàng ship thành công.");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Tạo đơn hàng ship thất bại.");
+            }
+        }
+
+        public void CancelShipOrder(string label)
+        {
+            string url = @"https://services.giaohangtietkiem.vn/services/shipment/cancel/" + label;
+            string token = "653d044D18768F6c54BeB857d091B52cb2334a87";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Headers.Add("Token", token);
+            httpWebRequest.Method = "POST";
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var responseText = streamReader.ReadToEnd();
+                var json = JsonConvert.DeserializeObject(responseText);
+                JToken jToken = JToken.FromObject(json);
+                if (jToken["success"].Contains("false") == false)
+                {
+                    MessageBox.Show("Hủy đơn ship thất bại.");
+                }
+                else
+                {
+                    orders.UpdateCallShip(OrderID);
+                    MessageBox.Show("Hủy thành công.");
+                }
+            }
         }
 
         public string CalculateSubTotal()
@@ -891,6 +1038,11 @@ namespace OMS.ViewModel
             DateTime dateTime = DateTime.Parse(time).ToLocalTime();
             var dateTimeOffset = new DateTimeOffset(dateTime);
             return dateTimeOffset.ToUnixTimeSeconds().ToString();
+        }
+
+        public string RandomShippingId()
+        {
+            return "id_" + ConvertToTimeSpan(DateTime.Now.ToString());
         }
 
         #endregion Method

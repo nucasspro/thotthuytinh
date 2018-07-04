@@ -67,23 +67,28 @@ namespace GetOrderConsole
                 //    continue;
                 //}
 
-                Orders orders = new Orders();
-                orders.OrderCode = (string)item["orderCode"];
-                orders.CreatedTime = ((string)item["createdTime"]).Remove(10, 3);
-                orders.UpdatedTime = ((string)item["updatedTime"]).Remove(10, 3);
-                orders.SubTotal = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture);
-                orders.GrandPrice = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture);
-                orders.CustomerId = tempCustomers.GetCustomerIdFromDb("0" + (string)item["customerPhone"]);
-                orders.Status = "Chưa duyệt";
-                orders.VerifyBy = 1;
-                orders.OrderFrom = "Zalo";
-                orders.Type = "Bán cho khách";
-                orders.BillingAddress = orders.ShippingAddress = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"];
-                orders.CallShip = "Chưa gọi ship";
-                orders.ShipPrice = "0";
-                orders.PackageWidth = "0";
-                orders.PackageHeight = "0";
-                orders.PackageLenght = "0";
+                // ReSharper disable once ComplexConditionExpression
+                Orders orders = new Orders
+                {
+                    OrderCode = (string)item["orderCode"],
+                    CreatedTime = ((string)item["createdTime"]).Remove(10, 3),
+                    UpdatedTime = ((string)item["updatedTime"]).Remove(10, 3),
+                    SubTotal = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture),
+                    GrandPrice = ((float)item["price"] * (float)item["numItem"]).ToString(CultureInfo.InvariantCulture),
+                    CustomerId = tempCustomers.GetCustomerIdFromDb("0" + (string)item["customerPhone"]),
+                    Status = "Chưa duyệt",
+                    VerifyBy = 1,
+                    OrderFrom = "Zalo",
+                    Type = "Bán cho khách",
+                    ShippingAddress = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"],
+                    BillingAddress = (string)item["deliverAddress"] + " - " + (string)item["deliverDistrict"] + " - " + (string)item["deliverCity"],
+                    CallShip = "Chưa gọi ship",
+                    ShipId = "",
+                    ShipPrice = "0",
+                    PackageWidth = "0",
+                    PackageHeight = "0",
+                    PackageLenght = "0"
+                };
                 tempOrders.InsertOrdersToDb(orders);
 
                 OrderDetail orderDetail = new OrderDetail

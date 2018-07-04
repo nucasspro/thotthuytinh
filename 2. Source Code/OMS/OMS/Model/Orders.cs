@@ -20,6 +20,7 @@ namespace OMS.Model
         public string ShippingAddress { get; set; }
         public string BillingAddress { get; set; }
         public string CallShip { get; set; }
+        public string ShipId { get; set; }
         public string ShipPrice { get; set; }
         public string PackageWidth { get; set; }
         public string PackageHeight { get; set; }
@@ -44,7 +45,7 @@ namespace OMS.Model
             string query = @"select Orders.Id, Customers.Name,
                             datetime(Orders.CreatedTime, 'unixepoch','localtime') as CreatedTime,
                             Orders.GrandPrice, Orders.SubTotal,
-                            Orders.Status, Orders.ShippingAddress, Orders.BillingAddress, Customers.Phone, Orders.CallShip, Orders.ShipPrice,
+                            Orders.Status, Orders.ShippingAddress, Orders.BillingAddress, Customers.Phone, Orders.CallShip, Orders.ShipId, Orders.ShipPrice,
                             Orders.PackageWidth, Orders.PackageLenght, Orders.PackageHeight
                             from Orders inner join Customers
                             where Orders.CustomerId = Customers.Id and Orders.OrderFrom = '" + SelectedValue + "';";
@@ -61,10 +62,11 @@ namespace OMS.Model
                     ShippingAddress = (string)((DataRow)row).ItemArray[6],
                     BillingAddress = (string)((DataRow)row).ItemArray[7],
                     CallShip = (string)((DataRow)row).ItemArray[9],
-                    ShipPrice = (string)((DataRow)row).ItemArray[10],
-                    PackageWidth = (string)((DataRow)row).ItemArray[11],
-                    PackageLenght = (string)((DataRow)row).ItemArray[12],
-                    PackageHeight = (string)((DataRow)row).ItemArray[13]
+                    ShipId = (string)((DataRow)row).ItemArray[10],
+                    ShipPrice = (string)((DataRow)row).ItemArray[11],
+                    PackageWidth = (string)((DataRow)row).ItemArray[12],
+                    PackageLenght = (string)((DataRow)row).ItemArray[13],
+                    PackageHeight = (string)((DataRow)row).ItemArray[14]
                 };
                 Customers customer = new Customers
                 {
@@ -95,8 +97,8 @@ namespace OMS.Model
         {
             DBConnect dB = new DBConnect();
             string query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
-                                $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', " + ReturnCustomerID(CustomerName, CustomerPhone) + ", '" + OrderStatusTemp + "','"+isVerify+"','CreatedByEmployee'," +
-                                $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','" + ShipPrice + "','" + PackageWidth + "','" + PackageHeight + "','" + PackageLenght + "');";
+                            $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', " + ReturnCustomerID(CustomerName, CustomerPhone) + ", '" + OrderStatusTemp + "','" + isVerify + "','CreatedByEmployee'," +
+                            $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','" + ShipPrice + "','" + PackageWidth + "','" + PackageHeight + "','" + PackageLenght + "');";
             try
             {
                 dB.ExecuteQuery(query1);
@@ -114,7 +116,7 @@ namespace OMS.Model
             string query1 = $"update Orders " +
                         $"set UpdatedTime='{UpdatedDate}', SubTotal='{SubTotal}', " +
                         $"GrandPrice='{GrandPrice}', CustomerID=" + ReturnCustomerID(CustomerName, CustomerPhone) + ", " +
-                        "Status='" + OrderStatusTemp + "', VerifyBy='"+ isVerify + "', OrderFrom='" + SelectedValue + "', " +
+                        "Status='" + OrderStatusTemp + "', VerifyBy='" + isVerify + "', OrderFrom='" + SelectedValue + "', " +
                         "ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
                         "CallShip='" + CallShipTemp + "',ShipPrice='" + ShipPrice + "', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
                         "PackageLenght='" + PackageLenght + "' " +
@@ -122,6 +124,36 @@ namespace OMS.Model
             try
             {
                 dB.ExecuteQuery(query1);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateShipId(string OrderID, string ShipId)
+        {
+            DBConnect dB = new DBConnect();
+            string query = $"update Orders set ShipId='{ShipId}', Status = 'Đã đóng gói', CallShip = 'Đã gọi ship' where Id=" + OrderID + "";
+            try
+            {
+                dB.ExecuteQuery(query);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateCallShip(string OrderID)
+        {
+            DBConnect dB = new DBConnect();
+            string query = "update Orders set Status = 'Chưa duyệt', CallShip = 'Chưa gọi ship' where Id=" + OrderID + "";
+            try
+            {
+                dB.ExecuteQuery(query);
                 return true;
             }
             catch (Exception)

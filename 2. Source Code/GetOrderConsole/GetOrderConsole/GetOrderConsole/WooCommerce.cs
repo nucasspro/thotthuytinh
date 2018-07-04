@@ -8,8 +8,8 @@ namespace GetOrderConsole
     public class WooCommerce
     {
         private const string HostUrl = @"https://localhost/thotthuytinh";
-        private const string ConsumerKey = "ck_6dccdb287a7ac41beacafc58c9680117ba2871dc";
-        private const string ConsumerSecret = "cs_30fe451dad1d1394ce716e0a73e87d68573e9ba8";
+        private const string ConsumerKey = "ck_3b68e5b48b0a008d2037125b131c2428f7827a77";
+        private const string ConsumerSecret = "cs_ab90e431b9a86f2a011f7b21d02d925bef29667f";
         private static string ApiUrl = @"/wp-json/wc/v2/";
         private HttpRequest _httpRequest;
         private DateTime _time1, _time2, _time3;
@@ -90,24 +90,28 @@ namespace GetOrderConsole
                     //    continue;
                     //}
 
-                    Orders orders = new Orders();
-                    orders.OrderCode = (string)item["order_key"];
-                    orders.CreatedTime = ConvertToTimeSpan((string)item["date_created"]);
-                    orders.UpdatedTime = ConvertToTimeSpan((string)item["date_modified"]);
-                    orders.SubTotal = item["total"].ToString().Replace(".00", "");
-                    orders.GrandPrice = item["total"].ToString().Replace(".00", "");
-                    orders.CustomerId = tempCustomers.GetCustomerIdFromDb((string)item["billing"]["phone"]);
-                    orders.Status = "Chưa duyệt";
-                    orders.VerifyBy = 1;
-                    orders.OrderFrom = "WooCommerce";
-                    orders.Type = "Bán cho khách";
-                    orders.ShippingAddress = (string)item["billing"]["address_1"] + " - " + (string)item["billing"]["city"];
-                    orders.BillingAddress = (string)item["billing"]["address_1"] + " - " + (string)item["billing"]["city"];
-                    orders.CallShip = "Chưa gọi ship";
-                    orders.ShipPrice = "0";
-                    orders.PackageWidth = "0";
-                    orders.PackageHeight = "0";
-                    orders.PackageLenght = "0";
+                    // ReSharper disable once ComplexConditionExpression
+                    Orders orders = new Orders
+                    {
+                        OrderCode = (string)item["order_key"],
+                        CreatedTime = ConvertToTimeSpan((string)item["date_created"]),
+                        UpdatedTime = ConvertToTimeSpan((string)item["date_modified"]),
+                        SubTotal = item["total"].ToString().Replace(".00", ""),
+                        GrandPrice = item["total"].ToString().Replace(".00", ""),
+                        CustomerId = tempCustomers.GetCustomerIdFromDb((string)item["billing"]["phone"]),
+                        Status = "Chưa duyệt",
+                        VerifyBy = 1,
+                        OrderFrom = "WooCommerce",
+                        Type = "Bán cho khách",
+                        ShippingAddress = (string)item["billing"]["address_1"] + " - " + (string)item["billing"]["city"],
+                        BillingAddress = (string)item["billing"]["address_1"] + " - " + (string)item["billing"]["city"],
+                        CallShip = "Chưa gọi ship",
+                        ShipId = "",
+                        ShipPrice = "0",
+                        PackageWidth = "0",
+                        PackageHeight = "0",
+                        PackageLenght = "0"
+                    };
                     tempOrders.InsertOrdersToDb(orders);
 
                     int orderId = tempOrders.GetOrderIdFromDb((string)item["order_key"]);
