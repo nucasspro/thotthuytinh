@@ -300,6 +300,7 @@ namespace OMS.ViewModel
         public Products products;
         public OrderDetail orderDetail;
         public Customers customers;
+        public int AccountID;
 
         #endregion Variable
 
@@ -315,7 +316,8 @@ namespace OMS.ViewModel
             products = new Products();
             orderDetail = new OrderDetail();
             customers = new Customers();
-
+            LoginViewModel lg = new LoginViewModel();
+            AccountID = lg.isVeryfy;
             // ReSharper disable once ComplexConditionExpression
             SelectionChangedCommand = new RelayCommand<ComboBox>(p => true, p =>
             {
@@ -755,7 +757,7 @@ namespace OMS.ViewModel
                 if (!customers.AddCustomer(CustomerName, CustomerPhone, BillingAddress))
                     MessageBox.Show("Có lỗi xảy ra khi thêm khách hàng!");
             }
-            if (orders.CreateOrder(CreatedDate, SubTotal, GrandPrice, CustomerName, CustomerPhone, OrderStatusTemp, ShippingAddress, BillingAddress, CallShipTemp, ShipPrice, PackageWidth, PackageHeight, PackageLenght))
+            if (orders.CreateOrder(CreatedDate, SubTotal, GrandPrice, CustomerName, CustomerPhone, OrderStatusTemp, ShippingAddress, BillingAddress, CallShipTemp, ShipPrice, PackageWidth, PackageHeight, PackageLenght, AccountID))
                 MessageBox.Show("Thêm hóa đơn thành công! ");
             else
             {
@@ -811,7 +813,7 @@ namespace OMS.ViewModel
                     MessageBox.Show("Có lỗi xảy ra khi thêm khách hàng!");
             }
 
-            if (orders.UpdateOrder(UpdatedDate, SubTotal, GrandPrice, CustomerName, CustomerPhone, OrderStatusTemp, ShippingAddress, BillingAddress, CallShipTemp, ShipPrice, PackageWidth, PackageHeight, PackageLenght, SelectedValue, OrderID))
+            if (orders.UpdateOrder(UpdatedDate, SubTotal, GrandPrice, CustomerName, CustomerPhone, OrderStatusTemp, ShippingAddress, BillingAddress, CallShipTemp, ShipPrice, PackageWidth, PackageHeight, PackageLenght, SelectedValue, OrderID, AccountID))
                 MessageBox.Show("Cập nhật hóa đơn thành công! ");
             else
             {

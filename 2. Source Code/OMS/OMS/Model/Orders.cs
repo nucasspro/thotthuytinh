@@ -91,11 +91,11 @@ namespace OMS.Model
             return dB.ExecuteQueryToGetIdAndCount(query);
         }
 
-        public bool CreateOrder(string CreatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght)
+        public bool CreateOrder(string CreatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght, int isVerify)
         {
             DBConnect dB = new DBConnect();
             string query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
-                                $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', " + ReturnCustomerID(CustomerName, CustomerPhone) + ", '" + OrderStatusTemp + "','','CreatedByEmployee'," +
+                                $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', " + ReturnCustomerID(CustomerName, CustomerPhone) + ", '" + OrderStatusTemp + "','"+isVerify+"','CreatedByEmployee'," +
                                 $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','" + ShipPrice + "','" + PackageWidth + "','" + PackageHeight + "','" + PackageLenght + "');";
             try
             {
@@ -108,13 +108,13 @@ namespace OMS.Model
             }
         }
 
-        public bool UpdateOrder(string UpdatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght, string SelectedValue, string OrderID)
+        public bool UpdateOrder(string UpdatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght, string SelectedValue, string OrderID, int isVerify)
         {
             DBConnect dB = new DBConnect();
             string query1 = $"update Orders " +
                         $"set UpdatedTime='{UpdatedDate}', SubTotal='{SubTotal}', " +
                         $"GrandPrice='{GrandPrice}', CustomerID=" + ReturnCustomerID(CustomerName, CustomerPhone) + ", " +
-                        "Status='" + OrderStatusTemp + "', VerifyBy='', OrderFrom='" + SelectedValue + "', " +
+                        "Status='" + OrderStatusTemp + "', VerifyBy='"+ isVerify + "', OrderFrom='" + SelectedValue + "', " +
                         "ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
                         "CallShip='" + CallShipTemp + "',ShipPrice='" + ShipPrice + "', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
                         "PackageLenght='" + PackageLenght + "' " +
