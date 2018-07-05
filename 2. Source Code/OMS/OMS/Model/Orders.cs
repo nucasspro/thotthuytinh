@@ -132,10 +132,10 @@ namespace OMS.Model
             }
         }
 
-        public bool UpdateShipId(string OrderID, string ShipId)
+        public bool UpdateShipId(string OrderID, string ShipId, string ShipPrice)
         {
             DBConnect dB = new DBConnect();
-            string query = $"update Orders set ShipId='{ShipId}', Status = 'Đã đóng gói', CallShip = 'Đã gọi ship' where Id=" + OrderID + "";
+            string query = $"update Orders set ShipId='{ShipId}', Status = 'Đã đóng gói', CallShip = 'Đã gọi ship', ShipPrice = '{ShipPrice}' where Id=" + OrderID + "";
             try
             {
                 dB.ExecuteQuery(query);
@@ -150,7 +150,7 @@ namespace OMS.Model
         public bool UpdateCallShip(string OrderID)
         {
             DBConnect dB = new DBConnect();
-            string query = "update Orders set Status = 'Chưa duyệt', CallShip = 'Chưa gọi ship' where Id=" + OrderID + "";
+            string query = "update Orders set Status = 'Chưa duyệt', CallShip = 'Chưa gọi ship', ShipId = '' where Id=" + OrderID + "";
             try
             {
                 dB.ExecuteQuery(query);

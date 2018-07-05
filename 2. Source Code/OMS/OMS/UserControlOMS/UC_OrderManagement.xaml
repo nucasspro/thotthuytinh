@@ -281,7 +281,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     x:Name="ButtonCreateShippingOrder"
-                                    Command="{Binding CreateShippingOrder}"
+                                    Command="{Binding CreateShippingOrderCommand}"
                                     IsEnabled="{Binding isEnabledCallShip}" />
                             <Button Grid.Column="1"
                                     Width="120"
@@ -290,7 +290,7 @@
                                     Margin="5"
                                     VerticalAlignment="Center"
                                     x:Name="ButtonCancelShip"
-                                    Command="{Binding CancelShippingOrder}"
+                                    Command="{Binding CancelShippingOrderCommand}"
                                     HorizontalContentAlignment="Center"
                                     IsEnabled="{Binding isEnabledCancelShip}" />
                         </Grid>

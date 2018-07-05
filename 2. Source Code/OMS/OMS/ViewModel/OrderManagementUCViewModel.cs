@@ -32,8 +32,8 @@ namespace OMS.ViewModel
         public ICommand CheckPriceCommand { get; set; }
         public ICommand ListOrderDetailMouseMoveCommand { get; set; }
 
-        public ICommand CreateShippingOrder { get; set; }
-        public ICommand CancelShippingOrder { get; set; }
+        public ICommand CreateShippingOrderCommand { get; set; }
+        public ICommand CancelShippingOrderCommand { get; set; }
 
         #endregion command
 
@@ -406,7 +406,11 @@ namespace OMS.ViewModel
             CreateOrderCommand = new RelayCommand<object>(p => true, p =>
             {
                 CreateOrder();
-                List = orders.LoadData(SelectedValue);
+                foreach (var item in orders.LoadData(SelectedValue))
+                {
+                    List.Add(item);
+                    ListTemp.Add(item);
+                }
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -415,7 +419,13 @@ namespace OMS.ViewModel
                 if (MessageBox.Show("Bạn có muốn lưu?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     UpdateOrder();
-                    List = orders.LoadData(SelectedValue);
+                    ListTemp.Clear();
+                    List.Clear();
+                    foreach (var item in orders.LoadData(SelectedValue))
+                    {
+                        List.Add(item);
+                        ListTemp.Add(item);
+                    }
                 }
             });
 
@@ -641,23 +651,27 @@ namespace OMS.ViewModel
 
             CheckPriceCommand = new RelayCommand<object>(p => true, p => { CheckShip(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice)); });
 
-            CreateShippingOrder = new RelayCommand<Button>(p => true, p =>
+            CreateShippingOrderCommand = new RelayCommand<Button>(p => true, p =>
             {
-                CreateShipOrder(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice));
+                CreateShippingOrder(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice));
                 List.Clear();
+                ListTemp.Clear();
                 foreach (var item in orders.LoadData(SelectedValue))
                 {
                     List.Add(item);
+                    ListTemp.Add(item);
                 }
             });
 
-            CancelShippingOrder = new RelayCommand<Button>(p => true, p =>
+            CancelShippingOrderCommand = new RelayCommand<Button>(p => true, p =>
             {
-                CancelShipOrder(ShipId);
+                CancelShippingOrder(ShipId);
                 List.Clear();
+                ListTemp.Clear();
                 foreach (var item in orders.LoadData(SelectedValue))
                 {
                     List.Add(item);
+                    ListTemp.Add(item);
                 }
             });
         }
@@ -888,7 +902,7 @@ namespace OMS.ViewModel
             return fee;
         }
 
-        public void CreateShipOrder(string fullAddress, int width, int lenght, int height, int price)
+        public void CreateShippingOrder(string fullAddress, int width, int lenght, int height, int price)
         {
             string url = @"https://services.giaohangtietkiem.vn/services/shipment/order";
             string token = "653d044D18768F6c54BeB857d091B52cb2334a87";
@@ -973,7 +987,7 @@ namespace OMS.ViewModel
             try
             {
                 Orders tempOrders = new Orders();
-                tempOrders.UpdateShipId(OrderID, ShipId);
+                tempOrders.UpdateShipId(OrderID, ShipId, shipPrice);
                 MessageBox.Show("Tạo đơn hàng ship thành công.");
             }
             catch (Exception e)
@@ -982,7 +996,7 @@ namespace OMS.ViewModel
             }
         }
 
-        public void CancelShipOrder(string label)
+        public void CancelShippingOrder(string label)
         {
             string url = @"https://services.giaohangtietkiem.vn/services/shipment/cancel/" + label;
             string token = "653d044D18768F6c54BeB857d091B52cb2334a87";
@@ -997,7 +1011,7 @@ namespace OMS.ViewModel
                 var responseText = streamReader.ReadToEnd();
                 var json = JsonConvert.DeserializeObject(responseText);
                 JToken jToken = JToken.FromObject(json);
-                if (jToken["success"].ToString().Equals("true"))
+                if (jToken["success"].ToString().ToLower().Equals("true"))
                 {
                     orders.UpdateCallShip(OrderID);
                     MessageBox.Show("Hủy thành công.");
