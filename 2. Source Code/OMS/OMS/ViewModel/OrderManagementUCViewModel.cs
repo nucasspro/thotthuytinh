@@ -359,7 +359,6 @@ namespace OMS.ViewModel
                     GrandPrice = SubTotal;
                 if (Convert.ToInt32(SubTotal) == 0)
                     GrandPrice = "0";
-                
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -650,7 +649,6 @@ namespace OMS.ViewModel
                 {
                     List.Add(item);
                 }
-                
             });
 
             CancelShippingOrder = new RelayCommand<Button>(p => true, p =>
@@ -851,7 +849,7 @@ namespace OMS.ViewModel
                     MessageBox.Show("Có lỗi xảy ra khi thêm khách hàng!");
             }
 
-            if (orders.UpdateOrder(UpdatedDate, SubTotal, GrandPrice, CustomerName, CustomerPhone, OrderStatusTemp, ShippingAddress, BillingAddress, CallShipTemp, ShipPrice, PackageWidth, PackageHeight, PackageLenght, SelectedValue, OrderID, AccountID))
+            if (orders.UpdateOrder(UpdatedDate, SubTotal, GrandPrice, CustomerName, CustomerPhone, OrderStatusTemp, ShippingAddress, BillingAddress, CallShipTemp, ShipId, ShipPrice, PackageWidth, PackageHeight, PackageLenght, SelectedValue, OrderID, AccountID))
                 MessageBox.Show("Cập nhật hóa đơn thành công! ");
             else
             {
@@ -999,14 +997,14 @@ namespace OMS.ViewModel
                 var responseText = streamReader.ReadToEnd();
                 var json = JsonConvert.DeserializeObject(responseText);
                 JToken jToken = JToken.FromObject(json);
-                if (jToken["success"].Contains("false") == false)
-                {
-                    MessageBox.Show("Hủy đơn ship thất bại.");
-                }
-                else
+                if (jToken["success"].ToString().Equals("true"))
                 {
                     orders.UpdateCallShip(OrderID);
                     MessageBox.Show("Hủy thành công.");
+                }
+                else
+                {
+                    MessageBox.Show("Hủy đơn ship thất bại.");
                 }
             }
         }

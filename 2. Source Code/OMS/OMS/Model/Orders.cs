@@ -110,17 +110,17 @@ namespace OMS.Model
             }
         }
 
-        public bool UpdateOrder(string UpdatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght, string SelectedValue, string OrderID, int isVerify)
+        public bool UpdateOrder(string UpdatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, string ShipId, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght, string SelectedValue, string OrderID, int isVerify)
         {
             DBConnect dB = new DBConnect();
             string query1 = $"update Orders " +
                         $"set UpdatedTime='{UpdatedDate}', SubTotal='{SubTotal}', " +
                         $"GrandPrice='{GrandPrice}', CustomerID=" + ReturnCustomerID(CustomerName, CustomerPhone) + ", " +
-                        "Status='" + OrderStatusTemp + "', VerifyBy='" + isVerify + "', OrderFrom='" + SelectedValue + "', " +
-                        "ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
-                        "CallShip='" + CallShipTemp + "',ShipPrice='" + ShipPrice + "', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
-                        "PackageLenght='" + PackageLenght + "' " +
-                        "where Id=" + OrderID + "";
+                        $"Status='" + OrderStatusTemp + "', VerifyBy='" + isVerify + "', OrderFrom='" + SelectedValue + "', " +
+                        $"ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
+                        $"CallShip='" + CallShipTemp + "', ShipId = '"+ShipId+"', ShipPrice='" + ShipPrice + "', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
+                        $"PackageLenght='" + PackageLenght + "' " +
+                        $"where Id=" + OrderID + "";
             try
             {
                 dB.ExecuteQuery(query1);
