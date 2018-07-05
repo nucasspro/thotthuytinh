@@ -387,7 +387,7 @@
                                         </GridView>
                                     </ListView.View>
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseMove">
+                                        <i:EventTrigger EventName="SourceUpdated">
                                             <i:InvokeCommandAction Command="{Binding ListOrderDetailMouseMoveCommand}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>

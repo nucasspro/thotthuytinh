@@ -3399,7 +3399,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "View Shipping Orders History By Customer ID",
+											"text": "View Shipping Orders History By Order ID",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3467,7 +3467,7 @@
 									"containerExtending": false,
 									"left": 253,
 									"top": 159.5,
-									"width": 294.60986328125,
+									"width": 294,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -6952,7 +6952,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFElm6BOFNpegQ="
 					},
-					"name": "View Shipping Orders History By Customer ID",
+					"name": "View Shipping Orders History By Order ID",
 					"ownedElements": [
 						{
 							"_type": "UMLExtend",

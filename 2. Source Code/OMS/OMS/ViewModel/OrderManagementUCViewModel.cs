@@ -359,7 +359,7 @@ namespace OMS.ViewModel
                     GrandPrice = SubTotal;
                 if (Convert.ToInt32(SubTotal) == 0)
                     GrandPrice = "0";
-                AutoUpdatePackageDimension();
+                
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -460,6 +460,7 @@ namespace OMS.ViewModel
                     isEnabledCallShip = false;
                     isEnabledCancelShip = true;
                 }
+                AutoUpdatePackageDimension();
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -518,6 +519,7 @@ namespace OMS.ViewModel
                         return;
                     }
                 }
+                AutoUpdatePackageDimension();
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -555,6 +557,7 @@ namespace OMS.ViewModel
                     else
                         MessageBox.Show("Đã xảy ra lỗi khi xóa chi tiết có Id = " + OrderDetailId);
                 }
+                AutoUpdatePackageDimension();
             });
 
             // ReSharper disable once ComplexConditionExpression
@@ -634,6 +637,7 @@ namespace OMS.ViewModel
                         return;
                     }
                 }
+                AutoUpdatePackageDimension();
             });
 
             CheckPriceCommand = new RelayCommand<object>(p => true, p => { CheckShip(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice)); });
@@ -641,13 +645,22 @@ namespace OMS.ViewModel
             CreateShippingOrder = new RelayCommand<Button>(p => true, p =>
             {
                 CreateShipOrder(ShippingAddress, Convert.ToInt32(PackageWidth), Convert.ToInt32(PackageLenght), Convert.ToInt32(PackageHeight), Convert.ToInt32(GrandPrice));
-                List = orders.LoadData(SelectedValue);
+                List.Clear();
+                foreach (var item in orders.LoadData(SelectedValue))
+                {
+                    List.Add(item);
+                }
+                
             });
 
             CancelShippingOrder = new RelayCommand<Button>(p => true, p =>
             {
                 CancelShipOrder(ShipId);
-                List = orders.LoadData(SelectedValue);
+                List.Clear();
+                foreach (var item in orders.LoadData(SelectedValue))
+                {
+                    List.Add(item);
+                }
             });
         }
 
