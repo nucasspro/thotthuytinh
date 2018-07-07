@@ -7,19 +7,21 @@ namespace GetOrderConsole
 {
     public class Zalo
     {
-        private const long OaId = 1364144657533100885;
-        private const string SecretKey = "hGq0eOPke9SvuMmGfiKx";
+        private long _OaId = 0;
+        private string _SecretKey = "";
         private ZaloOaInfo _zaloOaInfo;
         private ZaloStoreClient _storeClient;
         private DateTime _time1, _time2, _time3;
 
-        public Zalo(DateTime time1, DateTime time2, DateTime time3)
+        public Zalo(DateTime time1, DateTime time2, DateTime time3, long Oaid, string SecretKey)
         {
-            _zaloOaInfo = new ZaloOaInfo(OaId, SecretKey);
-            _storeClient = new ZaloStoreClient(_zaloOaInfo);
             _time1 = time1;
             _time2 = time2;
             _time3 = time3;
+            _OaId = Oaid;
+            _SecretKey = SecretKey;
+            _zaloOaInfo = new ZaloOaInfo(_OaId, SecretKey);
+            _storeClient = new ZaloStoreClient(_zaloOaInfo);
         }
 
         public void GetData(int time)

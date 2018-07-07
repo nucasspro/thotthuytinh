@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using OMS.ViewModel;
 using System.Windows;
 
 namespace OMS
@@ -13,5 +8,6 @@ namespace OMS
     /// </summary>
     public partial class App : Application
     {
+       
     }
 }

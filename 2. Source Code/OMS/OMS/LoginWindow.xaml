@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:OMS"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-        
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -21,30 +20,35 @@
         Title="Login" Height="400" Width="500">
 
     <Grid>
-        <materialDesign:Card HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="350">
+        <materialDesign:Card HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" 
+                             Width="450" 
+                             Height="350">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="Grid">
-                        <Setter Property="Margin" Value="15"></Setter>
+                        <Setter Property="Margin" 
+                                Value="15"></Setter>
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--UserName textbox-->
                 <TextBox Grid.Row="0"
                          VerticalAlignment="Center"
                          x:Uid="txtUserName"
                          Text="{Binding UserName}"
-                materialDesign:HintAssist.Hint="Username"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                         materialDesign:HintAssist.Hint="Username"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 <!--password textbox-->
-                <PasswordBox x:Uid="pxtPassWord" Grid.Row="1"
-                VerticalAlignment="Center"
-                 x:Name="PasswordBox"
-                materialDesign:HintAssist.Hint="Password" >
+                <PasswordBox x:Uid="pxtPassWord" 
+                             Grid.Row="1"
+                             VerticalAlignment="Center"
+                             x:Name="PasswordBox"
+                             materialDesign:HintAssist.Hint="Password" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PasswordChanged">
                             <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=PasswordBox}"/>
@@ -61,8 +65,7 @@
                             Command="{Binding HitLoginButtonCommand}"
                             CommandParameter="{Binding ElementName=LoginFrom}"
                             Style="{StaticResource MaterialDesignRaisedLightButton}"
-                            Content="Login">
-                    </Button>
+                            Content="Login"/>
                 </Grid>
             </Grid>
         </materialDesign:Card>

@@ -358,15 +358,11 @@ D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\OMS.csprojAssemblyReferen
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.baml
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.baml
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.baml
-D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_AutomationPost.baml
-D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_Setting.baml
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\LoginWindow.g.cs
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\MainWindow.g.cs
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_OrderManagement.g.cs
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_ProductManagement.g.cs
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_Report.g.cs
-D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_AutomationPost.g.cs
-D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_Setting.g.cs
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\App.g.cs
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\OMS_MarkupCompile.cache
@@ -383,3 +379,5 @@ D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\OMS.csproj.CoreCompileInp
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\OMS.csproj.CopyComplete
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\OMS.exe
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\OMS.pdb
+D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_PostAutomation.baml
+D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\obj\Debug\UserControlOMS\UC_PostAutomation.g.cs

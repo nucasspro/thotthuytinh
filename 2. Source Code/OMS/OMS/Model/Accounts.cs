@@ -11,8 +11,8 @@
 
         public int CheckAccount(string UserName, string Password)
         {
-            DBConnect dBConnect = new DBConnect();
-            string query = "select id from Accounts where Username='" + UserName + "' and Password ='" + Password + "' limit 1;";
+            var dBConnect = new DBConnect();
+            string query = $"Select id From Accounts Where Username = '{UserName}' and Password = '{Password}' limit 1;";
             return dBConnect.ExecuteQueryToGetIdAndCount(query);
         }
 

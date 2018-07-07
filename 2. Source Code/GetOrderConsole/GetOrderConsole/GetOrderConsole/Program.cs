@@ -7,14 +7,39 @@ namespace GetOrderConsole
         public static readonly DateTime Time1 = DateTime.Today.AddHours(00).AddMinutes(00).ToLocalTime();
         public static readonly DateTime Time2 = DateTime.Today.AddHours(08).AddMinutes(00).ToLocalTime();
         public static readonly DateTime Time3 = DateTime.Today.AddHours(16).AddMinutes(00).ToLocalTime();
-
+        private static long OaId = 0;
+        private static string SecretKey = "";
+        private static string HostUrl = "";
+        private static string ConsumerKey = "";
+        private static string ConsumerSecret = "";
+        private static string FBPageId = "";
+        private static string FBUserName = "";
+        private static string FBPassWord = "";
+        private static string DatabasePath = "";
         private static void Main(string[] args)
         {
+            try
+            {
+                OaId = long.Parse(args[0]);
+                SecretKey = args[1];
+                HostUrl = args[2];
+                ConsumerKey = args[3];
+                ConsumerSecret = args[4];
+                FBPageId = args[5];
+                FBUserName = args[6];
+                FBPassWord = args[7];
+                DatabasePath = args[8];
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("arguments Not Match");
+            }
+            Console.WriteLine(DatabasePath);
             DbConnect dbConnect = new DbConnect();
-            dbConnect.Init();
-
+            dbConnect.Init(DatabasePath);
             var time = CheckTime();
             RunApplication(time);
+            Console.ReadKey();
         }
 
         private static void RunApplication(int time)
@@ -23,7 +48,7 @@ namespace GetOrderConsole
             {
                 Console.WriteLine("Running...");
 
-                Zalo zalo = new Zalo(Time1, Time2, Time3);
+                Zalo zalo = new Zalo(Time1, Time2, Time3, OaId, SecretKey);
                 zalo.GetData(time);
                 Console.WriteLine("Zalo END!");
             }
@@ -33,7 +58,7 @@ namespace GetOrderConsole
             }
             try
             {
-                WooCommerce wooCommerce = new WooCommerce(Time1, Time2, Time3);
+                WooCommerce wooCommerce = new WooCommerce(Time1, Time2, Time3, HostUrl, ConsumerKey, ConsumerSecret);
                 wooCommerce.GetData(time);
                 Console.WriteLine("Woo END!");
             }
@@ -43,7 +68,7 @@ namespace GetOrderConsole
             }
             try
             {
-                Facebook facebook = new Facebook(Time1, Time2, Time3);
+                Facebook facebook = new Facebook(Time1, Time2, Time3, FBPageId, FBUserName, FBPassWord);
                 facebook.GetData(time);
                 Console.WriteLine("Face END!");
 

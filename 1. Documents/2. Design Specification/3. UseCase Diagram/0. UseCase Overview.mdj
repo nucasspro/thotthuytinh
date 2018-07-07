@@ -946,12 +946,12 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 197,
-											"top": 183,
+											"top": 31,
 											"width": 543,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "OSM Desktop Application",
+											"text": "Use Case Overview",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1018,7 +1018,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 192,
-									"top": 176,
+									"top": 24,
 									"width": 553,
 									"height": 25,
 									"autoResize": false,
@@ -1046,9 +1046,9 @@
 							"containerChangeable": false,
 							"containerExtending": false,
 							"left": 192,
-							"top": 176,
+							"top": 24,
 							"width": 553,
-							"height": 296,
+							"height": 448,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
@@ -4845,181 +4845,6 @@
 							"headQualifiersCompartment": {
 								"$ref": "AAAAAAFkUUQ+OXHTQks="
 							}
-						},
-						{
-							"_type": "UMLUseCaseSubjectView",
-							"_id": "AAAAAAFka7+aGITYUyE=",
-							"_parent": {
-								"$ref": "AAAAAAFkUTxKSmjLmk4="
-							},
-							"model": {
-								"$ref": "AAAAAAFka7+aFoTWm2o="
-							},
-							"subViews": [
-								{
-									"_type": "UMLNameCompartmentView",
-									"_id": "AAAAAAFka7+aGYTZvtg=",
-									"_parent": {
-										"$ref": "AAAAAAFka7+aGITYUyE="
-									},
-									"model": {
-										"$ref": "AAAAAAFka7+aFoTWm2o="
-									},
-									"subViews": [
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAFka7+aGYTaTwU=",
-											"_parent": {
-												"$ref": "AAAAAAFka7+aGYTZvtg="
-											},
-											"visible": false,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 0,
-											"top": 0,
-											"width": 0,
-											"height": 13,
-											"autoResize": false,
-											"underline": false,
-											"horizontalAlignment": 2,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										},
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAFka7+aGYTbiRs=",
-											"_parent": {
-												"$ref": "AAAAAAFka7+aGYTZvtg="
-											},
-											"visible": true,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;1",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 197,
-											"top": 39,
-											"width": 542,
-											"height": 13,
-											"autoResize": false,
-											"underline": false,
-											"text": "Get Orders Console Application",
-											"horizontalAlignment": 2,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										},
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAFka7+aGYTchkM=",
-											"_parent": {
-												"$ref": "AAAAAAFka7+aGYTZvtg="
-											},
-											"visible": false,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 0,
-											"top": 0,
-											"width": 140.86083984375,
-											"height": 13,
-											"autoResize": false,
-											"underline": false,
-											"text": "(from UseCaseDiagram)",
-											"horizontalAlignment": 2,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										},
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAFka7+aGYTdmp0=",
-											"_parent": {
-												"$ref": "AAAAAAFka7+aGYTZvtg="
-											},
-											"visible": false,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 0,
-											"top": 0,
-											"width": 0,
-											"height": 13,
-											"autoResize": false,
-											"underline": false,
-											"horizontalAlignment": 1,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										}
-									],
-									"visible": true,
-									"enabled": true,
-									"lineColor": "#000000",
-									"fillColor": "#ffffff",
-									"fontColor": "#000000",
-									"font": "Arial;13;0",
-									"showShadow": true,
-									"containerChangeable": false,
-									"containerExtending": false,
-									"left": 192,
-									"top": 32,
-									"width": 552,
-									"height": 25,
-									"autoResize": false,
-									"stereotypeLabel": {
-										"$ref": "AAAAAAFka7+aGYTaTwU="
-									},
-									"nameLabel": {
-										"$ref": "AAAAAAFka7+aGYTbiRs="
-									},
-									"namespaceLabel": {
-										"$ref": "AAAAAAFka7+aGYTchkM="
-									},
-									"propertyLabel": {
-										"$ref": "AAAAAAFka7+aGYTdmp0="
-									}
-								}
-							],
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 192,
-							"top": 32,
-							"width": 552,
-							"height": 120,
-							"autoResize": false,
-							"stereotypeDisplay": "label",
-							"showVisibility": true,
-							"showNamespace": false,
-							"showProperty": true,
-							"showType": true,
-							"nameCompartment": {
-								"$ref": "AAAAAAFka7+aGYTZvtg="
-							},
-							"wordWrap": false
 						}
 					]
 				},
@@ -5341,7 +5166,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFkUTxKSmjKRBQ="
 					},
-					"name": "OSM Desktop Application",
+					"name": "Use Case Overview",
 					"visibility": "public"
 				},
 				{

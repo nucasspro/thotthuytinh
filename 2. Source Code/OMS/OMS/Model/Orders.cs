@@ -30,18 +30,18 @@ namespace OMS.Model
 
         public DataTable CreateReport(DateTime start, DateTime end)
         {
-            DBConnect dB = new DBConnect();
-            string test = "select OrderFrom, Id, datetime(UpdatedTime, 'unixepoch','localtime') as UpdatedTime, cast(GrandPrice as integer) as GrandPrice " +
-                           "from Orders where cast (UpdatedTime as integer) > cast (" + ConvertToTimeSpan(start.ToString()) + " as integer) " +
+            var dB = new DBConnect();
+            string test = "Select OrderFrom, Id, datetime(UpdatedTime, 'unixepoch','localtime') as UpdatedTime, cast(GrandPrice as integer) as GrandPrice " +
+                           "From Orders Where cast (UpdatedTime as integer) > cast (" + ConvertToTimeSpan(start.ToString()) + " as integer) " +
                            "and cast (UpdatedTime as integer) < cast (" + ConvertToTimeSpan(end.ToString()) + " as integer)" +
-                           "and Status='Đã thanh toán';";
+                           "and Status = 'Đã thanh toán';";
             return dB.SelectQuery(test);
         }
 
         public ObservableCollection<Orders> LoadData(string SelectedValue)
         {
-            DBConnect dbConnect = new DBConnect();
-            ObservableCollection<Orders> temp = new ObservableCollection<Orders>();
+            var dbConnect = new DBConnect();
+            var temp = new ObservableCollection<Orders>();
             string query = @"select Orders.Id, Customers.Name,
                             datetime(Orders.CreatedTime, 'unixepoch','localtime') as CreatedTime,
                             Orders.GrandPrice, Orders.SubTotal,
@@ -49,10 +49,11 @@ namespace OMS.Model
                             Orders.PackageWidth, Orders.PackageLenght, Orders.PackageHeight
                             from Orders inner join Customers
                             where Orders.CustomerId = Customers.Id and Orders.OrderFrom = '" + SelectedValue + "';";
-            DataTable dataTable = dbConnect.SelectQuery(query);
+
+            var dataTable = dbConnect.SelectQuery(query);
             foreach (var row in dataTable.Rows)
             {
-                Orders order = new Orders
+                var order = new Orders
                 {
                     Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
                     CreatedTime = (string)((DataRow)row).ItemArray[2],
@@ -68,7 +69,7 @@ namespace OMS.Model
                     PackageLenght = (string)((DataRow)row).ItemArray[13],
                     PackageHeight = (string)((DataRow)row).ItemArray[14]
                 };
-                Customers customer = new Customers
+                var customer = new Customers
                 {
                     Name = (string)((DataRow)row).ItemArray[1],
                     Phone = (string)((DataRow)row).ItemArray[8]
@@ -81,24 +82,24 @@ namespace OMS.Model
 
         public string ConvertToTimeSpan(string time)
         {
-            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
+            var dateTime = DateTime.Parse(time).ToLocalTime();
             var dateTimeOffset = new DateTimeOffset(dateTime);
             return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }
 
         public int ReturnCustomerID(string CustomerName, string CustomerPhone)
         {
-            DBConnect dB = new DBConnect();
-            string query = "select ID from Customers where Name='" + CustomerName + "' and Phone='" + CustomerPhone + "';";
+            var dB = new DBConnect();
+            string query = $"Select ID From Customers Where Name = '{CustomerName}' and Phone = '{CustomerPhone}';";
             return dB.ExecuteQueryToGetIdAndCount(query);
         }
 
         public bool CreateOrder(string CreatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght, int isVerify)
         {
-            DBConnect dB = new DBConnect();
-            string query1 = $"insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
-                            $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', " + ReturnCustomerID(CustomerName, CustomerPhone) + ", '" + OrderStatusTemp + "','" + isVerify + "','CreatedByEmployee'," +
-                            $"'Bán cho khách','" + ShippingAddress + "','" + BillingAddress + "', '" + CallShipTemp + "','" + ShipPrice + "','" + PackageWidth + "','" + PackageHeight + "','" + PackageLenght + "');";
+            var dB = new DBConnect();
+            string query1 = $"Insert into Orders(OrderCode, CreatedTime, UpdatedTime, SubTotal, GrandPrice, CustomerID, Status, VerifyBy, OrderFrom, Type, ShippingAddress, BillingAddress, CallShip, ShipPrice, PackageWidth, PackageHeight, PackageLenght) " +
+                            $"values ('', '{CreatedDate}', '{CreatedDate}', '{SubTotal}', '{GrandPrice}', {ReturnCustomerID(CustomerName, CustomerPhone)}, '{OrderStatusTemp}', '{isVerify}', 'CreatedByEmployee'," +
+                            $"'Bán cho khách', '{ShippingAddress}', '{BillingAddress}', '{CallShipTemp}', '{ShipPrice}', '{PackageWidth}', '{PackageHeight}', '{PackageLenght}');";
             try
             {
                 dB.ExecuteQuery(query1);
@@ -112,15 +113,15 @@ namespace OMS.Model
 
         public bool UpdateOrder(string UpdatedDate, string SubTotal, string GrandPrice, string CustomerName, string CustomerPhone, string OrderStatusTemp, string ShippingAddress, string BillingAddress, string CallShipTemp, string ShipId, int ShipPrice, string PackageWidth, string PackageHeight, string PackageLenght, string SelectedValue, string OrderID, int isVerify)
         {
-            DBConnect dB = new DBConnect();
-            string query1 = $"update Orders " +
-                        $"set UpdatedTime='{UpdatedDate}', SubTotal='{SubTotal}', " +
-                        $"GrandPrice='{GrandPrice}', CustomerID=" + ReturnCustomerID(CustomerName, CustomerPhone) + ", " +
-                        $"Status='" + OrderStatusTemp + "', VerifyBy='" + isVerify + "', OrderFrom='" + SelectedValue + "', " +
-                        $"ShippingAddress='" + ShippingAddress + "', BillingAddress='" + BillingAddress + "', " +
-                        $"CallShip='" + CallShipTemp + "', ShipId = '"+ShipId+"', ShipPrice='" + ShipPrice + "', PackageWidth='" + PackageWidth + "', PackageHeight='" + PackageHeight + "', " +
-                        $"PackageLenght='" + PackageLenght + "' " +
-                        $"where Id=" + OrderID + "";
+            var dB = new DBConnect();
+            string query1 = $"Update Orders " +
+                            $"Set UpdatedTime = '{UpdatedDate}', SubTotal = '{SubTotal}', " +
+                            $"GrandPrice = '{GrandPrice}', CustomerID = {ReturnCustomerID(CustomerName, CustomerPhone)}, " +
+                            $"Status = '{OrderStatusTemp}', VerifyBy = '{isVerify}', OrderFrom = '{SelectedValue}', " +
+                            $"ShippingAddress = '{ShippingAddress}', BillingAddress = '{BillingAddress}', " +
+                            $"CallShip = '{CallShipTemp}', ShipId = '{ShipId}', ShipPrice = '{ShipPrice}', PackageWidth = '{PackageWidth}', " +
+                            $"PackageHeight = '{PackageHeight}', PackageLenght = '{PackageLenght}' " +
+                            $"Where Id = {OrderID}";
             try
             {
                 dB.ExecuteQuery(query1);
@@ -134,8 +135,8 @@ namespace OMS.Model
 
         public bool UpdateShipId(string OrderID, string ShipId, string ShipPrice)
         {
-            DBConnect dB = new DBConnect();
-            string query = $"update Orders set ShipId='{ShipId}', Status = 'Đã đóng gói', CallShip = 'Đã gọi ship', ShipPrice = '{ShipPrice}' where Id=" + OrderID + "";
+            var dB = new DBConnect();
+            string query = $"Update Orders Set ShipId = '{ShipId}', Status = 'Đã đóng gói', CallShip = 'Đã gọi ship', ShipPrice = '{ShipPrice}' Where Id = {OrderID}";
             try
             {
                 dB.ExecuteQuery(query);
@@ -149,8 +150,8 @@ namespace OMS.Model
 
         public bool UpdateCallShip(string OrderID)
         {
-            DBConnect dB = new DBConnect();
-            string query = "update Orders set Status = 'Chưa duyệt', CallShip = 'Chưa gọi ship', ShipId = '' where Id=" + OrderID + "";
+            var dB = new DBConnect();
+            string query = "Update Orders Set Status = 'Chưa duyệt', CallShip = 'Chưa gọi ship', ShipId = '' Where Id = {OrderID}";
             try
             {
                 dB.ExecuteQuery(query);

@@ -11,19 +11,21 @@ namespace GetOrderConsole
     public class Facebook
     {
         private const string GraphUrl = @"https://graph.facebook.com/v3.0/";
-        private const string PageId = "1790501110988348";
-
-        //private const string PageId = "722487931126157";
-
+        private string _PageId = "";
+        private string _username = "";
+        private string _password = "";
         private HttpRequest _httpRequest;
         private string _pageAccessToken;
         private DateTime _time1, _time2, _time3;
 
-        public Facebook(DateTime time1, DateTime time2, DateTime time3)
+        public Facebook(DateTime time1, DateTime time2, DateTime time3, string PageId, string UserName, string Password)
         {
             _time1 = time1;
             _time2 = time2;
             _time3 = time3;
+            _PageId = PageId;
+            _username = UserName;
+            _password = Password;
             _httpRequest = new HttpRequest();
         }
 
@@ -46,7 +48,7 @@ namespace GetOrderConsole
         private string GetPageAccessToken()
         {
             string accessToken = GetAccessToken();
-            string newaddress = GraphUrl + PageId + "?fields=access_token&access_token=" + accessToken;
+            string newaddress = GraphUrl + _PageId + "?fields=access_token&access_token=" + accessToken;
 
             var json = JsonConvert.DeserializeObject(_httpRequest.Get(newaddress).ToString());
             JToken jToken = JToken.FromObject(json);
@@ -87,7 +89,7 @@ namespace GetOrderConsole
         {
             _pageAccessToken = GetPageAccessToken();
             const string fields = @"?fields=conversations%7Bid%2Cupdated_time%7D&access_token=";
-            string getListChatId = $"{GraphUrl}{PageId}{fields}{_pageAccessToken}";
+            string getListChatId = $"{GraphUrl}{_PageId}{fields}{_pageAccessToken}";
             string getList = _httpRequest.Get(getListChatId).ToString();
             JObject splitList = JObject.Parse(getList);
             JToken jToken = splitList["conversations"]["data"];

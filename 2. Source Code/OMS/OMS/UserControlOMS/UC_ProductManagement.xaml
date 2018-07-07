@@ -15,6 +15,11 @@
              DataContext="{StaticResource ProductManagementUCVM}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="700" d:DesignWidth="1366">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=OmsMainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
 
         <Grid>
@@ -281,8 +286,6 @@
                                                 Header="Image2" />
                                 <GridViewColumn DisplayMemberBinding="{Binding Image3}"
                                                 Header="Image3" />
-                                <GridViewColumn DisplayMemberBinding="{Binding CreatedBy.Id}"
-                                                Header="CreatedBy" />
                             </GridView>
                         </ListView.View>
                     </ListView>

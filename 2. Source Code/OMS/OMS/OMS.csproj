@@ -139,11 +139,8 @@
     <Compile Include="UserControlOMS\UC_Report.xaml.cs">
       <DependentUpon>UC_Report.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlOMS\UC_AutomationPost.xaml.cs">
-      <DependentUpon>UC_AutomationPost.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControlOMS\UC_Setting.xaml.cs">
-      <DependentUpon>UC_Setting.xaml</DependentUpon>
+    <Compile Include="UserControlOMS\UC_PostAutomation.xaml.cs">
+      <DependentUpon>UC_PostAutomation.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -151,7 +148,7 @@
     <Compile Include="ViewModel\OrderManagementUCViewModel.cs" />
     <Compile Include="ViewModel\ProductManagementUCViewModel.cs" />
     <Compile Include="ViewModel\ReportUCViewModel.cs" />
-    <Compile Include="ViewModel\AutomationPostUCViewModel.cs" />
+    <Compile Include="ViewModel\PostAutomationUCViewModel.cs" />
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,11 +185,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControlOMS\UC_AutomationPost.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControlOMS\UC_Setting.xaml">
+    <Page Include="UserControlOMS\UC_PostAutomation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

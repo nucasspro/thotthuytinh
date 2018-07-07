@@ -11,7 +11,7 @@ namespace OMS.ViewModel
     public class ProductManagementUCViewModel : BaseViewModel
     {
         #region Command
-
+        public ICommand LoadedCommand { get; set; }
         public ICommand CreateCommand { get; set; }
         public ICommand UpdateCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
@@ -173,16 +173,21 @@ namespace OMS.ViewModel
             ListTemp = new ObservableCollection<Products>();
             Products = new Products();
 
-            foreach (var item in Products.LoadProduct())
-            {
-                ListTemp.Add(item);
-                ListProduct.Add(item);
-            }
+            LoadedCommand = new RelayCommand<Window>(p => true,
+               p =>
+               {
+                   ListTemp.Clear();
+                   ListProduct.Clear();
+                   foreach (var item in Products.LoadProduct())
+                   {
+                       ListTemp.Add(item);
+                       ListProduct.Add(item);
+                   }
+               });
 
             CreateCommand = new RelayCommand<Button>(p => true, p => { CreateProduct(); LoadProduct(); });
             UpdateCommand = new RelayCommand<Button>(p => true, p => { UpdateProduct(); LoadProduct(); });
             DeleteCommand = new RelayCommand<Button>(p => true, p => { DeleteProduct(); LoadProduct(); });
-            // ReSharper disable once ComplexConditionExpression
             AddImage1Command = new RelayCommand<Button>(p => true, p =>
             {
                 string path = FindFilePath();
@@ -190,7 +195,6 @@ namespace OMS.ViewModel
                     return;
                 ProductImage1 = path;
             });
-            // ReSharper disable once ComplexConditionExpression
             AddImage2Command = new RelayCommand<Button>(p => true, p =>
             {
                 string path = FindFilePath();
@@ -198,7 +202,6 @@ namespace OMS.ViewModel
                     return;
                 ProductImage2 = path;
             });
-            // ReSharper disable once ComplexConditionExpression
             AddImage3Command = new RelayCommand<Button>(p => true, p =>
             {
                 string path = FindFilePath();
@@ -222,6 +225,7 @@ namespace OMS.ViewModel
         {
             if (SearchContent == null)
             {
+                ListProduct.Clear();
                 foreach (var item in ListTemp)
                 {
                     ListProduct.Add(item);
@@ -230,13 +234,11 @@ namespace OMS.ViewModel
             }
             else
             {
-                // ReSharper disable once ComplexConditionExpression
                 if (ListProduct == null || ListTemp == null)
                     return;
                 ListProduct.Clear();
                 foreach (var item in ListTemp)
                 {
-                    // ReSharper disable once ComplexConditionExpression
                     if (item.Id.ToUpper().Contains(SearchContent) || item.Name.ToUpper().Contains(SearchContent) || item.Description.ToUpper().Contains(SearchContent) ||
                         item.Price == SearchContent || item.Weight == SearchContent || item.Width == SearchContent ||
                         item.Height == SearchContent || item.Length == SearchContent || item.Image1.ToUpper().Contains(SearchContent) ||
@@ -361,7 +363,7 @@ namespace OMS.ViewModel
 
         private string FindFilePath()
         {
-            FileDialog fileDialog = new OpenFileDialog();
+            var fileDialog = new OpenFileDialog();
             fileDialog.ShowDialog();
             return fileDialog.FileName;
         }

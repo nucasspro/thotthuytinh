@@ -3,4 +3,7 @@
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>1364144657533100885 hGq0eOPke9SvuMmGfiKx https://localhost/thotthuytinh ck_3b68e5b48b0a008d2037125b131c2428f7827a77 cs_ab90e431b9a86f2a011f7b21d02d925bef29667f 1790501110988348 nucasspronewrap%40gmail.com Nucasspro9696 "D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug"</StartArguments>
+  </PropertyGroup>
 </Project>

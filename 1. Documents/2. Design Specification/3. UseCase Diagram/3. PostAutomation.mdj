@@ -9,7 +9,7 @@
 			"_parent": {
 				"$ref": "AAAAAAFElm5XMFNoGY0="
 			},
-			"name": "AutomationPost_ClassDiagram",
+			"name": "PostAutomation_ClassDiagram",
 			"ownedElements": [
 				{
 					"_type": "UMLClassDiagram",
@@ -17,7 +17,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFjuOOEdHvwhkM="
 					},
-					"name": "AutomationPost_ClassDiagram",
+					"name": "PostAutomation_ClassDiagram",
 					"visible": true,
 					"defaultDiagram": false,
 					"ownedViews": [
@@ -87,7 +87,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "UC_AutomationPost.xaml",
+											"text": "UC_PostAutomation.xaml",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -113,7 +113,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_ClassDiagram)",
+											"text": "(from PostAutomation_ClassDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -814,7 +814,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "AutomationPostUCViewModel.cs",
+											"text": "PostAutomationUCViewModel.cs",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -840,7 +840,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_ClassDiagram)",
+											"text": "(from PostAutomation_ClassDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1538,7 +1538,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_ClassDiagram)",
+											"text": "(from PostAutomation_ClassDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2336,7 +2336,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_ClassDiagram)",
+											"text": "(from PostAutomation_ClassDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3179,7 +3179,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_ClassDiagram)",
+											"text": "(from PostAutomation_ClassDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4853,7 +4853,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFjuOOEdHvwhkM="
 					},
-					"name": "UC_AutomationPost.xaml",
+					"name": "UC_PostAutomation.xaml",
 					"visibility": "public",
 					"attributes": [
 						{
@@ -5120,7 +5120,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFjuOOEdHvwhkM="
 					},
-					"name": "AutomationPostUCViewModel.cs",
+					"name": "PostAutomationUCViewModel.cs",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -6453,7 +6453,7 @@
 			"_parent": {
 				"$ref": "AAAAAAFElm5XMFNoGY0="
 			},
-			"name": "AutomationPost_UseCaseDiagram",
+			"name": "PostAutomation_UseCaseDiagram",
 			"ownedElements": [
 				{
 					"_type": "UMLUseCaseDiagram",
@@ -6461,7 +6461,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFkVhBWr/tfFvw="
 					},
-					"name": "AutomationPost_UseCaseDiagram",
+					"name": "PostAutomation_UseCaseDiagram",
 					"visible": true,
 					"defaultDiagram": false,
 					"ownedViews": [
@@ -6557,7 +6557,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -6732,7 +6732,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7020,7 +7020,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7335,7 +7335,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7650,7 +7650,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7965,7 +7965,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8254,7 +8254,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Management Posts",
+											"text": "Manage Posts",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8280,7 +8280,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8322,7 +8322,7 @@
 									"containerExtending": false,
 									"left": 240,
 									"top": 252.5,
-									"width": 128.47265625,
+									"width": 127,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -9171,7 +9171,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -9486,7 +9486,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -9801,7 +9801,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -11113,7 +11113,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -11428,7 +11428,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "(from AutomationPost_UseCaseDiagram)",
+											"text": "(from PostAutomation_UseCaseDiagram)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -12111,7 +12111,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFkVhBWr/tfFvw="
 					},
-					"name": "Management Posts",
+					"name": "Manage Posts",
 					"ownedElements": [
 						{
 							"_type": "UMLInclude",
@@ -12296,7 +12296,7 @@
 			"_parent": {
 				"$ref": "AAAAAAFElm5XMFNoGY0="
 			},
-			"name": "AutomationPost_SequenceDiagram",
+			"name": "PostAutomation_SequenceDiagram",
 			"ownedElements": [
 				{
 					"_type": "UMLInteraction",
@@ -12304,7 +12304,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFkVqbcfgKoULs="
 					},
-					"name": "AutomationPost_SequenceDiagram",
+					"name": "PostAutomation_SequenceDiagram",
 					"ownedElements": [
 						{
 							"_type": "UMLSequenceDiagram",
@@ -12312,7 +12312,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFkVqbcfwKpmQs="
 							},
-							"name": "AutomationPost_SequenceDiagram",
+							"name": "PostAutomation_SequenceDiagram",
 							"visible": true,
 							"defaultDiagram": false,
 							"ownedViews": [
@@ -12341,9 +12341,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 94.97900390625,
+											"left": 94,
 											"top": 5,
-											"width": 207.6796875,
+											"width": 194,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -12369,7 +12369,7 @@
 											"containerExtending": false,
 											"left": 29,
 											"top": 5,
-											"width": 60.97900390625,
+											"width": 60,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,

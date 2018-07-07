@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using OMS.Model;
+using System.Windows;
 using System.Windows.Input;
 
 namespace OMS.ViewModel
@@ -21,20 +22,24 @@ namespace OMS.ViewModel
 
         public MainViewModel()
         {
-            // ReSharper disable once ComplexConditionExpression
-            LoadedCommand = new RelayCommand<Window>(p => true,
-                p =>
+            LoadedCommand = new RelayCommand<Window>(p => true, p =>
+            {
+                var dBConnect = new DBConnect();
+                if (dBConnect.Init() == false)
                 {
-                    if (p == null) return;
-                    IsLoaded = true;
-                    p.Hide();
-                    LoginWindow lg = new LoginWindow();
-                    lg.ShowDialog();
-                    var LoginVM = lg.DataContext as LoginViewModel;
-                    if (LoginVM == null) return;
-                    if (LoginVM.IsLogin) p.Show();
-                    else p.Close();
-                });
+                    MessageBox.Show("Không tìm thấy cơ sở dữ liệu.");
+                    Application.Current.Shutdown();
+                }
+                if (p == null) return;
+                IsLoaded = true;
+                p.Hide();
+                var lg = new LoginWindow();
+                lg.ShowDialog();
+                var LoginVM = lg.DataContext as LoginViewModel;
+                if (LoginVM == null) return;
+                if (LoginVM.IsLogin) p.Show();
+                else p.Close();
+            });
         }
 
         #endregion Method

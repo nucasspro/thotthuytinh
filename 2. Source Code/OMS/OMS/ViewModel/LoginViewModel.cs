@@ -33,8 +33,8 @@ namespace OMS.ViewModel
         public LoginViewModel()
         {
             Accounts = new Accounts();
-            PasswordChangedCommand = new RelayCommand<PasswordBox>(p => true, p => { Password = p.Password; });
 
+            PasswordChangedCommand = new RelayCommand<PasswordBox>(p => true, p => { Password = p.Password; });
             HitLoginButtonCommand = new RelayCommand<Window>(p => true, p => { IsLogin = false; Login(p); });
         }
 

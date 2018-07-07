@@ -376,14 +376,14 @@
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Id}"
-                                                            Header="ODId" />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Product.Name}"
-                                                            Header="Product Name" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Quantity}"
                                                             Header="Quantity" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Product.Name}"
+                                                            Header="Product Name" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Product.Price}"
                                                             Header="UnitPrice" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Id}"
+                                                            Header="ODId" />
                                         </GridView>
                                     </ListView.View>
                                     <i:Interaction.Triggers>

@@ -85,7 +85,7 @@ namespace OMS.ViewModel
         public ReportUCViewModel()
         {
             CrystalReport = new RevenueReport();
-            DateTime now = DateTime.Now;
+            var now = DateTime.Now;
             ReportMonthIsEnbled = true;
             ReportYear = now.Year;
             SelectionChangedCommand = new RelayCommand<System.Windows.Controls.ComboBox>(p => true, p =>
@@ -164,10 +164,10 @@ namespace OMS.ViewModel
 
         public void ExportPDF(RevenueReport report)
         {
-            ExportOptions exportOptions = new ExportOptions();
-            DiskFileDestinationOptions diskFile = new DiskFileDestinationOptions();
+            var exportOptions = new ExportOptions();
+            var diskFile = new DiskFileDestinationOptions();
 
-            SaveFileDialog sfd = new SaveFileDialog();
+            var sfd = new SaveFileDialog();
             sfd.Filter = "Pdf Files|*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
             {

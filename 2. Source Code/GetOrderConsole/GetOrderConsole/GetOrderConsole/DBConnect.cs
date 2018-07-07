@@ -9,16 +9,20 @@ namespace GetOrderConsole
     public class DbConnect
     {
         private readonly SQLiteConnection _con = new SQLiteConnection();
-        private string _dbName = "OrderDatabase.db3";
+        private static string _dbName = "OrderDatabase.db3";
+        private static string _dbPath = "";
+        public static string _fullPath = "";
 
-        public void Init()
+        public void Init(string DatabasePath)
         {
+            _dbPath = DatabasePath;
+            _fullPath = _dbPath + "\\" + _dbName;
             CreateTables();
         }
 
         public void CreateConection()
         {
-            const string strConnect = "Data Source=OrderDatabase.db3;Version=3;";
+            string strConnect = "Data Source=" + _fullPath + ";Version=3;";
             _con.ConnectionString = strConnect;
             _con.Open();
         }
@@ -28,10 +32,9 @@ namespace GetOrderConsole
             _con.Close();
         }
 
-        private bool CheckDatabaseExists()
+        public bool CheckDatabaseExists()
         {
-            var path = Directory.GetCurrentDirectory() + "\\" + _dbName;
-            if (!File.Exists(path))
+            if (!File.Exists(_fullPath))
                 return false;
             Console.WriteLine("co file");
             return true;

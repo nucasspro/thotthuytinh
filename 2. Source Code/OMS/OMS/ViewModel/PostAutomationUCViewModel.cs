@@ -14,10 +14,13 @@ using xNet;
 
 namespace OMS.ViewModel
 {
-    public class AutomationPostUCViewModel : BaseViewModel
+    public class PostAutomationUCViewModel : BaseViewModel
     {
         #region Command
 
+        public ICommand LoadedCommand { get; set; }
+        public ICommand PasswordChangedCommand { get; set; }
+        public ICommand GetTokenCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand CreateCommand { get; set; }
         public ICommand CreateWithAllProductsCommand { get; set; }
@@ -26,6 +29,45 @@ namespace OMS.ViewModel
         #endregion Command
 
         #region Variable
+
+        private string _FbPageId { get; set; }
+
+        public string FbPageId
+        {
+            get => _FbPageId;
+            set { _FbPageId = value; OnPropertyChanged(); }
+        }
+
+        private string _FbUsername { get; set; }
+
+        public string FbUsername
+        {
+            get => _FbUsername;
+            set { _FbUsername = value; OnPropertyChanged(); }
+        }
+
+        private string _FbPassword { get; set; }
+
+        public string FbPassword
+        {
+            get => _FbPassword;
+            set { _FbPassword = value; OnPropertyChanged(); }
+        }
+
+        private string _PageAccessToken { get; set; }
+
+        public string PageAccessToken
+        {
+            get => _PageAccessToken;
+            set { _PageAccessToken = value; OnPropertyChanged(); }
+        }
+
+        private bool _ShowActionButton { get; set; }
+        public bool ShowActionButton
+        {
+            get => _ShowActionButton;
+            set { _ShowActionButton = value; OnPropertyChanged(); }
+        }
 
         private string _Description { get; set; }
 
@@ -88,31 +130,46 @@ namespace OMS.ViewModel
         public ObservableCollection<Posts> ListSchedulePost { get; set; }
 
         private const string GraphUrl = @"https://graph.facebook.com/v3.0/";
-
-        //thotthuytinh
-        private const string PageId = "1790501110988348";
-
-        //raplyrics
-        //private const string PageId = "722487931126157";
-
-        private string _pageAccessToken;
+        private string _AccessToken;
         public Products Product;
 
         #endregion Variable
 
         #region Method
 
-        public AutomationPostUCViewModel()
+        public PostAutomationUCViewModel()
         {
             DateTimePickerDate = DateTime.Today;
-            //GetPageAccessToken();
+
             ListProduct = new ObservableCollection<Products>();
             ListSchedulePost = new ObservableCollection<Posts>();
             Product = new Products();
-            foreach (var item in Product.LoadProduct())
+
+            LoadedCommand = new RelayCommand<Window>(p => true, p =>
             {
-                ListProduct.Add(item);
-            }
+                ShowActionButton = false;
+                ListProduct.Clear();
+                foreach (var item in Product.LoadProduct())
+                {
+                    ListProduct.Add(item);
+                }
+            });
+
+            PasswordChangedCommand = new RelayCommand<PasswordBox>(p => true, p => { _FbPassword = p.Password; });
+
+            GetTokenCommand = new RelayCommand<PasswordBox>(p => true, p =>
+            {
+                string token = GetPageAccessToken();
+                if (token != "")
+                {
+                    _PageAccessToken = token;
+                    ShowActionButton = true;
+                }
+                else
+                {
+                    _PageAccessToken = "Không lấy được token.";
+                }
+            });
 
             LoadCommand = new RelayCommand<Button>(p => true, p => { LoadSchedulePost(); });
 
@@ -120,7 +177,6 @@ namespace OMS.ViewModel
 
             CreateWithAllProductsCommand = new RelayCommand<Button>(p => true, p => { CreateWithAllProducts(); LoadSchedulePost(); });
 
-            // ReSharper disable once ComplexConditionExpression
             DeleteCommand = new RelayCommand<Button>(p => true, p =>
             {
                 if (ListSchedulePostSelectedItem == null)
@@ -138,30 +194,41 @@ namespace OMS.ViewModel
             });
         }
 
-        private string GetAccessToken()
+        private void GetAccessToken()
         {
-            const string username = "nucasspronewrap@gmail.com";
-            const string password = "Nucasspro9696";
-
             const string address = "https://nghia.org/public/api/v1/buildLogin.php";
-            const string data = "u=" + username + "&p=" + password;
-            WebClient client = new WebClient
+            string data = "u=" + FbUsername + "&p=" + FbPassword;
+            try
             {
-                Headers = { [HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded" }
-            };
-            string str4 = client.UploadString(address, data);
-            string accessToken = Convert.ToString(JObject.Parse(new WebClient().DownloadString(str4))["access_token"]);
-            return accessToken;
+                var client = new WebClient
+                {
+                    Headers = { [HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded" }
+                };
+                string str4 = client.UploadString(address, data);
+                _AccessToken = Convert.ToString(JObject.Parse(new WebClient().DownloadString(str4))["access_token"]);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Lấy Access Token thất bại, kiểm tra lại thông tin tài khoản!");
+            }
         }
 
-        private void GetPageAccessToken()
+        private string GetPageAccessToken()
         {
-            HttpRequest httpRequest = new HttpRequest();
-            string accessToken = GetAccessToken();
-            string newaddress = $"{GraphUrl}{PageId}?fields=access_token&access_token={accessToken}";
-            var json = JsonConvert.DeserializeObject(httpRequest.Get(newaddress).ToString());
-            JToken jToken = JToken.FromObject(json);
-            _pageAccessToken = jToken["access_token"].ToString();
+            GetAccessToken();
+            string newaddress = $"{GraphUrl}{FbPageId}?fields=access_token&access_token={_AccessToken}";
+            try
+            {
+                var httpRequest = new HttpRequest();
+                var json = JsonConvert.DeserializeObject(httpRequest.Get(newaddress).ToString());
+                var jToken = JToken.FromObject(json);
+                return jToken["access_token"].ToString();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Lấy Page Access Token thất bại, kiểm tra lại thông tin Page!");
+                return "";
+            }
         }
 
         private List<string> GetListPhotoId()
@@ -183,7 +250,7 @@ namespace OMS.ViewModel
 
         private string UploadAPhoto(string photoPath)
         {
-            FacebookClient facebook = new FacebookClient(_pageAccessToken);
+            var facebook = new FacebookClient(_PageAccessToken);
             var imageStream = File.OpenRead(photoPath);
             //var imageId = facebook.Post($"/{PageId}/photos", new
             //{
@@ -194,14 +261,13 @@ namespace OMS.ViewModel
             //        new FacebookMediaStream { ContentType = "image/png", FileName = "test upload image4" }.SetValue(
             //            imageStream)
             //});
-            var imageId = facebook.Post($"/{PageId}/photos", new
+            var imageId = facebook.Post($"/{FbPageId}/photos", new
             {
                 published = "False",
                 //scheduled_publish_time = "1530253379",
-                file =
-                    new FacebookMediaStream { ContentType = "image/png", FileName = "test upload image4" }.SetValue(
-                        imageStream)
-            });
+                file = new FacebookMediaStream { ContentType = "image/png", FileName = "test upload image4" }.SetValue(imageStream)
+            }
+            );
             return imageId.ToString().Replace("{\"id\":\"", "").Replace("\"}", "");
         }
 
@@ -213,13 +279,13 @@ namespace OMS.ViewModel
             string published = "False";
             string dateTime = DateTimePickerDate.ToString("MM/dd/yyyy") + " " + DateTimePickerTime.ToString("HH:mm:ss");
             string scheduledPublishTime = ConvertToTimeSpan(dateTime);
-            string fields = $"/feed?message={Description}&published={published}&scheduled_publish_time={scheduledPublishTime}&access_token={_pageAccessToken}";
+            string fields = $"/feed?message={Description}&published={published}&scheduled_publish_time={scheduledPublishTime}&access_token={_PageAccessToken}";
             for (int i = 0; i < list.Count; i++)
             {
                 fields += $"&attached_media[{i}]={{\"media_fbid\":\"{list[i]}\"}}";
             }
-            string newAddress = GraphUrl + PageId + fields;
-            HttpRequest httpRequest = new HttpRequest();
+            string newAddress = GraphUrl + FbPageId + fields;
+            var httpRequest = new HttpRequest();
             httpRequest.Post(newAddress);
         }
 
@@ -233,7 +299,7 @@ namespace OMS.ViewModel
             for (int i = 0; i < ListProduct.Count; i++)
             {
                 string newScheduledPublishTime = (Convert.ToInt32(scheduledPublishTime) + 3600 * 24 * (i + 1)).ToString();
-                string fields = $"/feed?message={ListProduct[i].Description}&published={published}&scheduled_publish_time={newScheduledPublishTime}&access_token={_pageAccessToken}";
+                string fields = $"/feed?message={ListProduct[i].Description}&published={published}&scheduled_publish_time={newScheduledPublishTime}&access_token={_PageAccessToken}";
                 List<string> list = new List<string>
                 {
                     UploadAPhoto(ListProduct[i].Image1),
@@ -245,8 +311,8 @@ namespace OMS.ViewModel
                 {
                     newFields += $"&attached_media[{j}]={{\"media_fbid\":\"{list[j]}\"}}";
                 }
-                string newAddress = GraphUrl + PageId + newFields;
-                HttpRequest httpRequest = new HttpRequest();
+                string newAddress = GraphUrl + FbPageId + newFields;
+                var httpRequest = new HttpRequest();
                 httpRequest.Post(newAddress);
             }
             MessageBox.Show("Tạo xong!");
@@ -260,7 +326,7 @@ namespace OMS.ViewModel
         {
             try
             {
-                FacebookClient facebook = new FacebookClient(_pageAccessToken);
+                var facebook = new FacebookClient(_PageAccessToken);
                 facebook.Delete($"/{postId}");
                 MessageBox.Show("xong");
             }
@@ -274,14 +340,14 @@ namespace OMS.ViewModel
         {
             try
             {
-                string newAddress = $"{PageId}/promotable_posts?is_published=false";
-                FacebookClient facebook = new FacebookClient(_pageAccessToken);
+                string newAddress = $"{FbPageId}/promotable_posts?is_published=false";
+                var facebook = new FacebookClient(_PageAccessToken);
                 var json = JsonConvert.DeserializeObject(facebook.Get($"/{newAddress}").ToString());
-                JToken jToken = JToken.FromObject(json);
+                var jToken = JToken.FromObject(json);
                 ListSchedulePost.Clear();
                 foreach (var item in jToken["data"])
                 {
-                    Posts post = new Posts
+                    var post = new Posts
                     {
                         Id = item["id"].ToString(),
                         Message = item["message"].ToString(),
@@ -297,14 +363,14 @@ namespace OMS.ViewModel
 
         private string ConvertToTimeSpan(string time)
         {
-            DateTime dateTime = DateTime.Parse(time);
+            var dateTime = DateTime.Parse(time);
             var dateTimeOffset = new DateTimeOffset(dateTime);
             return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }
 
         private DateTime UnixTimestampToDateTime(double unixTime)
         {
-            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             dateTime = dateTime.AddSeconds(unixTime).ToLocalTime();
             return dateTime;
         }

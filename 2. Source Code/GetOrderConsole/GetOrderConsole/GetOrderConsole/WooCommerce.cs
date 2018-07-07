@@ -7,33 +7,36 @@ namespace GetOrderConsole
 {
     public class WooCommerce
     {
-        private const string HostUrl = @"https://localhost/thotthuytinh";
-        private const string ConsumerKey = "ck_3b68e5b48b0a008d2037125b131c2428f7827a77";
-        private const string ConsumerSecret = "cs_ab90e431b9a86f2a011f7b21d02d925bef29667f";
+        private string _HostUrl = "";
+        private string _ConsumerKey = "";
+        private string _ConsumerSecret = "";
         private static string ApiUrl = @"/wp-json/wc/v2/";
         private HttpRequest _httpRequest;
         private DateTime _time1, _time2, _time3;
 
-        public WooCommerce(DateTime time1, DateTime time2, DateTime time3)
+        public WooCommerce(DateTime time1, DateTime time2, DateTime time3, string HostUrl, string ConsumerKey, string ConsumerSecret)
         {
+            _time1 = time1;
+            _time2 = time2;
+            _time3 = time3;
+            _HostUrl = HostUrl;
+            _ConsumerKey = ConsumerKey;
+            _ConsumerSecret = ConsumerSecret;
             _httpRequest = new HttpRequest
             {
                 Cookies = new CookieDictionary(),
                 UserAgent =
                     "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
             };
-            _time1 = time1;
-            _time2 = time2;
-            _time3 = time3;
         }
 
         public void GetData(int time)
         {
-            string address = HostUrl + ApiUrl + "orders/";
+            string address = _HostUrl + ApiUrl + "orders/";
             RequestParams parameters = new RequestParams
             {
-                ["consumer_key"] = ConsumerKey,
-                ["consumer_secret"] = ConsumerSecret
+                ["consumer_key"] = _ConsumerKey,
+                ["consumer_secret"] = _ConsumerSecret
             };
             string html = _httpRequest.Get(address, parameters).ToString();
             var json = JsonConvert.DeserializeObject(html);

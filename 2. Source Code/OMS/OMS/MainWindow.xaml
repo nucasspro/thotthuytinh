@@ -7,7 +7,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:OMS.UserControlOMS"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-        
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -24,28 +23,27 @@
         ResizeMode="CanResize"
         WindowStyle="SingleBorderWindow"
         Title="Management Application" d:DesignWidth="1366" d:DesignHeight="725">
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=OmsMainWindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
     <Grid Background="WhiteSmoke">
         <!--Tabcontrol-->
         <dragablz:TabablzControl>
             <TabItem Header="Order Management">
-                <uc:UC_OrderManagement></uc:UC_OrderManagement>
+                <uc:UC_OrderManagement/>
             </TabItem>
             <TabItem Header="Product Management">
-                <uc:UC_ProductManagement></uc:UC_ProductManagement>
+                <uc:UC_ProductManagement/>
             </TabItem>
             <TabItem Header="Report">
-                <uc:UC_Report></uc:UC_Report>
+                <uc:UC_Report/>
             </TabItem>
             <TabItem Header="Automation Post">
-                <uc:UC_SchedulePost></uc:UC_SchedulePost>
-            </TabItem>
-            <TabItem Header="Setting">
-                <uc:UC_Setting></uc:UC_Setting>
+                <uc:UC_SchedulePost/>
             </TabItem>
         </dragablz:TabablzControl>
         <!--/Tabcontrol-->

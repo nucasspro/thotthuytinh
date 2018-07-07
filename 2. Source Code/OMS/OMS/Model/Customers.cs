@@ -14,9 +14,8 @@ namespace OMS.Model
 
         public bool AddCustomer(string CustomerName, string CustomerPhone, string BillingAddress)
         {
-            DBConnect dB = new DBConnect();
-            string query2 = $"insert into Customers(Name, Phone, Address, Type) " +
-                       $"values ('{CustomerName}', '{CustomerPhone}', '{BillingAddress}', 'Khách hàng')";
+            var dB = new DBConnect();
+            string query2 = $"Insert into Customers(Name, Phone, Address, Type) values ('{CustomerName}', '{CustomerPhone}', '{BillingAddress}', 'Khách hàng')";
             try
             {
                 dB.ExecuteQuery(query2);

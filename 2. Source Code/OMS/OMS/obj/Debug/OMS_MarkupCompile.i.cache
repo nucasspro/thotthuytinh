@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\HK8\ThietKeHeThongTMDT\New folder\OMS\OMS\App.xaml
-92110179920
+8-66619509
 
-32-988272964
+3175895839
 37-968991836
-LoginWindow.xaml;MainWindow.xaml;ResourceXAML\MainResource.xaml;ResourceXAML\TabResource.xaml;UserControlOMS\UC_OrderManagement.xaml;UserControlOMS\UC_ProductManagement.xaml;UserControlOMS\UC_Report.xaml;UserControlOMS\UC_AutomationPost.xaml;UserControlOMS\UC_Setting.xaml;
+LoginWindow.xaml;MainWindow.xaml;ResourceXAML\MainResource.xaml;ResourceXAML\TabResource.xaml;UserControlOMS\UC_OrderManagement.xaml;UserControlOMS\UC_ProductManagement.xaml;UserControlOMS\UC_Report.xaml;UserControlOMS\UC_PostAutomation.xaml;
 
 False
 

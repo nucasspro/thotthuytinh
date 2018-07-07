@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 
 namespace OMS.Model
-
 {
     public class OrderDetail
     {
@@ -16,21 +15,22 @@ namespace OMS.Model
 
         public ObservableCollection<OrderDetail> LoadDataToOrderDetail(string SelectedValue, string OrderID)
         {
-            DBConnect dbConnect = new DBConnect();
-            ObservableCollection<OrderDetail> listtemp = new ObservableCollection<OrderDetail>();
+            var dbConnect = new DBConnect();
+            var listtemp = new ObservableCollection<OrderDetail>();
             int temp = Convert.ToInt32(OrderID);
 
-            string query = @"select temp.Id, temp.Name, temp.Quantity, temp.Price
-                            from (select OrderDetail.Id, Products.Name, Products.Price, OrderDetail.Quantity, OrderDetail.OrderId
-		                    from OrderDetail inner join Products
-		                    where OrderDetail.ProductId=Products.id) as temp inner join Orders
-                            where temp.OrderID=Orders.Id
+            string query = @"Select temp.Id, temp.Name, temp.Quantity, temp.Price
+                            From (select OrderDetail.Id, Products.Name, Products.Price, OrderDetail.Quantity, OrderDetail.OrderId
+		                    From OrderDetail inner join Products
+		                    Where OrderDetail.ProductId=Products.id) as temp inner join Orders
+                            Where temp.OrderID=Orders.Id
                             and Orders.OrderFrom = '" + SelectedValue + "' " +
                             "and Orders.Id=" + temp + ";";
-            DataTable dataTable = dbConnect.SelectQuery(query);
+
+            var dataTable = dbConnect.SelectQuery(query);
             foreach (var row in dataTable.Rows)
             {
-                OrderDetail orderDetail = new OrderDetail
+                var orderDetail = new OrderDetail
                 {
                     Id = Convert.ToInt32(((DataRow)row).ItemArray[0]),
                     Product = new Products
@@ -42,18 +42,13 @@ namespace OMS.Model
                 };
                 listtemp.Add(orderDetail);
             }
-            ////auto fill subtotal and grand total
-            //SubTotal = CalculateSubTotal();
-            //if(Convert.ToInt32(GrandPrice)< Convert.ToInt32(SubTotal))
-            //    GrandPrice = SubTotal;
-            //AutoUpdatePackageDimension();
             return listtemp;
         }
 
         public bool DeleteProductFromOrder(int OrderDetailID, string ProductID, int ProductQuantity, int ProductQuanlityStock)
         {
-            DBConnect dB = new DBConnect();
-            string query1 = $"delete from OrderDetail where Id =" + OrderDetailID + "";
+            var dB = new DBConnect();
+            string query1 = $"Delete From OrderDetail where Id ={OrderDetailID}";
             string query2 = $"Update Products " +
                             $"Set Quantity = {ProductQuanlityStock + ProductQuantity} " +
                             $"where Id = '{ProductID}';";
@@ -71,13 +66,9 @@ namespace OMS.Model
 
         public bool AddProductToOrder(int OrderID, string ProductID, int ProductQuantity, int ProductQuanlityStock)
         {
-            DBConnect dB = new DBConnect();
-            String query1 = $"insert into OrderDetail (OrderID, ProductID, Quantity)" +
-                                     $" values (" + OrderID + ",'" + ProductID + "'," + ProductQuantity + ");";
-            String query2 = $"Update Products " +
-                     $"Set Quantity = {ProductQuanlityStock - ProductQuantity} " +
-                    $"where Id = '{ProductID}';";
-
+            var dB = new DBConnect();
+            string query1 = $"Insert into OrderDetail (OrderID, ProductID, Quantity) values ({OrderID}, '{ProductID}', {ProductQuantity});";
+            string query2 = $"Update Products Set Quantity = {ProductQuanlityStock - ProductQuantity} Where Id = '{ProductID}';";
             try
             {
                 dB.ExecuteQuery(query1);
@@ -92,13 +83,9 @@ namespace OMS.Model
 
         public bool UpdateProductOrder(int OrderDetailID, string ProductID, int ProductQuantityAfter, int ProductQuantityBefore, int ProductQuanlityStock)
         {
-            DBConnect dB = new DBConnect();
-            string query1 = $"update OrderDetail" +
-                                   $" set ProductID = '" + ProductID + "',Quantity= " + ProductQuantityAfter + "" +
-                                   $" where Id =" + OrderDetailID + ";";
-            string query2 = $"Update Products " +
-                    $"Set Quantity = {ProductQuanlityStock - (ProductQuantityAfter - ProductQuantityBefore)} " +
-                    $"where Id = '{ProductID}';";
+            var dB = new DBConnect();
+            string query1 = $"update OrderDetail Set ProductID = '{ProductID}', Quantity = {ProductQuantityAfter} Where Id = {OrderDetailID};";
+            string query2 = $"Update Products Set Quantity = {ProductQuanlityStock - (ProductQuantityAfter - ProductQuantityBefore)} Where Id = '{ProductID}';";
             try
             {
                 dB.ExecuteQuery(query1);

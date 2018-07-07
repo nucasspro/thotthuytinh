@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
-             DataContext="{StaticResource AutomationPostUCVM}"
+             DataContext="{StaticResource PostAutomationUCVM}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="15"
@@ -14,6 +15,11 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="700" d:DesignWidth="1366">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=OmsMainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -58,7 +64,6 @@
                              materialDesign:TextFieldAssist.TextBoxViewMargin="1 5 1 5"
                              materialDesign:HintAssist.FloatingScale="0.7"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
                     <ComboBox Height="50"
                               Margin="10"
                               x:Name="ComboBoxDestination"
@@ -132,12 +137,51 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="8*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="4*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="5">
+                        <StackPanel Grid.Row="1" 
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Left">
+                            <TextBox materialDesign:HintAssist.Hint="Page Id*"
+                                     Height="40"
+                                     Width="220"
+                                     Margin="5"
+                                     Text="{Binding FbPageId}"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox materialDesign:HintAssist.Hint="UserName*"
+                                     Height="40"
+                                     Width="220"
+                                     Margin="5"
+                                     Text="{Binding FbUsername}"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <PasswordBox Height="40"
+                                         Width="220"
+                                     Margin="5"
+                                         x:Name="PasswordBoxFbPassword"
+                                         materialDesign:HintAssist.Hint="Password">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=PasswordBoxFbPassword}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Width="150"
+                                    Margin="30,5,5,5"
+                                    Content="Get Token"
+                                    Command="{Binding GetTokenCommand}" 
+                                    CommandParameter="{Binding ElementName=PasswordBoxFbPassword}"/>
+                        </StackPanel>
+                        
+                    </Grid>
+                    
                     <Border BorderThickness="1"
                             BorderBrush="#3F51B5"
-                            VerticalAlignment="Top">
+                            VerticalAlignment="Top"
+                            Grid.Row="1">
                         <ListView x:Name="ListSchedulePost"
                                   VerticalAlignment="Top"
                                   SelectedItem="{Binding ListSchedulePostSelectedItem}"
@@ -156,8 +200,9 @@
                         </ListView>
                     </Border>
 
-                    <StackPanel Grid.Row="1"
+                    <StackPanel Grid.Row="2"
                                 Orientation="Horizontal"
+                                IsEnabled="{Binding ShowActionButton}"
                                 HorizontalAlignment="Center">
                         <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                 Width="150"

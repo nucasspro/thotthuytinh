@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
+using System.Reflection;
+using System.Windows;
 
 namespace OMS.Model
 {
     public class DBConnect
     {
         private readonly SQLiteConnection _con = new SQLiteConnection();
-        //private string _path = @"C:\Users\SiMenPC\Documents\GitHub\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\OrderDatabase.db3";
-        private string _path = @"D:\HK8\ThietKeHeThongTMDT\Do An\thotthuytinh\2. Source Code\GetOrderConsole\GetOrderConsole\GetOrderConsole\bin\Debug\OrderDatabase.db3";
+        private static string _path = "";
 
 
-        public void Init(string path)
+        public bool Init()
         {
-            _path = path;
+            string dbName = "OrderDatabase.db3";
+            string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string filePath = Path.Combine(directory, dbName);
+            if (!File.Exists(filePath))
+            {
+                return false;
+            }
+            _path = filePath;
+            return true;            
         }
 
         public void CreateConection()
@@ -71,16 +81,6 @@ namespace OMS.Model
             dataAdapter.Fill(dataTable);
             CloseConnection();
             return dataTable;
-        }
-
-        public void UpdateData()
-        {
-            //string strInsert = string.Format("UPDATE tbl_students set fullname='{0}', birthday='{1}', email='{2}', address='{3}', phone='{4}' where id='{5}'", fullname, birthday, email, address, phone, id);
-
-            //CreateConection();
-            //SQLiteCommand cmd = new SQLiteCommand(strInsert, _con);
-            //cmd.ExecuteNonQuery();
-            CloseConnection();
         }
     }
 }

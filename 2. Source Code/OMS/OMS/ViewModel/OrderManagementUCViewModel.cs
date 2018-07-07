@@ -330,9 +330,9 @@ namespace OMS.ViewModel
             products = new Products();
             orderDetail = new OrderDetail();
             customers = new Customers();
-            LoginViewModel lg = new LoginViewModel();
+            var lg = new LoginViewModel();
             AccountID = lg.isVeryfy;
-            // ReSharper disable once ComplexConditionExpression
+
             SelectionChangedCommand = new RelayCommand<ComboBox>(p => true, p =>
             {
                 List.Clear();
@@ -350,7 +350,6 @@ namespace OMS.ViewModel
                 }
             });
 
-            // ReSharper disable once ComplexConditionExpression
             ListOrderDetailMouseMoveCommand = new RelayCommand<object>(p => true, p =>
             {
                 //auto fill subtotal and grand total
@@ -361,7 +360,6 @@ namespace OMS.ViewModel
                     GrandPrice = "0";
             });
 
-            // ReSharper disable once ComplexConditionExpression
             ButtonSearchCommand = new RelayCommand<ComboBox>(p => true, p =>
             {
                 int SelectedIndex = p.SelectedIndex;
@@ -413,7 +411,6 @@ namespace OMS.ViewModel
                 }
             });
 
-            // ReSharper disable once ComplexConditionExpression
             SaveOrderCommand = new RelayCommand<object>(p => true, p =>
             {
                 if (MessageBox.Show("Bạn có muốn lưu?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -429,7 +426,6 @@ namespace OMS.ViewModel
                 }
             });
 
-            // ReSharper disable once ComplexConditionExpression
             SelectionChangedCallShipCommand = new RelayCommand<ComboBox>(p => true, p =>
             {
                 int temp = p.SelectedIndex;
@@ -446,7 +442,6 @@ namespace OMS.ViewModel
                 }
             });
 
-            // ReSharper disable once ComplexConditionExpression
             OrderDetailCommand = new RelayCommand<object>(p => true, p =>
             {
                 if (ListOrderDetail != null)
@@ -472,7 +467,6 @@ namespace OMS.ViewModel
                 AutoUpdatePackageDimension();
             });
 
-            // ReSharper disable once ComplexConditionExpression
             AddProductToOrderCommand = new RelayCommand<object>(p => true, p =>
             {
                 string ProductIDTemp = null;
@@ -531,7 +525,6 @@ namespace OMS.ViewModel
                 AutoUpdatePackageDimension();
             });
 
-            // ReSharper disable once ComplexConditionExpression
             DeleteProductFromOrderCommand = new RelayCommand<object>(p => true, p =>
             {
                 string ProductIDTemp = null;
@@ -569,10 +562,9 @@ namespace OMS.ViewModel
                 AutoUpdatePackageDimension();
             });
 
-            // ReSharper disable once ComplexConditionExpression
             UpdateProductToOrderCommand = new RelayCommand<object>(p => true, p =>
             {
-                DBConnect dB = new DBConnect();
+                var dB = new DBConnect();
                 string ProductIDTemp = null;
                 int ProductQuantityAfter = 0;
                 int ProductQuantityBefore = 0;
@@ -745,8 +737,8 @@ namespace OMS.ViewModel
 
         public bool CheckCustomerExist()
         {
-            DBConnect dB = new DBConnect();
-            string query = "select * from Customers where Name='" + CustomerName + "' and Phone= '" + CustomerPhone + "' limit 1;";
+            var dB = new DBConnect();
+            string query = $"Select * From Customers Where Name = '{CustomerName}' and Phone = '{CustomerPhone}' limit 1;";
             if (dB.ExecuteQueryToGetIdAndCount(query) == 0)
                 return false;
             return true;
@@ -892,10 +884,10 @@ namespace OMS.ViewModel
             int weight = (width * lenght * height) / 6000;
             int value = price;
             string request = $"{url}address={address}&district={district}&province={province}&pick_address={pick_address}&pick_district={pick_district}&pick_province={pick_province}&weight={weight}&value={value}";
-            HttpRequest httpRequest = new HttpRequest();
+            var httpRequest = new HttpRequest();
             httpRequest.AddHeader("Token", token);
             var json = JsonConvert.DeserializeObject(httpRequest.Get(request).ToString());
-            JToken jToken = JToken.FromObject(json);
+            var jToken = JToken.FromObject(json);
             string fee = jToken["fee"]["fee"].ToString();
             ShipPrice = Convert.ToInt32(fee);
             GrandPrice = (Convert.ToInt32(SubTotal) + ShipPrice).ToString();
@@ -941,7 +933,6 @@ namespace OMS.ViewModel
                         tempProductWeight = item1.Weight;
                     }
                 }
-                //string temp = "{\"name\": \"" + item.Product.Name + "\", \"weight\": " + tempProductWeight + ", \"quantity\": " + item.Quantity + "},";
                 string temp = $"{{\"name\": \"{item.Product.Name}\", \"weight\": {tempProductWeight}, \"quantity\": {item.Quantity}}},";
                 jsonProducts += temp;
             }
@@ -950,7 +941,6 @@ namespace OMS.ViewModel
             jsonProducts = jsonProducts.Replace("},]", "}]");
 
             string id = RandomShippingId();
-            // ReSharper disable once ComplexConditionExpression
             string jsonOrder =
                 $"\"order\": {{\"id\": \"{id}\", \"pick_name\": \"{shopName}\", \"pick_address\": \"{pick_address}\", \"pick_province\": \"{pick_province}\", " +
                 $"\"pick_district\": \"{pick_district}\", \"pick_tel\": \"{shopPhone}\", \"tel\": \"{customerPhone}\", \"name\": \"{customerName}\", " +
@@ -972,7 +962,7 @@ namespace OMS.ViewModel
             {
                 var responseText = streamReader.ReadToEnd();
                 var json = JsonConvert.DeserializeObject(responseText);
-                JToken jToken = JToken.FromObject(json);
+                var jToken = JToken.FromObject(json);
                 if (jToken["success"].Contains("false"))
                 {
                     MessageBox.Show("Tạo đơn hàng bên ship thất bại.");
@@ -986,7 +976,7 @@ namespace OMS.ViewModel
 
             try
             {
-                Orders tempOrders = new Orders();
+                var tempOrders = new Orders();
                 tempOrders.UpdateShipId(OrderID, ShipId, shipPrice);
                 MessageBox.Show("Tạo đơn hàng ship thành công.");
             }
@@ -1010,7 +1000,7 @@ namespace OMS.ViewModel
             {
                 var responseText = streamReader.ReadToEnd();
                 var json = JsonConvert.DeserializeObject(responseText);
-                JToken jToken = JToken.FromObject(json);
+                var jToken = JToken.FromObject(json);
                 if (jToken["success"].ToString().ToLower().Equals("true"))
                 {
                     orders.UpdateCallShip(OrderID);
@@ -1060,7 +1050,7 @@ namespace OMS.ViewModel
 
         public string ConvertToTimeSpan(string time)
         {
-            DateTime dateTime = DateTime.Parse(time).ToLocalTime();
+            var dateTime = DateTime.Parse(time).ToLocalTime();
             var dateTimeOffset = new DateTimeOffset(dateTime);
             return dateTimeOffset.ToUnixTimeSeconds().ToString();
         }
